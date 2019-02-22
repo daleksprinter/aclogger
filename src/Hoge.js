@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import './hoge.css';
 
-export default class App extends Component {
-
+export default class Hoge extends Component {
   render() {
     return (
       <div>{this.props.id}</div>
