@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import Hoge from './Hoge';
 
+
 var cfsub = new XMLHttpRequest();
 var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
@@ -12,9 +13,54 @@ export default class Inputs extends Component{
     load(){
         if(cfsub.readyState === 4 && acsub.readyState === 4 && acprob.readyState === 4){
             if(cfsub.status === 200 && acsub.status === 200 && acprob.status === 200){
-                console.log(JSON.parse(cfsub.responseText));
-                console.log(JSON.parse(acsub.responseText));
-                console.log(JSON.parse(acprob.responseText));
+
+                var subs = {};
+            
+            
+                const codeforces = JSON.parse(cfsub.responseText).result;
+            
+                for(const e in codeforces){
+                    const data = codeforces[e];
+                    if(data['verdict'] == 'OK'){
+                        const subtime = data['creationTimeSeconds'] * 1000;
+
+                        const tmp = {
+                            'site' : 'codeforces',
+                            'subtime' : subtime,
+                            'contestId' : data['problem']['contestId'],
+                            'title' : data['problem']['index'] + '. ' + data['problem']['name'],
+                            'point' : data['problem']['rating']
+                        }
+
+                        subs[subtime] = tmp;
+
+                    }
+                }
+
+                const atcoder = JSON.parse(acsub.responseText);
+
+                for(const e in atcoder){
+                    const data = atcoder[e];
+                    if(data['result'] == 'AC'){
+                        const subtime = data['epoch_second'] * 1000;
+
+                        const tmp = {
+                            'site' : 'atcoder',
+                            'subtime' : subtime,
+                            'contestId' : data['contest_id'],
+                            'title' : data['id'],
+                            'point' : data['point']
+                        }
+
+                        subs[subtime] = tmp;
+                    }
+                }
+
+                console.log(subs);
+                console.log(Object.keys(subs).length);
+
+
+
             }else{
                 console.log('load failed');
             }
@@ -49,7 +95,7 @@ export default class Inputs extends Component{
     render(){
         return (
             <div>
-                <div>codeforces id</div>
+                <h3>codeforces id</h3><hr/>
                 <input type = "text" id = "cfid" value = "b1015120"></input>
                 <div>atcoder id</div>
                 <input type = "text" id = "acid" value = "daleksprinter"></input>
