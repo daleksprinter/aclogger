@@ -6,7 +6,6 @@ import './hoge.css';
 
 export default class Hoge extends Component {
   render() {
-    console.log(this.props.data);
     return (
       <Paper className = "heatmap">
         <CalendarHeatmap

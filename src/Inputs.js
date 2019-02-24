@@ -92,6 +92,15 @@ export default class Inputs extends Component{
                     }
                 }
 
+                //parse atcoder problem
+
+                const acp = JSON.parse(acprob.responseText);
+                var prob_dic = {}
+
+                for(const e in acp){
+                    prob_dic[acp[e]['contest_id'] + acp[e]['id']] = acp[e]['title'];
+                }
+
                 //parse atcoder submission
                 const atcoder = JSON.parse(acsub.responseText);
 
@@ -103,8 +112,8 @@ export default class Inputs extends Component{
                         const tmp = {
                             'site' : 'Atcoder',
                             'subtime' : subtime,
-                            'contestId' : data['contest_id'],
-                            'title' : data['id'],
+                            'contestId' : data['contest_id'].toUpperCase(),
+                            'title' : prob_dic[data['contest_id'] + data['problem_id']],
                             'point' : data['point']
                         }
 
