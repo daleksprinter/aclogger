@@ -43,11 +43,11 @@ export default class App extends Component {
           <TableBody>
             {keys.map((key) => (
               <TableRow key = {key}>
-              <TableCell align="right">{getdate(this.props.data[key]['subtime'])}</TableCell>
-              <TableCell align="right">{this.props.data[key]['site']}</TableCell>
-              <TableCell align="right">{this.props.data[key]['contestId']}</TableCell>
-              <TableCell align="right">{this.props.data[key]['title']}</TableCell>
-              <TableCell align="right">{this.props.data[key]['point']}</TableCell>
+              <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
+              <TableCell align="center">{this.props.data[key]['site']}</TableCell>
+              <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
+              <TableCell align="center">{this.props.data[key]['title']}</TableCell>
+              <TableCell align="center">{this.props.data[key]['point']}</TableCell>
             </TableRow>
             ))}
           </TableBody>

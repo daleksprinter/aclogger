@@ -13,6 +13,12 @@ export default class Hoge extends Component {
           startDate={new Date('2018-01-01')}
           endDate={new Date()}
           values={this.props.data}
+          classForValue={value => {
+            if (!value) {
+              return 'color-empty';
+            }
+            return `color-github-${Math.min(4, value.count)}`;
+          }}
         />
       </Paper>
     );
