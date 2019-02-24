@@ -8,20 +8,35 @@ var cfsub = new XMLHttpRequest();
 var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
 
+function getdate(millisec){
+    const date = new Date(millisec);
+    const d = date.getFullYear() + "-" + String(Number(date.getMonth()) + 1) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+    return d;
+}
+
+var subs = {};
+var dailyCount = {};
+
+function addCount(d){
+    if(isNaN(dailyCount[d])){
+        dailyCount[d] = 1;
+    }else{
+        dailyCount[d]++;
+    }
+}
+
 export default class Inputs extends Component{
 
     load(){
         if(cfsub.readyState === 4 && acsub.readyState === 4 && acprob.readyState === 4){
             if(cfsub.status === 200 && acsub.status === 200 && acprob.status === 200){
 
-                var subs = {};
-            
-            
+                //parse codeforces submission
                 const codeforces = JSON.parse(cfsub.responseText).result;
             
                 for(const e in codeforces){
                     const data = codeforces[e];
-                    if(data['verdict'] == 'OK'){
+                    if(data['verdict'] === 'OK'){
                         const subtime = data['creationTimeSeconds'] * 1000;
 
                         const tmp = {
@@ -34,14 +49,17 @@ export default class Inputs extends Component{
 
                         subs[subtime] = tmp;
 
+                        addCount(getdate(subtime));
+
                     }
                 }
 
+                //parse atcoder submission
                 const atcoder = JSON.parse(acsub.responseText);
 
                 for(const e in atcoder){
                     const data = atcoder[e];
-                    if(data['result'] == 'AC'){
+                    if(data['result'] === 'AC'){
                         const subtime = data['epoch_second'] * 1000;
 
                         const tmp = {
@@ -53,13 +71,14 @@ export default class Inputs extends Component{
                         }
 
                         subs[subtime] = tmp;
+
+                        addCount(getdate(subtime));
                     }
                 }
 
                 console.log(subs);
                 console.log(Object.keys(subs).length);
-
-
+                console.log(dailyCount);
 
             }else{
                 console.log('load failed');
