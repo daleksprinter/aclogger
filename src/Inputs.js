@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Paper from '@material-ui/core/Paper';
 import Hoge from './Hoge';
+import './inputs.css';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
 
 
 var cfsub = new XMLHttpRequest();
@@ -28,6 +35,34 @@ function addCount(d){
     }
 }
 
+const styles = theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: 200,
+    },
+    dense: {
+      marginTop: 19,
+    },
+    menu: {
+      width: 200,
+    },
+    button: {
+        margin: theme.spacing.unit,
+      },
+    input: {
+        display: 'none',
+    },
+    progress: {
+        margin: theme.spacing.unit * 2,
+    },
+  });
+  
+
 export default class Inputs extends Component{
 
     load(){
@@ -43,7 +78,7 @@ export default class Inputs extends Component{
                         const subtime = data['creationTimeSeconds'] * 1000;
 
                         const tmp = {
-                            'site' : 'codeforces',
+                            'site' : 'Codeforces',
                             'subtime' : subtime,
                             'contestId' : data['problem']['contestId'],
                             'title' : data['problem']['index'] + '. ' + data['problem']['name'],
@@ -66,7 +101,7 @@ export default class Inputs extends Component{
                         const subtime = data['epoch_second'] * 1000;
 
                         const tmp = {
-                            'site' : 'atcoder',
+                            'site' : 'Atcoder',
                             'subtime' : subtime,
                             'contestId' : data['contest_id'],
                             'title' : data['id'],
@@ -86,15 +121,16 @@ export default class Inputs extends Component{
                     }
                 ))
                 
-                ReactDOM.render(<div>success loading.</div>, document.getElementById('status'));
+                //load finished
+                ReactDOM.render(<div></div>, document.getElementById('status'));
                 ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
                 ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
 
             }else{
-                ReactDOM.render(<div>loading failed. please reload this page.</div>, document.getElementById('status'));
+                ReactDOM.render(<div className = 'fail'>Loading Failed</div>, document.getElementById('status'));
             }
         }else{
-            ReactDOM.render(<div>now loading</div>, document.getElementById('status'));
+            ReactDOM.render(<CircularProgress className={styles.progress} />, document.getElementById('status'));
         }
     }
 
@@ -107,7 +143,7 @@ export default class Inputs extends Component{
         acsub.onreadystatechange = this.load;
         acprob.onreadystatechange = this.load;
 
-        var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=100";
+        var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=10000";
         cfsub.open('Get', cf_url, true);
         cfsub.send(null);
 
@@ -123,13 +159,34 @@ export default class Inputs extends Component{
 
     render(){
         return (
-            <div>
-                <div>codeforces id</div>
-                <input type = "text" id = "cfid" value = "b1015120"></input>
-                <div>atcoder id</div>
-                <input type = "text" id = "acid" value = "daleksprinter"></input>
-                <button type = "button" onClick = {() => this.send()}>getData</button>
-            </div>
+            
+            <Paper className = 'inputbar'>
+                <TextField
+                    id="cfid"
+                    label="Codeforces ID"
+                    className={styles.textField}
+                    margin="normal"
+                />
+                <div></div>
+                <TextField
+                    id="acid"
+                    label="AtCoder ID"
+                    className={styles.textField}
+                    margin="normal"
+                />
+                <div></div>
+                <br></br>
+                <div id = 'status'>
+                    <Button 
+                        variant="outlined" 
+                        color="primary" 
+                        className={styles.button} 
+                        onClick = {() => this.send()}
+                    >
+                        Search
+                    </Button>
+                </div>
+            </Paper>
         )   
     }
 }
