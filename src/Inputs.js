@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Hoge from './Hoge';
-import { string } from 'postcss-selector-parser';
 
 
 var cfsub = new XMLHttpRequest();
@@ -80,15 +79,22 @@ export default class Inputs extends Component{
                     }
                 }
 
-                console.log(subs);
-                console.log(Object.keys(subs).length);
-                console.log(dailyCount);
+                const calender = Object.keys(dailyCount).map((key) => (
+                    {
+                    'date' : key,
+                    'count' : dailyCount[key],
+                    }
+                ))
+                
+                ReactDOM.render(<div>success loading.</div>, document.getElementById('status'));
+                ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
+                ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
 
             }else{
-                console.log('load failed');
+                ReactDOM.render(<div>loading failed. please reload this page.</div>, document.getElementById('status'));
             }
         }else{
-            console.log('loading');
+            ReactDOM.render(<div>now loading</div>, document.getElementById('status'));
         }
     }
 
@@ -118,7 +124,7 @@ export default class Inputs extends Component{
     render(){
         return (
             <div>
-                <h3>codeforces id</h3><hr/>
+                <div>codeforces id</div>
                 <input type = "text" id = "cfid" value = "b1015120"></input>
                 <div>atcoder id</div>
                 <input type = "text" id = "acid" value = "daleksprinter"></input>
