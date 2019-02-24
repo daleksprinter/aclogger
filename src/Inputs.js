@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Hoge from './Hoge';
+import { string } from 'postcss-selector-parser';
 
 
 var cfsub = new XMLHttpRequest();
 var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
 
+function zeroPadding(num, len){
+    return ('00000' + num).slice(-len);
+}
+
 function getdate(millisec){
     const date = new Date(millisec);
-    const d = date.getFullYear() + "-" + String(Number(date.getMonth()) + 1) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
-    return d;
+    return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
 }
 
 var subs = {};
