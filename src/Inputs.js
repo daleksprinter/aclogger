@@ -150,7 +150,7 @@ export default class Inputs extends Component{
         acsub.onreadystatechange = this.load;
         acprob.onreadystatechange = this.load;
 
-        var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=10000";
+        var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=5000";
         cfsub.open('Get', cf_url, true);
         cfsub.send(null);
 
