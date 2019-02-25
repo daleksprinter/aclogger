@@ -9,8 +9,6 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-
-
 var cfsub = new XMLHttpRequest();
 var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
@@ -110,7 +108,7 @@ export default class Inputs extends Component{
                         const subtime = data['epoch_second'] * 1000;
 
                         const tmp = {
-                            'site' : 'Atcoder',
+                            'site' : 'AtCoder',
                             'subtime' : subtime,
                             'contestId' : data['contest_id'].toUpperCase(),
                             'title' : prob_dic[data['contest_id'] + data['problem_id']],

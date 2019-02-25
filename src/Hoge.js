@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import Paper from '@material-ui/core/Paper';
+import ReactTooltip from 'react-tooltip';
 import './hoge.css';
 
 export default class Hoge extends Component {
@@ -18,7 +19,15 @@ export default class Hoge extends Component {
             }
             return `color-github-${Math.min(4, value.count)}`;
           }}
+          tooltipDataAttrs={value => {
+            return {
+              'data-tip': `${value.date} has count: ${
+                value.count
+              }`,
+            };
+          }}
         />
+        <ReactTooltip />
       </Paper>
     );
   }

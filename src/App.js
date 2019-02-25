@@ -9,7 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import './App.css';
 
-
+function func(){
+  console.log('hoge');
+}
 
 function zeroPadding(num, len){
   return ('00000' + num).slice(-len);
@@ -42,13 +44,13 @@ export default class App extends Component {
           
           <TableBody>
             {keys.map((key) => (
-              <TableRow key = {key}>
-              <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
-              <TableCell align="center">{this.props.data[key]['site']}</TableCell>
-              <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
-              <TableCell align="center">{this.props.data[key]['title']}</TableCell>
-              <TableCell align="center">{this.props.data[key]['point']}</TableCell>
-            </TableRow>
+              <TableRow key = {key} onClick = {() => console.log("hoge")}>
+                <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
+                <TableCell align="center" >{this.props.data[key]['site']}</TableCell>
+                <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
+                <TableCell align="center">{this.props.data[key]['title']}</TableCell>
+                <TableCell align="center">{this.props.data[key]['point']}</TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
