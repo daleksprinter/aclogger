@@ -5,6 +5,8 @@ export default class AboutPage extends Component{
     render(){
         return(
             <div className = 'aboutpage'>
+                <div>Version : beta 0.1</div>
+                <br></br>
                 <div>ACLoggerとは</div>
                     <div>&emsp;競技プログラミングのコンテストサイトやジャッジサイト等で問題を解くことで、草を生やすことができるツールです。</div>
                     <div>&emsp;競プロと草を生やすことが好きなみなさんのために作成されました。</div>
