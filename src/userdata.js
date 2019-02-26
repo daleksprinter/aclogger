@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import './userdata.css';
+import ACData from './acdata.js';
 export default class UserData extends Component{
 
     render(){
@@ -8,7 +9,7 @@ export default class UserData extends Component{
             <Paper className = 'userdata'>
 
                 {Object.keys(this.props.data).map((key) => (
-                    <div>{key} : {this.props.data[key]}</div>
+                    <ACData className = "account" site = {key} count = {this.props.data[key]} />
                 ))}
             </Paper>
         )

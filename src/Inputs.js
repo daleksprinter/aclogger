@@ -133,7 +133,8 @@ export default class Inputs extends Component{
                 ))
                 
                 //load finished
-                ReactDOM.render(<div></div>, document.getElementById('status'));
+                document.getElementById('input').style.display = 'none';
+                document.getElementById('status').style.display = 'none';
                 ReactDOM.render(<UserData data = {{'Codeforces' : cfcount, 'AtCoder' : account, 'Sum' : account + cfcount}} />, document.getElementById('userdata'));
                 ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
                 ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
