@@ -7,6 +7,7 @@ import './inputs.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import UserData from './userdata';
 
 
 var cfsub = new XMLHttpRequest();
@@ -69,6 +70,7 @@ export default class Inputs extends Component{
 
                 //parse codeforces submission
                 const codeforces = JSON.parse(cfsub.responseText).result;
+                var cfcount = 0;
             
                 for(const e in codeforces){
                     const data = codeforces[e];
@@ -86,7 +88,7 @@ export default class Inputs extends Component{
                         subs[subtime] = tmp;
 
                         addCount(getdate(subtime));
-
+                        cfcount++;
                     }
                 }
 
@@ -101,6 +103,7 @@ export default class Inputs extends Component{
 
                 //parse atcoder submission
                 const atcoder = JSON.parse(acsub.responseText);
+                var account = 0;
 
                 for(const e in atcoder){
                     const data = atcoder[e];
@@ -118,6 +121,7 @@ export default class Inputs extends Component{
                         subs[subtime] = tmp;
 
                         addCount(getdate(subtime));
+                        account++;
                     }
                 }
 
@@ -130,6 +134,7 @@ export default class Inputs extends Component{
                 
                 //load finished
                 ReactDOM.render(<div></div>, document.getElementById('status'));
+                ReactDOM.render(<UserData data = {{'Codeforces' : cfcount, 'AtCoder' : account, 'Sum' : account + cfcount}} />, document.getElementById('userdata'));
                 ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
                 ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
 
