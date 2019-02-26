@@ -13,6 +13,7 @@ import UserData from './userdata';
 var cfsub = new XMLHttpRequest();
 var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
+var aojsub = new XMLHttpRequest();
 
 function zeroPadding(num, len){
     return ('00000' + num).slice(-len);
@@ -62,68 +63,113 @@ const styles = theme => ({
   });
   
 
+var loadac = false;
+var loadcf = false;
+var loadaoj = false;
+
+
 export default class Inputs extends Component{
 
     load(){
-        if(cfsub.readyState === 4 && acsub.readyState === 4 && acprob.readyState === 4){
-            if(cfsub.status === 200 && acsub.status === 200 && acprob.status === 200){
-
-                //parse codeforces submission
-                const codeforces = JSON.parse(cfsub.responseText).result;
-                var cfcount = 0;
+        if((loadcf === false || cfsub.readyState === 4) && 
+            (loadac === false || (acsub.readyState === 4 && acprob.readyState === 4)) &&
+             (loadaoj === false || aojsub.readyState === 4)
+            ){
             
-                for(const e in codeforces){
-                    const data = codeforces[e];
-                    if(data['verdict'] === 'OK'){
-                        const subtime = data['creationTimeSeconds'] * 1000;
-
-                        const tmp = {
-                            'site' : 'Codeforces',
-                            'subtime' : subtime,
-                            'contestId' : data['problem']['contestId'],
-                            'title' : data['problem']['index'] + '. ' + data['problem']['name'],
-                            'point' : data['problem']['rating']
-                        }
-
-                        subs[subtime] = tmp;
-
-                        addCount(getdate(subtime));
-                        cfcount++;
-                    }
-                }
-
-                //parse atcoder problem
-
-                const acp = JSON.parse(acprob.responseText);
-                var prob_dic = {}
-
-                for(const e in acp){
-                    prob_dic[acp[e]['contest_id'] + acp[e]['id']] = acp[e]['title'];
-                }
-
-                //parse atcoder submission
-                const atcoder = JSON.parse(acsub.responseText);
+                if((loadcf === false || cfsub.status === 200) && 
+                    (loadac === false || (acsub.status === 200 && acprob.status === 200)) &&
+                     (loadaoj === false || aojsub.status === 200)
+                ){
+                
+                var cfcount = 0;
                 var account = 0;
+                var aojcount = 0;
 
-                for(const e in atcoder){
-                    const data = atcoder[e];
-                    if(data['result'] === 'AC'){
-                        const subtime = data['epoch_second'] * 1000;
 
-                        const tmp = {
-                            'site' : 'AtCoder',
-                            'subtime' : subtime,
-                            'contestId' : data['contest_id'].toUpperCase(),
-                            'title' : prob_dic[data['contest_id'] + data['problem_id']],
-                            'point' : data['point']
+                //Codeforces
+                //parse codeforces submission
+                if(loadcf){
+                    const codeforces = JSON.parse(cfsub.responseText).result;
+                    
+                    for(const e in codeforces){
+                        const data = codeforces[e];
+                        if(data['verdict'] === 'OK'){
+                            const subtime = data['creationTimeSeconds'] * 1000;
+
+                            const tmp = {
+                                'site' : 'Codeforces',
+                                'subtime' : subtime,
+                                'contestId' : data['problem']['contestId'],
+                                'title' : data['problem']['index'] + '. ' + data['problem']['name'],
+                                'point' : data['problem']['rating']
+                            }
+
+                            subs[subtime] = tmp;
+
+                            addCount(getdate(subtime));
+                            cfcount++;
                         }
-
-                        subs[subtime] = tmp;
-
-                        addCount(getdate(subtime));
-                        account++;
                     }
                 }
+                
+
+                //AtCoder 
+                if(loadac){    
+                    //parse atcoder problem
+                    const acp = JSON.parse(acprob.responseText);
+                    var prob_dic = {}
+                    
+                    for(const e in acp){
+                        prob_dic[acp[e]['contest_id'] + acp[e]['id']] = acp[e]['title'];
+                    }
+
+                    //parse atcoder submission
+                    const atcoder = JSON.parse(acsub.responseText);
+                    
+
+                    for(const e in atcoder){
+                        const data = atcoder[e];
+                        if(data['result'] === 'AC'){
+                            const subtime = data['epoch_second'] * 1000;
+
+                            const tmp = {
+                                'site' : 'AtCoder',
+                                'subtime' : subtime,
+                                'contestId' : data['contest_id'].toUpperCase(),
+                                'title' : prob_dic[data['contest_id'] + data['problem_id']],
+                                'point' : data['point']
+                            }
+
+                            subs[subtime] = tmp;
+
+                            addCount(getdate(subtime));
+                            account++;
+                        }
+                    }
+                }        
+                
+                //Aizu Online Judge
+                if(loadaoj){
+                    const aoj = JSON.parse(aojsub.responseText);
+                    
+                    for(const e in aoj){
+                        const data = aoj[e];
+                        if(data['status'] === 4){
+                            const subtime = data['submissionDate'];
+                            const tmp = {
+                                'site' : "Aizu Online Judge",
+                                'subtime' : subtime,
+                                'contestId' : null,
+                                'title' : data['problemId'],
+                                'point' : null,
+                            }
+                            aojcount++;
+                            subs[subtime] = tmp;
+                            addCount(getdate(subtime));
+                        }
+                    }
+                }
+
 
                 const calender = Object.keys(dailyCount).map((key) => (
                     {
@@ -135,12 +181,30 @@ export default class Inputs extends Component{
                 //load finished
                 document.getElementById('input').style.display = 'none';
                 document.getElementById('status').style.display = 'none';
-                ReactDOM.render(<UserData data = {{'Codeforces' : cfcount, 'AtCoder' : account, 'Sum' : account + cfcount}} />, document.getElementById('userdata'));
+                
+                ReactDOM.render(
+                    <UserData 
+                        data = {
+                            {'Codeforces' : cfcount, 
+                             'AtCoder' : account, 
+                             'Aizu Online Judge' : aojcount, 
+                             'Sum' : account + cfcount + aojcount
+                            }
+                        } />, 
+                        document.getElementById('userdata')
+                );
+
                 ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
                 ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
 
             }else{
-                ReactDOM.render(<div className = 'fail'>Loading Failed</div>, document.getElementById('status'));
+                ReactDOM.render(
+                    <div className = 'fail'>
+                        <div>Loading Failed</div>
+                        <div>Check your Handle</div>
+                    </div>
+                    , document.getElementById('status')
+                );
             }
         }else{
             ReactDOM.render(<CircularProgress className={styles.progress} />, document.getElementById('status'));
@@ -151,22 +215,43 @@ export default class Inputs extends Component{
 
         const cfuser = document.getElementById('cfid').value;
         const acuser = document.getElementById('acid').value;
+        const aojuser = document.getElementById('aojid').value;
+
+        if(cfuser !== "") loadcf = true;
+        if(acuser !== "") loadac = true;
+        if(aojuser !== "") loadaoj = true;
+
+        if(!loadac && !loadcf && !aojuser){
+            alert('Enter your Handle at least One of Judge');
+            return;
+        }
 
         cfsub.onreadystatechange = this.load;
         acsub.onreadystatechange = this.load;
         acprob.onreadystatechange = this.load;
+        aojsub.onreadystatechange = this.load;
 
-        var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=5000";
-        cfsub.open('Get', cf_url, true);
-        cfsub.send(null);
+        if(loadcf){     
+            var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=1000";
+            cfsub.open('Get', cf_url, true);
+            cfsub.send(null);
+        }
 
-        var ac_url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + acuser;
-        acsub.open('Get', ac_url, true);
-        acsub.send(null);
+        if(loadac){
+            var ac_url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + acuser;
+            acsub.open('Get', ac_url, true);
+            acsub.send(null);
 
-        var ac_prob_url = "https://kenkoooo.com/atcoder/resources/problems.json";
-        acprob.open('Get', ac_prob_url,true);
-        acprob.send(null);
+            var ac_prob_url = "https://kenkoooo.com/atcoder/resources/problems.json";
+            acprob.open('Get', ac_prob_url,true);
+            acprob.send(null);
+        }
+
+        if(loadaoj){
+            var aoj_url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + aojuser + "?page=0&size=10000";
+            aojsub.open('Get', aoj_url,true);
+            aojsub.send(null);
+        }
 
     }
 
@@ -184,6 +269,13 @@ export default class Inputs extends Component{
                 <TextField
                     id="acid"
                     label="AtCoder ID"
+                    className={styles.textField}
+                    margin="normal"
+                />
+                <div></div>
+                <TextField
+                    id="aojid"
+                    label="Aizu Online Judge ID"
                     className={styles.textField}
                     margin="normal"
                 />

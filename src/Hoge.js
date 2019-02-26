@@ -21,9 +21,9 @@ export default class Hoge extends Component {
           }}
           tooltipDataAttrs={value => {
             return {
-              'data-tip': `${value.date} has count: ${
+              'data-tip': `${value.date} : ${
                 value.count
-              }`,
+              } AC`,
             };
           }}
         />

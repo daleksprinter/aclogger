@@ -18,6 +18,7 @@ export default class AboutPage extends Component{
                     <div>&emsp;・ジャッジごと(及び合計）のACカウントの表示</div>
                     <div>&emsp;・Daily AC, 合計ACのツイート（及び自動化）</div>
                     <div>&emsp;・提出詳細に飛べるようにする</div>
+                    <div>&emsp;・ユーザーネームをcookieに保存</div>
                 <br></br>
                 <div>作った人</div>
                     <div>&emsp;Twitter : @Gxupu50ILbqonRQ ←要望、バグ報告等はこちらにどうぞ。</div>

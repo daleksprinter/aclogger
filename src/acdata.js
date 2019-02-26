@@ -6,10 +6,7 @@ export default class ACData extends Component{
         return(
             <div className = 'account'>
                 <div>{this.props.site}</div>
-                <div>{this.props.username}</div>
-                <div>
-                    <h2>{this.props.count}</h2>
-                </div>
+                <div className = 'count'>{this.props.count}</div>
             </div>
         )
     }
