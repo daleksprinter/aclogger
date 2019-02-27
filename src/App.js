@@ -39,7 +39,7 @@ export default class App extends Component {
           
           <TableBody>
             {keys.map((key) => (
-              <TableRow key = {key} onClick = {() => console.log("hoge")}>
+              <TableRow className = "subdet" key = {key} onClick = {() => window.open(this.props.data[key]['detail'], "_blank")}>
                 <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
                 <TableCell align="center" >{this.props.data[key]['site']}</TableCell>
                 <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>

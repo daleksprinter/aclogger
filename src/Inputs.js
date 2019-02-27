@@ -101,7 +101,8 @@ export default class Inputs extends Component{
                                 'subtime' : subtime,
                                 'contestId' : data['problem']['contestId'],
                                 'title' : data['problem']['index'] + '. ' + data['problem']['name'],
-                                'point' : data['problem']['rating']
+                                'point' : data['problem']['rating'],
+                                'detail' : "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
                             }
 
                             subs[subtime] = tmp;
@@ -137,7 +138,9 @@ export default class Inputs extends Component{
                                 'subtime' : subtime,
                                 'contestId' : data['contest_id'].toUpperCase(),
                                 'title' : prob_dic[data['contest_id'] + data['problem_id']],
-                                'point' : data['point']
+                                'point' : data['point'],
+                                'detail' : "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
+
                             }
 
                             subs[subtime] = tmp;
@@ -162,6 +165,7 @@ export default class Inputs extends Component{
                                 'contestId' : null,
                                 'title' : data['problemId'],
                                 'point' : null,
+                                'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
                             }
                             aojcount++;
                             subs[subtime] = tmp;

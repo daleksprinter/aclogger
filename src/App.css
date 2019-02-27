@@ -6,3 +6,7 @@
 .acicon{
   width : 30px;
 }
+
+.subdet:hover{
+  transform:scale(1.01,1.01);
+}
