@@ -9,14 +9,10 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 import './todaysac.css'
 
-
-function zeroPadding(num, len){
-  return ('00000' + num).slice(-len);
-}
-
-function getdate(millisec){
-  const date = new Date(millisec);
-  return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
+var sitedic = {
+    'Codeforces' : 'CF',
+    'AtCoder' : 'AC',
+    'Aizu Online Judge' : "AOJ"
 }
 
 export default class TodaysAC extends Component {
@@ -25,7 +21,16 @@ export default class TodaysAC extends Component {
     var keys = Object.keys(this.props.data);
     keys.sort();
     keys.reverse();
-    const d = getdate(new Date().getTime());
+
+
+    var tweet_text = "Today's AC%0A%0A";
+
+    for(const key of keys){
+        tweet_text += sitedic[this.props.data[key]['site']] + " : " + this.props.data[key]['title'] + "%0A";
+    }
+
+
+
 
     
     return (
@@ -54,7 +59,8 @@ export default class TodaysAC extends Component {
           </TableBody>
           
                 <div className = 'button'>
-                    <Button color = "primary" variant = "contained">tweet</Button>
+                    <Button color = "primary" variant = "contained"
+                        onClick = {() => window.open('https://twitter.com/intent/tweet?text=' + tweet_text)}>tweet</Button>
                 </div>
         </Table>
       </Paper>
