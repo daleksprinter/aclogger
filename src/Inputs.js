@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import UserData from './userdata';
+import TodaysAC from './TodaysAC';
 
 
 var cfsub = new XMLHttpRequest();
@@ -214,7 +215,7 @@ export default class Inputs extends Component{
                         document.getElementById('userdata')
                 );
                 
-                ReactDOM.render(<App data = {todaysac} />, document.getElementById('todaysac'));
+                ReactDOM.render(<TodaysAC data = {todaysac} />, document.getElementById('todaysac'));
                 ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
                 ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
 

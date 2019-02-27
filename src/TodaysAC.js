@@ -6,6 +6,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import './App.css';
+import Button from '@material-ui/core/Button';
+import './todaysac.css'
 
 
 function zeroPadding(num, len){
@@ -17,12 +19,13 @@ function getdate(millisec){
   return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
 }
 
-export default class App extends Component {
+export default class TodaysAC extends Component {
 
   render() {
     var keys = Object.keys(this.props.data);
     keys.sort();
     keys.reverse();
+    const d = getdate(new Date().getTime());
 
     
     return (
@@ -41,7 +44,7 @@ export default class App extends Component {
           <TableBody>
             {keys.map((key) => (
               <TableRow className = "subdet" key = {key} onClick = {() => window.open(this.props.data[key]['detail'], "_blank")}>
-                <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
+                <TableCell align="left">Today</TableCell>
                 <TableCell align="center" >{this.props.data[key]['site']}</TableCell>
                 <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
                 <TableCell align="center">{this.props.data[key]['title']}</TableCell>
@@ -49,6 +52,10 @@ export default class App extends Component {
               </TableRow>
             ))}
           </TableBody>
+          
+                <div className = 'button'>
+                    <Button color = "primary" variant = "contained">tweet</Button>
+                </div>
         </Table>
       </Paper>
     );
