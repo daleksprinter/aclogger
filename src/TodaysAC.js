@@ -29,7 +29,7 @@ export default class TodaysAC extends Component {
         tweet_text += sitedic[this.props.data[key]['site']] + " : " + this.props.data[key]['title'] + "%0A";
     }
 
-
+    tweet_text += "Sent by ACLogger";
 
 
     
