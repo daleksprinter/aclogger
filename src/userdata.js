@@ -20,10 +20,8 @@ export default class UserData extends Component{
                 {Object.keys(this.props.data).map((key) => (
                     <ACData className = "account" site = {key} count = {this.props.data[key]} />
                 ))}
-                <Button color = "primary" variant = "outlined" className = "tweetbutton"
-                         onClick = {() => window.open("https://twitter.com/intent/tweet?text=" + tweettext)}>
-                    Tweet                    
-                </Button>
+                
+
             </Paper>
         )
     }
