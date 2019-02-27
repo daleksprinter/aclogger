@@ -23,6 +23,8 @@ export default class App extends Component {
     var keys = Object.keys(this.props.data);
     keys.sort();
     keys.reverse();
+    const d = getdate(new Date().getTime());
+
     
     return (
       <Paper className = 'log'>
@@ -40,7 +42,7 @@ export default class App extends Component {
           <TableBody>
             {keys.map((key) => (
               <TableRow className = "subdet" key = {key} onClick = {() => window.open(this.props.data[key]['detail'], "_blank")}>
-                <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
+                <TableCell align="left">{getdate(this.props.data[key]['subtime']) == d ? "Today" : getdate(this.props.data[key]['subtime'])}</TableCell>
                 <TableCell align="center" >{this.props.data[key]['site']}</TableCell>
                 <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
                 <TableCell align="center">{this.props.data[key]['title']}</TableCell>

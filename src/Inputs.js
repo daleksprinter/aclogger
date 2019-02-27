@@ -15,6 +15,7 @@ var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
 var aojsub = new XMLHttpRequest();
 
+
 function zeroPadding(num, len){
     return ('00000' + num).slice(-len);
 }
@@ -24,7 +25,10 @@ function getdate(millisec){
     return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
 }
 
+const d = getdate(new Date().getTime());
+
 var subs = {};
+var todaysac = {};
 var dailyCount = {};
 
 function addCount(d){
@@ -105,7 +109,11 @@ export default class Inputs extends Component{
                                 'detail' : "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
                             }
 
-                            subs[subtime] = tmp;
+                            if(getdate(subtime) == d){
+                                todaysac[subtime] = tmp;
+                            }else{
+                                subs[subtime] = tmp;
+                            }
 
                             addCount(getdate(subtime));
                             cfcount++;
@@ -115,7 +123,7 @@ export default class Inputs extends Component{
                 
 
                 //AtCoder 
-                if(loadac){    
+                if(loadac){
                     //parse atcoder problem
                     const acp = JSON.parse(acprob.responseText);
                     var prob_dic = {}
@@ -143,7 +151,11 @@ export default class Inputs extends Component{
 
                             }
 
-                            subs[subtime] = tmp;
+                            if(getdate(subtime) == d){
+                                todaysac[subtime] = tmp;
+                            }else{
+                                subs[subtime] = tmp;
+                            }
 
                             addCount(getdate(subtime));
                             account++;
@@ -168,7 +180,11 @@ export default class Inputs extends Component{
                                 'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
                             }
                             aojcount++;
-                            subs[subtime] = tmp;
+                            if(getdate(subtime) == d){
+                                todaysac[subtime] = tmp;
+                            }else{
+                                subs[subtime] = tmp;
+                            }
                             addCount(getdate(subtime));
                         }
                     }
@@ -197,7 +213,8 @@ export default class Inputs extends Component{
                         } />, 
                         document.getElementById('userdata')
                 );
-
+                
+                ReactDOM.render(<App data = {todaysac} />, document.getElementById('todaysac'));
                 ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
                 ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
 
