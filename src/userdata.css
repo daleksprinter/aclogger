@@ -6,6 +6,7 @@
 }
 
 .tweetbutton{
+    margin : 3px;
     border : none;
     position: absolute;
     right : 0;
