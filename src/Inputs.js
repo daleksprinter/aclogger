@@ -254,7 +254,7 @@ export default class Inputs extends Component{
         aojsub.onreadystatechange = this.load;
 
         if(loadcf){     
-            var cf_url = "http://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=1000";
+            var cf_url = "https://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=1000";
             cfsub.open('Get', cf_url, true);
             cfsub.send(null);
         }
