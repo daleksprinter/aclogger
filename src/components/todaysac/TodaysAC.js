@@ -13,7 +13,8 @@ import './todaysac.css'
 var sitedic = {
     'Codeforces' : 'CF',
     'AtCoder' : 'AC',
-    'Aizu Online Judge' : "AOJ"
+    'Aizu Online Judge' : "AOJ",
+    'yukicoder' : "YC",
 }
 
 export default class TodaysAC extends Component {
