@@ -18,6 +18,7 @@ var cfsub = new XMLHttpRequest();
 var acsub = new XMLHttpRequest();
 var acprob = new XMLHttpRequest();
 var aojsub = new XMLHttpRequest();
+var ycsub = new XMLHttpRequest();
 
 
 function zeroPadding(num, len){
@@ -74,6 +75,7 @@ const styles = theme => ({
 var loadac = false;
 var loadcf = false;
 var loadaoj = false;
+var loadyc = false;
 
 
 export default class Inputs extends Component{
@@ -81,18 +83,20 @@ export default class Inputs extends Component{
     load(){
         if((loadcf === false || cfsub.readyState === 4) && 
             (loadac === false || (acsub.readyState === 4 && acprob.readyState === 4)) &&
-             (loadaoj === false || aojsub.readyState === 4)
+             (loadaoj === false || aojsub.readyState === 4) &&
+              (loadyc === false || ycsub.readyState === 4)
             ){
             
                 if((loadcf === false || cfsub.status === 200) && 
                     (loadac === false || (acsub.status === 200 && acprob.status === 200)) &&
-                     (loadaoj === false || aojsub.status === 200)
+                     (loadaoj === false || aojsub.status === 200) &&
+                      (loadyc === false || ycsub.status === 200)
                 ){
                 
                 var cfcount = 0;
                 var account = 0;
                 var aojcount = 0;
-
+                var yccount = 0;
 
                 //Codeforces
                 //parse codeforces submission
@@ -194,6 +198,29 @@ export default class Inputs extends Component{
                     }
                 }
 
+                if(loadyc){
+                    const yc = JSON.parse(ycsub.responseText);
+                    for(const e in yc){
+                        const data = yc[e];
+                        const subtime = new Date(data['Date']).getTime();
+                        const tmp = {
+                            'site' : 'yukicoder',
+                            'subtime' : subtime,
+                            'contestId' : null,
+                            'title' : data['Title'],
+                            'point' : data['Level'],
+                            'detail' : "https://yukicoder.me/"
+                        }
+                        yccount++;
+                        addCount(getdate(subtime));
+                        if(getdate(subtime) == d){
+                            todaysac[subtime] = tmp;
+                        }else{
+                            subs[subtime] = tmp;
+                        }
+                    }
+                }
+
 
                 const calender = Object.keys(dailyCount).map((key) => (
                     {
@@ -212,7 +239,8 @@ export default class Inputs extends Component{
                             {'Codeforces' : cfcount, 
                              'AtCoder' : account, 
                              'Aizu Online Judge' : aojcount, 
-                             'Sum' : account + cfcount + aojcount
+                             'yukicoder' : yccount,
+                             'Sum' : account + cfcount + aojcount + yccount,
                             }
                         } />, 
                         document.getElementById('userdata')
@@ -241,12 +269,15 @@ export default class Inputs extends Component{
         const cfuser = document.getElementById('cfid').value;
         const acuser = document.getElementById('acid').value;
         const aojuser = document.getElementById('aojid').value;
+        const ycuser = document.getElementById('ycid').value;
+
 
         if(cfuser !== "") loadcf = true;
         if(acuser !== "") loadac = true;
         if(aojuser !== "") loadaoj = true;
+        if(ycuser !== "") loadyc = true;
 
-        if(!loadac && !loadcf && !aojuser){
+        if(!loadac && !loadcf && !aojuser && !ycuser){
             alert('Enter your Handle at least One of Judge');
             return;
         }
@@ -255,6 +286,7 @@ export default class Inputs extends Component{
         acsub.onreadystatechange = this.load;
         acprob.onreadystatechange = this.load;
         aojsub.onreadystatechange = this.load;
+        ycsub.onreadystatechange = this.load;
 
         if(loadcf){     
             var cf_url = "https://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=1000";
@@ -276,6 +308,12 @@ export default class Inputs extends Component{
             var aoj_url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + aojuser + "?page=0&size=10000";
             aojsub.open('Get', aoj_url,true);
             aojsub.send(null);
+        }
+
+        if(loadyc){
+            var yc_url = "https://yukicoder.me/api/v1/solved/name/" + ycuser;
+            ycsub.open('Get', yc_url, true);
+            ycsub.send(null);
         }
 
     }
@@ -301,6 +339,13 @@ export default class Inputs extends Component{
                 <TextField
                     id="aojid"
                     label="Aizu Online Judge ID"
+                    className={styles.textField}
+                    margin="normal"
+                />
+                <div></div>
+                <TextField
+                    id="ycid"
+                    label="yukicoder ID"
                     className={styles.textField}
                     margin="normal"
                 />
