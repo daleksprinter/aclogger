@@ -29,6 +29,7 @@ export default class App extends Component {
     
     return (
       <Paper className = 'log'>
+        <div className = 'title'>Past AC History</div>
         <Table>
           <TableHead>
             <TableRow>

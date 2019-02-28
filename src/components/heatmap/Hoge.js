@@ -12,7 +12,6 @@ export default class Hoge extends Component {
   render() {
     return (
       <Paper className = "heatmap">
-        <div className = 'heatmaptitle'>AC Heatmap</div>
         <CalendarHeatmap
           startDate={new Date('2018-01-01')}
           endDate={new Date()}
