@@ -17,7 +17,7 @@ export default class AboutPage extends Component{
                 <div>注意</div>
                     <div>&emsp;ACのカウントは重複した問題もカウントしています。(UniqueACの方が良いのだろうか...)</div>
                     <div>&emsp;yukicoderはコンテストタイトルの取得に対応していません。</div>
-                    <div>Codeforcesや、AC数の多いAtCoderユーザを読み込むと速度が遅くなってしまいます。</div>
+                    <div>&emsp;Codeforcesや、AC数の多いAtCoderユーザを読み込むと速度が遅くなってしまいます。</div>
                 <br></br>
                 <div>今後の更新予定</div>
                     <div>&emsp;・ジャッジサイトの追加(APIが提供されていれば)</div>

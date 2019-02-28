@@ -24,13 +24,13 @@ export default class TodaysAC extends Component {
     keys.reverse();
 
 
-    var tweet_text = "Today's AC%0A%0A";
+    var tweet_text = "Today's AC%0A";
 
     for(const key of keys){
         tweet_text += sitedic[this.props.data[key]['site']] + " : " + this.props.data[key]['title'] + "%0A";
     }
 
-    tweet_text += "Sent by ACLogger";
+    tweet_text += "%23ACLogger";
 
 
     
