@@ -1,9 +1,11 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+
+import Pop from './popup/Pop';
+
 import icon from './acicon.jpeg';
 import './appbar.css';
-import Pop from './Pop.js';
 
 export default class Bar extends React.Component{
     

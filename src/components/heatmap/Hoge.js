@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
+
 import Paper from '@material-ui/core/Paper';
 import ReactTooltip from 'react-tooltip';
+
 import './hoge.css';
 
 export default class Hoge extends Component {
   render() {
     return (
       <Paper className = "heatmap">
+        <div className = 'heatmaptitle'>AC Heatmap</div>
         <CalendarHeatmap
           startDate={new Date('2018-01-01')}
           endDate={new Date()}

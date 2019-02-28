@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import App from '../achistory/App';
+import Hoge from '../heatmap/Hoge';
+import UserData from '../userdata/userdata';
+import TodaysAC from '../todaysac/TodaysAC';
+
 import Paper from '@material-ui/core/Paper';
-import Hoge from './Hoge';
-import './inputs.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import UserData from './userdata';
-import TodaysAC from './TodaysAC';
+
+import './inputs.css';
 
 
 var cfsub = new XMLHttpRequest();

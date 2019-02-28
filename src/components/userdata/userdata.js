@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
-import './userdata.css';
-import ACData from './acdata.js';
-import Button from '@material-ui/core/Button';
 
+import ACData from './account/acdata';
+
+import './userdata.css';
 
 
 export default class UserData extends Component{

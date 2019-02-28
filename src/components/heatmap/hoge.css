@@ -1,0 +1,10 @@
+.heatmap{
+    margin : 1% 2%;
+    padding : 1.5%;
+}
+
+.heatmaptitle{
+    color: rgb(80, 80, 80);
+    font-size : 40;
+    font-weight: bold;
+}

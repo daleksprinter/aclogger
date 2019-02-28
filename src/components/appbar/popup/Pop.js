@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import './pop.css';
 
-import AboutPage from './aboutpage';
+import AboutPage from '../about/aboutpage';
+
+import './pop.css';
 
 export default class Pop extends Component{
     state = {
