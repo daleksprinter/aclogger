@@ -29,7 +29,7 @@ export default class TodaysAC extends Component {
     for(const key of keys){
         tweet_text += sitedic[this.props.data[key]['site']] + " : " + this.props.data[key]['title'] + "%0A";
     }
-
+    tweet_text += "Sum : " + keys.length + "%0A";
     tweet_text += "%23ACLogger";
 
 
