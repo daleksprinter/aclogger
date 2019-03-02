@@ -11,5 +11,5 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(<Bar />, document.getElementById('appbar'));
 ReactDOM.render(<Inputs />, document.getElementById('input'));
 
-serviceWorker.unregister();
+serviceWorker.register();
 

@@ -137,7 +137,7 @@ export default class Inputs extends Component{
                     var prob_dic = {}
                     
                     for(const e in acp){
-                        prob_dic[acp[e]['contest_id'] + acp[e]['id']] = acp[e]['title'];
+                        prob_dic[acp[e]['id']] = acp[e]['title'];
                     }
 
                     //parse atcoder submission
@@ -153,7 +153,7 @@ export default class Inputs extends Component{
                                 'site' : 'AtCoder',
                                 'subtime' : subtime,
                                 'contestId' : data['contest_id'].toUpperCase(),
-                                'title' : prob_dic[data['contest_id'] + data['problem_id']],
+                                'title' : prob_dic[data['problem_id']],
                                 'point' : data['point'],
                                 'detail' : "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
 
