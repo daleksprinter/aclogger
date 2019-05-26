@@ -105,7 +105,7 @@ export default class Inputs extends Component{
                     
                     for(const e in codeforces){
                         const data = codeforces[e];
-                        if(data['verdict'] === 'OK'){
+                        if(data['verdict'] === 'OK' && data['problem']['rating'] > 1500){
                             const subtime = data['creationTimeSeconds'] * 1000;
 
                             const tmp = {
@@ -146,7 +146,7 @@ export default class Inputs extends Component{
 
                     for(const e in atcoder){
                         const data = atcoder[e];
-                        if(data['result'] === 'AC'){
+                        if(data['result'] === 'AC' && data['point'] < 400){
                             const subtime = data['epoch_second'] * 1000;
 
                             const tmp = {
@@ -202,6 +202,7 @@ export default class Inputs extends Component{
                     const yc = JSON.parse(ycsub.responseText);
                     for(const e in yc){
                         const data = yc[e];
+                        if(data["Level"] >= 3) continue;
                         const subtime = new Date(data['Date']).getTime();
                         const tmp = {
                             'site' : 'yukicoder',
@@ -224,8 +225,8 @@ export default class Inputs extends Component{
 
                 const calender = Object.keys(dailyCount).map((key) => (
                     {
-                    'date' : key,
-                    'count' : dailyCount[key],
+                        'date' : key,
+                        'count' : dailyCount[key],
                     }
                 ))
                 
@@ -236,11 +237,12 @@ export default class Inputs extends Component{
                 ReactDOM.render(
                     <UserData 
                         data = {
-                            {'Codeforces' : cfcount, 
-                             'AtCoder' : account, 
-                             'Aizu Online Judge' : aojcount, 
-                             'yukicoder' : yccount,
-                             'Sum' : account + cfcount + aojcount + yccount,
+                            {
+                                'Codeforces' : cfcount, 
+                                'AtCoder' : account, 
+                                'Aizu Online Judge' : aojcount, 
+                                'yukicoder' : yccount,
+                                'Sum' : account + cfcount + aojcount + yccount,
                             }
                         } />, 
                         document.getElementById('userdata')
