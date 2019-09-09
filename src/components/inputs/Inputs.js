@@ -92,6 +92,7 @@ export default class Inputs extends Component{
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
                 let submissions = this.state.submissions;
+                let cfcount = 0;
                 for(const data of codeforces.result){
                     if(data['verdict'] == 'OK'){
                         const subtime = data['creationTimeSeconds'] * 1000;
@@ -108,11 +109,12 @@ export default class Inputs extends Component{
                         }else{
                             submissions[subtime] = tmp;
                         }
-
+                        cfcount += 1;
 //                        addCount(getdate(subtime));
                     }
                 }
                 this.setState({
+                    cfcount : cfcount,
                     todaysac : todaysac,
                     submissions: submissions,
                 });
@@ -135,6 +137,7 @@ export default class Inputs extends Component{
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
                 let submissions = this.state.submissions;
+                let account = 0;
                 for(const e in atcoder){
                     const data = atcoder[e];
                     if(data['result'] === 'AC'){
@@ -154,11 +157,13 @@ export default class Inputs extends Component{
                             submissions[subtime] = tmp;
                         }
 //                        addCount(getdate(subtime));
+                        account += 1;
                     }
                 }
                 this.setState({
                     todaysac:todaysac,
                     submissions:submissions,
+                    account: account
                 })
             })
         }
@@ -171,6 +176,7 @@ export default class Inputs extends Component{
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
                 let submissions = this.state.submissions;
+                let aojcount = 0;
                 for(const e in aoj){
                     const data = aoj[e];
                     if(data['status'] === 4){
@@ -189,11 +195,13 @@ export default class Inputs extends Component{
                             submissions[subtime] = tmp;
                         }
 //                        addCount(getdate(subtime));
+                        aojcount += 1;
                     }
                 }
                 this.setState({
                     todaysac:todaysac,
                     submissions:submissions,
+                    aojcount: aojcount,
                 })
             })
         }
@@ -206,6 +214,7 @@ export default class Inputs extends Component{
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
                 let submissions = this.state.submissions;
+                let yccount = 0;
                 for(const e in yc){
                     const data = yc[e];
                     if(data["Level"] >= 3) continue;
@@ -224,10 +233,12 @@ export default class Inputs extends Component{
                     }else{
                         submissions[subtime] = tmp;
                     }
+                    yccount += 1
                 }
                 this.setState({
                     todaysac:todaysac,
                     submissions:submissions,
+                    yccount:yccount
                 })
             })
         }
@@ -255,7 +266,17 @@ export default class Inputs extends Component{
         if(this.state.isloaded){
             return (
                 <div>
-                   
+                    <UserData 
+                        data = {
+                            {
+                                'Codeforces' : this.state.cfcount, 
+                                'AtCoder' : this.state.account, 
+                                'Aizu Online Judge' : this.state.aojcount, 
+                                'yukicoder' : this.state.yccount,
+                                'Sum' : this.state.account + this.state.cfcount + this.state.aojcount + this.state.syccount,
+                            }
+                        }
+                    ></UserData>
                     <TodaysAC data = {this.state.todaysac} />
                     <App data = {this.state.submissions} />
                 </div>
