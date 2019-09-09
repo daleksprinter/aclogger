@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import App from '../achistory/App';
 import Hoge from '../heatmap/Hoge';
@@ -14,12 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import './inputs.css';
 
 
-var cfsub = new XMLHttpRequest();
-var acsub = new XMLHttpRequest();
-var acprob = new XMLHttpRequest();
-var aojsub = new XMLHttpRequest();
-var ycsub = new XMLHttpRequest();
-
 
 function zeroPadding(num, len){
     return ('00000' + num).slice(-len);
@@ -32,8 +25,6 @@ function getdate(millisec){
 
 const d = getdate(new Date().getTime());
 
-var subs = {};
-var todaysac = {};
 var dailyCount = {};
 
 function addCount(d){
@@ -72,298 +63,256 @@ const styles = theme => ({
   });
   
 
-var loadac = false;
-var loadcf = false;
-var loadaoj = false;
-var loadyc = false;
-
-
 export default class Inputs extends Component{
 
-    load(){
-        if((loadcf === false || cfsub.readyState === 4) && 
-            (loadac === false || (acsub.readyState === 4 && acprob.readyState === 4)) &&
-             (loadaoj === false || aojsub.readyState === 4) &&
-              (loadyc === false || ycsub.readyState === 4)
-            ){
-            
-                if((loadcf === false || cfsub.status === 200) && 
-                    (loadac === false || (acsub.status === 200 && acprob.status === 200)) &&
-                     (loadaoj === false || aojsub.status === 200) &&
-                      (loadyc === false || ycsub.status === 200)
-                ){
-                
-                var cfcount = 0;
-                var account = 0;
-                var aojcount = 0;
-                var yccount = 0;
+    constructor(){
+        super();
+        this.state = {
+            cfcount : 0,
+            account : 0,
+            aojcount : 0,
+            yccount : 0,
+            todaysac : {},
+            submissions : {},
+            isloaded : false,
+            cfuser : "",
+            acuser : "",
+            aojuser : "",
+            ycuser : "",
+        }
+    }
 
-                //Codeforces
-                //parse codeforces submission
-                if(loadcf){
-                    const codeforces = JSON.parse(cfsub.responseText).result;
-                    
-                    for(const e in codeforces){
-                        const data = codeforces[e];
-                        if(data['verdict'] === 'OK' && data['problem']['rating'] > 1500){
-                            const subtime = data['creationTimeSeconds'] * 1000;
-
-                            const tmp = {
-                                'site' : 'Codeforces',
-                                'subtime' : subtime,
-                                'contestId' : data['problem']['contestId'],
-                                'title' : data['problem']['index'] + '. ' + data['problem']['name'],
-                                'point' : data['problem']['rating'],
-                                'detail' : "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
-                            }
-
-                            if(getdate(subtime) == d){
-                                todaysac[subtime] = tmp;
-                            }else{
-                                subs[subtime] = tmp;
-                            }
-
-                            addCount(getdate(subtime));
-                            cfcount++;
-                        }
-                    }
-                }
-                
-
-                //AtCoder 
-                if(loadac){
-                    //parse atcoder problem
-                    const acp = JSON.parse(acprob.responseText);
-                    var prob_dic = {}
-                    
-                    for(const e in acp){
-                        prob_dic[acp[e]['id']] = acp[e]['title'];
-                    }
-
-                    //parse atcoder submission
-                    const atcoder = JSON.parse(acsub.responseText);
-                    
-
-                    for(const e in atcoder){
-                        const data = atcoder[e];
-                        if(data['result'] === 'AC' && data['point'] < 400){
-                            const subtime = data['epoch_second'] * 1000;
-
-                            const tmp = {
-                                'site' : 'AtCoder',
-                                'subtime' : subtime,
-                                'contestId' : data['contest_id'].toUpperCase(),
-                                'title' : prob_dic[data['problem_id']],
-                                'point' : data['point'],
-                                'detail' : "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
-
-                            }
-
-                            if(getdate(subtime) == d){
-                                todaysac[subtime] = tmp;
-                            }else{
-                                subs[subtime] = tmp;
-                            }
-
-                            addCount(getdate(subtime));
-                            account++;
-                        }
-                    }
-                }        
-                
-                //Aizu Online Judge
-                if(loadaoj){
-                    const aoj = JSON.parse(aojsub.responseText);
-                    
-                    for(const e in aoj){
-                        const data = aoj[e];
-                        if(data['status'] === 4){
-                            const subtime = data['submissionDate'];
-                            const tmp = {
-                                'site' : "Aizu Online Judge",
-                                'subtime' : subtime,
-                                'contestId' : null,
-                                'title' : data['problemId'],
-                                'point' : null,
-                                'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
-                            }
-                            aojcount++;
-                            if(getdate(subtime) == d){
-                                todaysac[subtime] = tmp;
-                            }else{
-                                subs[subtime] = tmp;
-                            }
-                            addCount(getdate(subtime));
-                        }
-                    }
-                }
-
-                if(loadyc){
-                    const yc = JSON.parse(ycsub.responseText);
-                    for(const e in yc){
-                        const data = yc[e];
-                        if(data["Level"] >= 3) continue;
-                        const subtime = new Date(data['Date']).getTime();
+    handleClick = () => {
+        //codeforces
+        if(this.state.cfuser != ""){
+            const url = "https://codeforces.com/api/user.status?handle=" + this.state.cfuser + "&from=1&count=1000";
+            fetch(url).then((res) => {
+                return res.json()
+            }).then((codeforces) => {
+                this.setState({isloaded : true});
+                let todaysac = this.state.todaysac;
+                let submissions = this.state.submissions;
+                for(const data of codeforces.result){
+                    if(data['verdict'] == 'OK'){
+                        const subtime = data['creationTimeSeconds'] * 1000;
                         const tmp = {
-                            'site' : 'yukicoder',
+                            'site' : 'Codeforces',
                             'subtime' : subtime,
-                            'contestId' : null,
-                            'title' : data['Title'],
-                            'point' : data['Level'],
-                            'detail' : "https://yukicoder.me/"
+                            'contestId' : data['problem']['contestId'],
+                            'title' : data['problem']['index'] + '. ' + data['problem']['name'],
+                            'point' : data['problem']['rating'],
+                            'detail' : "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
                         }
-                        yccount++;
-                        addCount(getdate(subtime));
                         if(getdate(subtime) == d){
                             todaysac[subtime] = tmp;
                         }else{
-                            subs[subtime] = tmp;
+                            submissions[subtime] = tmp;
                         }
+
+//                        addCount(getdate(subtime));
                     }
                 }
+                this.setState({
+                    todaysac : todaysac,
+                    submissions: submissions,
+                });
+            })  
+        }
 
+        //atcoder
+        if(this.state.acuser != ""){
+            const url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + this.state.acuser;
+            fetch(url).then(res => {
+                return res.json()
+            }).then(atcoder => {
+                /*
+                var prob_dic = {}
+                    
+                for(const e in acp){
+                    prob_dic[acp[e]['id']] = acp[e]['title'];
+                }
+                */
+                this.setState({isloaded : true});
+                let todaysac = this.state.todaysac;
+                let submissions = this.state.submissions;
+                for(const e in atcoder){
+                    const data = atcoder[e];
+                    if(data['result'] === 'AC'){
+                        const subtime = data['epoch_second'] * 1000;
+                        const tmp = {
+                            'site' : 'AtCoder',
+                            'subtime' : subtime,
+                            'contestId' : data['contest_id'].toUpperCase(),
+                            'title' : data['problem_id'],//prob_dic[data['problem_id']],
+                            'point' : data['point'],
+                            'detail' : "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
+                        }
 
-                const calender = Object.keys(dailyCount).map((key) => (
-                    {
-                        'date' : key,
-                        'count' : dailyCount[key],
+                        if(getdate(subtime) == d){
+                            todaysac[subtime] = tmp;
+                        }else{
+                            submissions[subtime] = tmp;
+                        }
+//                        addCount(getdate(subtime));
                     }
-                ))
-                
-                //load finished
-                document.getElementById('input').style.display = 'none';
-                document.getElementById('status').style.display = 'none';
-                
-                ReactDOM.render(
-                    <UserData 
-                        data = {
-                            {
-                                'Codeforces' : cfcount, 
-                                'AtCoder' : account, 
-                                'Aizu Online Judge' : aojcount, 
-                                'yukicoder' : yccount,
-                                'Sum' : account + cfcount + aojcount + yccount,
-                            }
-                        } />, 
-                        document.getElementById('userdata')
-                );
-                
-                ReactDOM.render(<TodaysAC data = {todaysac} />, document.getElementById('todaysac'));
-                ReactDOM.render(<App data = {subs} />, document.getElementById('app'));
-                ReactDOM.render(<Hoge data = {calender} />, document.getElementById('hoge'));
-
-            }else{
-                ReactDOM.render(
-                    <div className = 'fail'>
-                        <div>Loading Failed</div>
-                        <div>Check your Handle</div>
-                    </div>
-                    , document.getElementById('status')
-                );
-            }
-        }else{
-            ReactDOM.render(<CircularProgress className={styles.progress} />, document.getElementById('status'));
+                }
+                this.setState({
+                    todaysac:todaysac,
+                    submissions:submissions,
+                })
+            })
+        }
+        //aoj
+        if(this.state.aojuser != ""){
+            const url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.state.aojuser + "?page=0&size=10000";
+            fetch(url).then(res => {
+                return res.json()
+            }).then(aoj => {
+                this.setState({isloaded : true});
+                let todaysac = this.state.todaysac;
+                let submissions = this.state.submissions;
+                for(const e in aoj){
+                    const data = aoj[e];
+                    if(data['status'] === 4){
+                        const subtime = data['submissionDate'];
+                        const tmp = {
+                            'site' : "Aizu Online Judge",
+                            'subtime' : subtime,
+                            'contestId' : null,
+                            'title' : data['problemId'],
+                            'point' : null,
+                            'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
+                        }
+                        if(getdate(subtime) == d){
+                            todaysac[subtime] = tmp;
+                        }else{
+                            submissions[subtime] = tmp;
+                        }
+//                        addCount(getdate(subtime));
+                    }
+                }
+                this.setState({
+                    todaysac:todaysac,
+                    submissions:submissions,
+                })
+            })
+        }
+        //ycuser
+        if(this.state.ycuser != ""){
+            const url = "https://yukicoder.me/api/v1/solved/name/" + this.state.ycuser;
+            fetch(url).then(res => {
+                return res.json()
+            }).then(yc => {
+                this.setState({isloaded : true});
+                let todaysac = this.state.todaysac;
+                let submissions = this.state.submissions;
+                for(const e in yc){
+                    const data = yc[e];
+                    if(data["Level"] >= 3) continue;
+                    const subtime = new Date(data['Date']).getTime();
+                    const tmp = {
+                        'site' : 'yukicoder',
+                        'subtime' : subtime,
+                        'contestId' : null,
+                        'title' : data['Title'],
+                        'point' : data['Level'],
+                        'detail' : "https://yukicoder.me/"
+                    }
+//                    addCount(getdate(subtime));
+                    if(getdate(subtime) == d){
+                        todaysac[subtime] = tmp;
+                    }else{
+                        submissions[subtime] = tmp;
+                    }
+                }
+                this.setState({
+                    todaysac:todaysac,
+                    submissions:submissions,
+                })
+            })
         }
     }
 
-    send(){
-
-        const cfuser = document.getElementById('cfid').value;
-        const acuser = document.getElementById('acid').value;
-        const aojuser = document.getElementById('aojid').value;
-        const ycuser = document.getElementById('ycid').value;
-
-
-        if(cfuser !== "") loadcf = true;
-        if(acuser !== "") loadac = true;
-        if(aojuser !== "") loadaoj = true;
-        if(ycuser !== "") loadyc = true;
-
-        if(!loadac && !loadcf && !aojuser && !ycuser){
-            alert('Enter your Handle at least One of Judge');
-            return;
+    handleChange = (e) => {
+        switch(e.target.name){
+            case "cfuser" :
+                this.setState({cfuser : e.target.value})
+                break
+            case "acuser" :
+                this.setState({acuser : e.target.value})
+                break
+            case "aojuser" :
+                this.setState({aojuser : e.target.value})
+                break
+            case "ycuser" :
+                this.setState({ycuser : e.target.value})
+                break
         }
-
-        cfsub.onreadystatechange = this.load;
-        acsub.onreadystatechange = this.load;
-        acprob.onreadystatechange = this.load;
-        aojsub.onreadystatechange = this.load;
-        ycsub.onreadystatechange = this.load;
-
-        if(loadcf){     
-            var cf_url = "https://codeforces.com/api/user.status?handle=" + cfuser + "&from=1&count=1000";
-            cfsub.open('Get', cf_url, true);
-            cfsub.send(null);
-        }
-
-        if(loadac){
-            var ac_url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + acuser;
-            acsub.open('Get', ac_url, true);
-            acsub.send(null);
-
-            var ac_prob_url = "https://kenkoooo.com/atcoder/resources/problems.json";
-            acprob.open('Get', ac_prob_url,true);
-            acprob.send(null);
-        }
-
-        if(loadaoj){
-            var aoj_url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + aojuser + "?page=0&size=10000";
-            aojsub.open('Get', aoj_url,true);
-            aojsub.send(null);
-        }
-
-        if(loadyc){
-            var yc_url = "https://yukicoder.me/api/v1/solved/name/" + ycuser;
-            ycsub.open('Get', yc_url, true);
-            ycsub.send(null);
-        }
-
     }
 
-    render(){
-        return (
-            
-            <Paper className = 'inputbar'>
-                <TextField
-                    id="cfid"
-                    label="Codeforces ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <TextField
-                    id="acid"
-                    label="AtCoder ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <TextField
-                    id="aojid"
-                    label="Aizu Online Judge ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <TextField
-                    id="ycid"
-                    label="yukicoder ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <br></br>
-                <div id = 'status'>
-                    <Button 
-                        variant="outlined" 
-                        color="primary" 
-                        className={styles.button} 
-                        onClick = {() => this.send()}
-                    >
-                        Search
-                    </Button>
+
+    render(props, state){
+        if(this.state.isloaded){
+            return (
+                <div>
+                   
+                    <TodaysAC data = {this.state.todaysac} />
+                    <App data = {this.state.submissions} />
                 </div>
-            </Paper>
-        )   
+            )
+        }else{
+            return (
+                <Paper className = 'inputbar'>
+                    <TextField
+                        id="cfid"
+                        label="Codeforces ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                        name = 'cfuser'
+                    />
+                    <div></div>
+                    <TextField
+                        id="acid"
+                        label="AtCoder ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                        name = 'acuser'
+                    />
+                    <div></div>
+                    <TextField
+                        id="aojid"
+                        label="Aizu Online Judge ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                        name = 'aojuser'
+                    />
+                    <div></div>
+                    <TextField
+                        id="ycid"
+                        label="yukicoder ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                        name = 'ycuser'
+                    />
+                    <div></div>
+                    <br></br>
+                    <div id = 'status'>
+                        <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            className={styles.button} 
+                            onClick = {this.handleClick}
+                        >
+                            Search
+                        </Button>
+                    </div>
+                </Paper>
+            )   
+        }
+  
     }
 }
