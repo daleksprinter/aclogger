@@ -78,7 +78,48 @@ var loadaoj = false;
 var loadyc = false;
 
 
+
+
+
 export default class Inputs extends Component{
+
+    constructor(){
+        super();
+        this.state = {
+            cfcount : 0,
+            account : 0,
+            aojcount : 0,
+            yccount : 0,
+            todaysac : [],
+            submissions : [],
+            isloaded : false,
+            cfuser : "",
+            acuser : "",
+            aojuser : "",
+            ycuser : "",
+        }
+    }
+
+    handleClick = () => {
+
+    }
+
+    handleChange = (e) => {
+        switch(e.target.name){
+            case cfuser :
+                this.setState({cfuser : e.target.value})
+                break
+            case acuser :
+                this.setState({acuser : e.target.value})
+                break
+            case aojuser :
+                this.setState({aojuser : e.target.value})
+                break
+            case ycuser :
+                this.setState({ycuser : e.target.value})
+                break
+        }
+    }
 
     load(){
         if((loadcf === false || cfsub.readyState === 4) && 
@@ -320,50 +361,58 @@ export default class Inputs extends Component{
 
     }
 
-    render(){
-        return (
-            
-            <Paper className = 'inputbar'>
-                <TextField
-                    id="cfid"
-                    label="Codeforces ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <TextField
-                    id="acid"
-                    label="AtCoder ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <TextField
-                    id="aojid"
-                    label="Aizu Online Judge ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <TextField
-                    id="ycid"
-                    label="yukicoder ID"
-                    className={styles.textField}
-                    margin="normal"
-                />
-                <div></div>
-                <br></br>
-                <div id = 'status'>
-                    <Button 
-                        variant="outlined" 
-                        color="primary" 
-                        className={styles.button} 
-                        onClick = {() => this.send()}
-                    >
-                        Search
-                    </Button>
-                </div>
-            </Paper>
-        )   
+    render(props, state){
+        if(state.isloaded){
+
+        }else{
+            return (
+                <Paper className = 'inputbar'>
+                    <TextField
+                        id="cfid"
+                        label="Codeforces ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                    />
+                    <div></div>
+                    <TextField
+                        id="acid"
+                        label="AtCoder ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                    />
+                    <div></div>
+                    <TextField
+                        id="aojid"
+                        label="Aizu Online Judge ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                    />
+                    <div></div>
+                    <TextField
+                        id="ycid"
+                        label="yukicoder ID"
+                        className={styles.textField}
+                        margin="normal"
+                        onChange = {this.handleChange}
+                    />
+                    <div></div>
+                    <br></br>
+                    <div id = 'status'>
+                        <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            className={styles.button} 
+                            onClick = {() => this.send()}
+                        >
+                            Search
+                        </Button>
+                    </div>
+                </Paper>
+            )   
+        }
+  
     }
 }
