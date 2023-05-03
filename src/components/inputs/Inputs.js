@@ -132,7 +132,6 @@ export default class Inputs extends Component{
             account : 0,
             aojcount : 0,
             yccount : 0,
-            todaysac : {},
             submissions : {},
             submiss: new submissions(),
             isloaded : false,
@@ -153,7 +152,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then((codeforces) => {
                 this.setState({isloaded : true});
-                let todaysac = this.state.todaysac;
                 let subs = this.state.submissions;
                 let cfcount = 0;
                 for(const data of codeforces.result){
@@ -176,7 +174,6 @@ export default class Inputs extends Component{
                         submiss.add(sub)
 
                         if(getdate(subtime) === d){
-                            todaysac[subtime] = tmp;
                         }else{
                             subs[subtime] = tmp;
                         }
@@ -186,7 +183,6 @@ export default class Inputs extends Component{
                 }
                 this.setState({
                     cfcount : cfcount,
-                    todaysac : todaysac,
                     submissions: subs,
                 });
             })  
@@ -206,7 +202,6 @@ export default class Inputs extends Component{
                 }
                 */
                 this.setState({isloaded : true});
-                let todaysac = this.state.todaysac;
                 let subs = this.state.submissions;
                 let account = 0;
                 for(const e in atcoder){
@@ -231,7 +226,6 @@ export default class Inputs extends Component{
                         submiss.add(s)
 
                         if(getdate(subtime) === d){
-                            todaysac[subtime] = tmp;
                         }else{
                             subs[subtime] = tmp;
                         }
@@ -240,7 +234,6 @@ export default class Inputs extends Component{
                     }
                 }
                 this.setState({
-                    todaysac:todaysac,
                     submissions:subs,
                     account: account
                 })
@@ -253,7 +246,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then(aoj => {
                 this.setState({isloaded : true});
-                let todaysac = this.state.todaysac;
                 let subs = this.state.submissions;
                 let aojcount = 0;
                 for(const e in aoj){
@@ -269,7 +261,6 @@ export default class Inputs extends Component{
                             'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
                         }
                         if(getdate(subtime) === d){
-                            todaysac[subtime] = tmp;
                         }else{
                             subs[subtime] = tmp;
                         }
@@ -278,7 +269,6 @@ export default class Inputs extends Component{
                     }
                 }
                 this.setState({
-                    todaysac:todaysac,
                     submissions:subs,
                     aojcount: aojcount,
                 })
@@ -291,7 +281,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then(yc => {
                 this.setState({isloaded : true});
-                let todaysac = this.state.todaysac;
                 let subs = this.state.submissions;
                 let yccount = 0;
                 for(const e in yc){
@@ -308,14 +297,12 @@ export default class Inputs extends Component{
                     }
 //                    addCount(getdate(subtime));
                     if(getdate(subtime) === d){
-                        todaysac[subtime] = tmp;
                     }else{
                         subs[subtime] = tmp;
                     }
                     yccount += 1
                 }
                 this.setState({
-                    todaysac:todaysac,
                     submissions:subs,
                     yccount:yccount
                 })
