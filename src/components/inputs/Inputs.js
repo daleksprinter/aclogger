@@ -64,10 +64,26 @@ class submit {
     }
 }
 
-class acsubmit extends submit {}
-class cfsubmit extends submit {}
-class aojsubmit extends submit {}
-class ycsubmit extends submit {}
+class acsubmit extends submit {
+    getSite() {
+        return "AtCoder"
+    }
+}
+class cfsubmit extends submit {
+    getSite() {
+        return "CodeForces"
+    }
+}
+class aojsubmit extends submit {
+     getSite() {
+        return "AizuOnlineJudge"
+    }
+}
+class ycsubmit extends submit {
+     getSite() {
+        return "yukicoder"
+    }
+}
 
 class submissions {
     constructor() {
@@ -96,6 +112,10 @@ class submissions {
 
     aojcount() {
         return 1
+    }
+
+    getTodayAC() {
+        return [new acsubmit('', 'AC', '', '', '', '')]
     }
 }
 
