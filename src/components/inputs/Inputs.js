@@ -87,15 +87,15 @@ class ycsubmit extends submit {
 
 class submissions {
     constructor() {
-        this.submissions = []
+        this.subs = []
     }
 
     add(submission) {
-        this.submissions.push(submission)
+        this.subs.push(submission)
     }
 
     count() {
-        return this.submissions.length
+        return this.subs.length
     }
 
     account() {
@@ -119,7 +119,7 @@ class submissions {
     }
 
     getAll()  {
-        return this.submissions
+        return this.subs
     }
 }
 
@@ -154,14 +154,6 @@ export default class Inputs extends Component{
                     const url = "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
                     if(data['verdict'] === 'OK'){
                         const subtime = data['creationTimeSeconds'] * 1000;
-                        const tmp = {
-                            'site' : 'Codeforces',
-                            'subtime' : subtime,
-                            'contestId' : contestid,
-                            'title' : title,
-                            'point' : point,
-                            'detail': url
-                        }
 
                         const sub = new cfsubmit(subtime, "OK", contestid, title, point, url)
                         submiss.add(sub)
@@ -169,6 +161,7 @@ export default class Inputs extends Component{
                     }
                 }
                 this.setState({
+                     submiss: submiss
                 });
             })  
         }
@@ -195,22 +188,13 @@ export default class Inputs extends Component{
                     const url =  "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
                     if(data['result'] === 'AC'){
                         const subtime = data['epoch_second'] * 1000;
-                        const tmp = {
-                            'site' : 'AtCoder',
-                            'subtime' : subtime,
-                            'contestId' : contestid,
-                            'title' : title,//prob_dic[data['problem_id']],
-                            'point' : point,
-                            'detail' :url,
-                        }
-
                         const s = new acsubmit(subtime, 'AC', contestid, title, point, url)
-                        console.log('added')
                         submiss.add(s)
 
                     }
                 }
                 this.setState({
+                    submiss: submiss
                 })
             })
         }
@@ -225,16 +209,15 @@ export default class Inputs extends Component{
                     const data = aoj[e];
                     if(data['status'] === 4){
                         const subtime = data['submissionDate'];
-                        const tmp = {
-                            'site' : "Aizu Online Judge",
-                            'subtime' : subtime,
-                            'contestId' : null,
-                            'title' : data['problemId'],
-                            'point' : null,
-                            'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
-                        }
+                        const title = data['problemId']
+                        const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
+                        const s = new aojsubmit(subtime, 'AC', '', title, null, url)
+                        submiss.add(s)
                     }
                 }
+                this.setState({
+                    submiss: submiss
+                })
             })
         }
         //ycuser
@@ -248,20 +231,18 @@ export default class Inputs extends Component{
                     const data = yc[e];
                     if(data["Level"] >= 3) continue;
                     const subtime = new Date(data['Date']).getTime();
-                    const tmp = {
-                        'site' : 'yukicoder',
-                        'subtime' : subtime,
-                        'contestId' : null,
-                        'title' : data['Title'],
-                        'point' : data['Level'],
-                        'detail' : "https://yukicoder.me/"
-                    }
+                    const title = data['Title']
+                    const point =  data['Level']
+                    const url  = "https://yukicoder.me/"
+                    const s = new ycsubmit(subtime, null, title, point, url)
+                    submiss.add(s)
                 }
+                this.setState({
+                    submiss: submiss
+                })
             })
         }
-        this.setState({
-            submiss: submiss
-        })
+
     }
 
     handleChange = (e) => {
