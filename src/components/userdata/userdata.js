@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import Paper from '@material-ui/core/Paper';
-
+import {Paper} from '@material-ui/core';
 import ACData from './account/acdata';
-
 import './userdata.css';
 
 
