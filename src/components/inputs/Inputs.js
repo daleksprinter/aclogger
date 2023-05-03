@@ -147,7 +147,7 @@ export default class Inputs extends Component{
                 this.setState({
                     cfcount : cfcount,
                     todaysac : todaysac,
-                    submissions: submissions,
+                    submissions: subs,
                 });
             })  
         }
@@ -201,7 +201,7 @@ export default class Inputs extends Component{
                 }
                 this.setState({
                     todaysac:todaysac,
-                    submissions:submissions,
+                    submissions:subs,
                     account: account
                 })
             })
@@ -214,7 +214,7 @@ export default class Inputs extends Component{
             }).then(aoj => {
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
-                let submissions = this.state.submissions;
+                let subs = this.state.submissions;
                 let aojcount = 0;
                 for(const e in aoj){
                     const data = aoj[e];
@@ -231,7 +231,7 @@ export default class Inputs extends Component{
                         if(getdate(subtime) === d){
                             todaysac[subtime] = tmp;
                         }else{
-                            submissions[subtime] = tmp;
+                            subs[subtime] = tmp;
                         }
 //                        addCount(getdate(subtime));
                         aojcount += 1;
@@ -239,7 +239,7 @@ export default class Inputs extends Component{
                 }
                 this.setState({
                     todaysac:todaysac,
-                    submissions:submissions,
+                    submissions:subs,
                     aojcount: aojcount,
                 })
             })
@@ -252,7 +252,7 @@ export default class Inputs extends Component{
             }).then(yc => {
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
-                let submissions = this.state.submissions;
+                let subs = this.state.submissions;
                 let yccount = 0;
                 for(const e in yc){
                     const data = yc[e];
@@ -270,17 +270,18 @@ export default class Inputs extends Component{
                     if(getdate(subtime) === d){
                         todaysac[subtime] = tmp;
                     }else{
-                        submissions[subtime] = tmp;
+                        subs[subtime] = tmp;
                     }
                     yccount += 1
                 }
                 this.setState({
                     todaysac:todaysac,
-                    submissions:submissions,
+                    submissions:subs,
                     yccount:yccount
                 })
             })
         }
+        console.log('submiss', submiss.count())
     }
 
     handleChange = (e) => {
