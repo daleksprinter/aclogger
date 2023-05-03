@@ -1,29 +1,13 @@
 import React, { Component } from 'react';
-
 import App from '../achistory/App';
 import UserData from '../userdata/userdata';
 import TodaysAC from '../todaysac/TodaysAC';
-
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
 import './inputs.css';
-
-
-
-function zeroPadding(num, len){
-    return ('00000' + num).slice(-len);
-}
-
-function getdate(millisec){
-    const date = new Date(millisec);
-    return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
-}
-
-const d = getdate(new Date().getTime());
-
-
+import {acclient, cfclient} from "../../modules/client";
+import {submissions} from "../../modules/submit";
 
 const styles = theme => ({
     container: {
@@ -51,151 +35,6 @@ const styles = theme => ({
         margin: theme.spacing.unit * 2,
     },
   });
-
-
-class submit {
-    constructor(t, result, contest, title, point, url) {
-        this.t = t
-        this.result = result
-        this.contest  = contest
-        this.title = title
-        this.point = point
-        this.url = url
-    }
-}
-
-class acsubmit extends submit {
-    getSite() {
-        return "AtCoder"
-    }
-}
-class cfsubmit extends submit {
-    getSite() {
-        return "CodeForces"
-    }
-}
-class aojsubmit extends submit {
-     getSite() {
-        return "AizuOnlineJudge"
-    }
-}
-class ycsubmit extends submit {
-     getSite() {
-        return "yukicoder"
-    }
-}
-
-class submissions {
-    constructor() {
-        this.subs = []
-    }
-
-    add(submission) {
-        this.subs.push(submission)
-    }
-
-    count() {
-        return this.subs.length
-    }
-
-    account() {
-        return 1
-    }
-
-    cfcount(){
-        return 1
-    }
-
-    ykcount()  {
-        return 1
-    }
-
-    aojcount() {
-        return 1
-    }
-
-    getTodayAC() {
-        return [new acsubmit('', 'AC', '', '', '', '')]
-    }
-
-    getAll()  {
-        return this.subs
-    }
-
-    merge(submissions){
-        submissions.getAll().map(sub => {
-            this.add(sub)
-        })
-    }
-}
-
-class client{}
-class acclient extends client{
-    constructor(user) {
-        super();
-        this.user = user
-        this.url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + user
-    }
-    fetch() {
-        return fetch(this.url).then((res) => {
-            return res.json()
-        })
-    }
-
-    resToSub(res) {
-        const subtime = res['epoch_second'] * 1000;
-        const result = res['result']
-        const contestid =  res['contest_id'].toUpperCase()
-        const title = res['problem_id']
-        const point = res['point']
-        const url =  "https://atcoder.jp/contests/" + res['contest_id'] + "/submissions/" + res['id']
-
-        const s = new acsubmit(subtime, result, contestid, title, point, url)
-        return s
-    }
-
-    toSubmissions(results) {
-        const subs = new submissions()
-        for(const res of results){
-            subs.add(this.resToSub(res))
-        }
-        return subs
-    }
-}
-
-class cfclient extends client {
-    constructor(user) {
-        super();
-        this.user = user
-        this.url = "https://codeforces.com/api/user.status?handle=" + this.user + "&from=1&count=1000"
-    }
-
-    fetch() {
-        return fetch(this.url).then((res) => {
-            return res.json()
-        })
-    }
-
-    resToSub(res) {
-          const subtime = res['creationTimeSeconds'] * 1000;
-          const result = res['verdict']
-          const contestid = res['problem']['contestId']
-          const title = res['problem']['index'] + '. ' + res['problem']['name']
-          const point = res['problem']['rating']
-          const url = "https://codeforces.com/contest/" + res['problem']['contestId'] + "/submission/" + res['id']
-          const sub = new cfsubmit(subtime, result, contestid, title, point, url)
-          return sub
-    }
-
-    toSubmissions(results) {
-        const subs = new submissions()
-        for(const res of results){
-            subs.add(this.resToSub(res))
-        }
-        return subs
-    }
-
-}
 
 export default class Inputs extends Component{
 
