@@ -42,13 +42,13 @@ export default class App extends Component {
           </TableHead>
           
           <TableBody>
-            {keys.map((key) => (
-              <TableRow className = "subdet" key = {key} onClick = {() => window.open(this.props.data[key]['detail'], "_blank")}>
-                <TableCell align="left">{getdate(this.props.data[key]['subtime'])}</TableCell>
-                <TableCell align="center" >{this.props.data[key]['site']}</TableCell>
-                <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
-                <TableCell align="center">{this.props.data[key]['title']}</TableCell>
-                <TableCell align="center">{this.props.data[key]['point']}</TableCell>
+            {this.props.data.map((submit) => (
+              <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(submit.url, "_blank")}>
+                <TableCell align="left">{getdate(submit.time)}</TableCell>
+                <TableCell align="center" >{submit.getSite()}</TableCell>
+                <TableCell align="center">{submit.contest}</TableCell>
+                <TableCell align="center">{submit.title}</TableCell>
+                <TableCell align="center">{submit.point}</TableCell>
               </TableRow>
             ))}
           </TableBody>
