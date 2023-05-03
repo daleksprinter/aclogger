@@ -51,7 +51,38 @@ const styles = theme => ({
         margin: theme.spacing.unit * 2,
     },
   });
-  
+
+
+class submit {
+    constructor(time, result, contest, title, point, url) {
+        this.time = time
+        this.result = result
+        this.contest  = contest
+        this.title = title
+        this.point = point
+        this.url = url
+    }
+}
+
+class acsubmit extends submit {}
+class cfsubmit extends submit {}
+class aojsubmit extends submit {}
+class ycsubmit extends submit {}
+
+class submissions {
+    constructor() {
+        this.submissions = []
+    }
+
+    add(submission) {
+        console.log(this.submissions)
+        this.submissions.push(submission)
+    }
+
+    count() {
+        return this.submissions.length
+    }
+}
 
 export default class Inputs extends Component{
 
@@ -74,6 +105,8 @@ export default class Inputs extends Component{
 
     handleClick = () => {
         //codeforces
+
+        const submiss = new submissions()
         if(this.state.cfuser !== ""){
             const url = "https://codeforces.com/api/user.status?handle=" + this.state.cfuser + "&from=1&count=1000";
             fetch(url).then((res) => {
@@ -81,23 +114,31 @@ export default class Inputs extends Component{
             }).then((codeforces) => {
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
-                let submissions = this.state.submissions;
+                let subs = this.state.submissions;
                 let cfcount = 0;
                 for(const data of codeforces.result){
+                    const contestid = data['problem']['contestId']
+                    const title = data['problem']['index'] + '. ' + data['problem']['name']
+                    const point = data['problem']['rating']
+                    const url = "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
                     if(data['verdict'] === 'OK'){
                         const subtime = data['creationTimeSeconds'] * 1000;
                         const tmp = {
                             'site' : 'Codeforces',
                             'subtime' : subtime,
-                            'contestId' : data['problem']['contestId'],
-                            'title' : data['problem']['index'] + '. ' + data['problem']['name'],
-                            'point' : data['problem']['rating'],
-                            'detail' : "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
+                            'contestId' : contestid,
+                            'title' : title,
+                            'point' : point,
+                            'detail': url
                         }
+
+                        const sub = new cfsubmit(subtime, "OK", contestid, title, point, url)
+                        submiss.add(sub)
+
                         if(getdate(subtime) === d){
                             todaysac[subtime] = tmp;
                         }else{
-                            submissions[subtime] = tmp;
+                            subs[subtime] = tmp;
                         }
                         cfcount += 1;
 //                        addCount(getdate(subtime));
@@ -126,25 +167,33 @@ export default class Inputs extends Component{
                 */
                 this.setState({isloaded : true});
                 let todaysac = this.state.todaysac;
-                let submissions = this.state.submissions;
+                let subs = this.state.submissions;
                 let account = 0;
                 for(const e in atcoder){
                     const data = atcoder[e];
+                    const contestid =  data['contest_id'].toUpperCase()
+                    const title = data['problem_id']
+                    const point = data['point']
+                    const url =  "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
                     if(data['result'] === 'AC'){
                         const subtime = data['epoch_second'] * 1000;
                         const tmp = {
                             'site' : 'AtCoder',
                             'subtime' : subtime,
-                            'contestId' : data['contest_id'].toUpperCase(),
-                            'title' : data['problem_id'],//prob_dic[data['problem_id']],
-                            'point' : data['point'],
-                            'detail' : "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
+                            'contestId' : contestid,
+                            'title' : title,//prob_dic[data['problem_id']],
+                            'point' : point,
+                            'detail' :url,
                         }
+
+                        const s = new acsubmit(subtime, 'AC', contestid, title, point, url)
+                        console.log('added')
+                        submiss.add(s)
 
                         if(getdate(subtime) === d){
                             todaysac[subtime] = tmp;
                         }else{
-                            submissions[subtime] = tmp;
+                            subs[subtime] = tmp;
                         }
 //                        addCount(getdate(subtime));
                         account += 1;
