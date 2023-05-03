@@ -1,7 +1,7 @@
 import {submissions, acsubmit, cfsubmit, aojsubmit, ycsubmit} from "./submit";
 
-class client{}
-export class acclient extends client{
+class BaseClient {}
+export class AtCoderClient extends BaseClient{
     constructor(user) {
         super();
         this.user = user
@@ -38,7 +38,7 @@ export class acclient extends client{
     }
 }
 
-export class cfclient extends client {
+export class CodeForcesClient extends BaseClient {
     constructor(user) {
         super();
         this.user = user
@@ -76,7 +76,7 @@ export class cfclient extends client {
 
 }
 
-export class aojclient extends client{
+export class AizuOnlineJudgeClient extends BaseClient{
     constructor(user) {
         super();
         this.user = user
@@ -113,7 +113,7 @@ export class aojclient extends client{
 }
 
 
-export class ycclient extends client{
+export class yukicoderClient extends BaseClient{
     constructor(user) {
         super();
         this.user = user
