@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 
 import App from '../achistory/App';
-import Hoge from '../heatmap/Hoge';
 import UserData from '../userdata/userdata';
 import TodaysAC from '../todaysac/TodaysAC';
 
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import './inputs.css';
 
@@ -25,15 +23,7 @@ function getdate(millisec){
 
 const d = getdate(new Date().getTime());
 
-var dailyCount = {};
 
-function addCount(d){
-    if(isNaN(dailyCount[d])){
-        dailyCount[d] = 1;
-    }else{
-        dailyCount[d]++;
-    }
-}
 
 const styles = theme => ({
     container: {
@@ -84,7 +74,7 @@ export default class Inputs extends Component{
 
     handleClick = () => {
         //codeforces
-        if(this.state.cfuser != ""){
+        if(this.state.cfuser !== ""){
             const url = "https://codeforces.com/api/user.status?handle=" + this.state.cfuser + "&from=1&count=1000";
             fetch(url).then((res) => {
                 return res.json()
@@ -94,7 +84,7 @@ export default class Inputs extends Component{
                 let submissions = this.state.submissions;
                 let cfcount = 0;
                 for(const data of codeforces.result){
-                    if(data['verdict'] == 'OK'){
+                    if(data['verdict'] === 'OK'){
                         const subtime = data['creationTimeSeconds'] * 1000;
                         const tmp = {
                             'site' : 'Codeforces',
@@ -104,7 +94,7 @@ export default class Inputs extends Component{
                             'point' : data['problem']['rating'],
                             'detail' : "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
                         }
-                        if(getdate(subtime) == d){
+                        if(getdate(subtime) === d){
                             todaysac[subtime] = tmp;
                         }else{
                             submissions[subtime] = tmp;
@@ -122,7 +112,7 @@ export default class Inputs extends Component{
         }
 
         //atcoder
-        if(this.state.acuser != ""){
+        if(this.state.acuser !== ""){
             const url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + this.state.acuser;
             fetch(url).then(res => {
                 return res.json()
@@ -151,7 +141,7 @@ export default class Inputs extends Component{
                             'detail' : "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
                         }
 
-                        if(getdate(subtime) == d){
+                        if(getdate(subtime) === d){
                             todaysac[subtime] = tmp;
                         }else{
                             submissions[subtime] = tmp;
@@ -168,7 +158,7 @@ export default class Inputs extends Component{
             })
         }
         //aoj
-        if(this.state.aojuser != ""){
+        if(this.state.aojuser !== ""){
             const url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.state.aojuser + "?page=0&size=10000";
             fetch(url).then(res => {
                 return res.json()
@@ -189,7 +179,7 @@ export default class Inputs extends Component{
                             'point' : null,
                             'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
                         }
-                        if(getdate(subtime) == d){
+                        if(getdate(subtime) === d){
                             todaysac[subtime] = tmp;
                         }else{
                             submissions[subtime] = tmp;
@@ -206,7 +196,7 @@ export default class Inputs extends Component{
             })
         }
         //ycuser
-        if(this.state.ycuser != ""){
+        if(this.state.ycuser !== ""){
             const url = "https://yukicoder.me/api/v1/solved/name/" + this.state.ycuser;
             fetch(url).then(res => {
                 return res.json()
@@ -228,7 +218,7 @@ export default class Inputs extends Component{
                         'detail' : "https://yukicoder.me/"
                     }
 //                    addCount(getdate(subtime));
-                    if(getdate(subtime) == d){
+                    if(getdate(subtime) === d){
                         todaysac[subtime] = tmp;
                     }else{
                         submissions[subtime] = tmp;
@@ -257,6 +247,8 @@ export default class Inputs extends Component{
                 break
             case "ycuser" :
                 this.setState({ycuser : e.target.value})
+                break
+            default:
                 break
         }
     }
