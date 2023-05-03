@@ -54,8 +54,8 @@ const styles = theme => ({
 
 
 class submit {
-    constructor(time, result, contest, title, point, url) {
-        this.time = time
+    constructor(t, result, contest, title, point, url) {
+        this.t = t
         this.result = result
         this.contest  = contest
         this.title = title
@@ -121,6 +121,45 @@ class submissions {
     getAll()  {
         return this.subs
     }
+
+    merge(submissions){
+        submissions.getAll().map(sub => {
+            this.add(sub)
+        })
+    }
+}
+
+class client{}
+class acclient extends client{
+    constructor(user) {
+        super();
+        this.url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + user
+    }
+    fetch() {
+        return fetch(this.url).then((res) => {
+            return res.json()
+        })
+    }
+
+    resToSub(res) {
+        const subtime = res['epoch_second'] * 1000;
+        const result = res['result']
+        const contestid =  res['contest_id'].toUpperCase()
+        const title = res['problem_id']
+        const point = res['point']
+        const url =  "https://atcoder.jp/contests/" + res['contest_id'] + "/submissions/" + res['id']
+
+        const s = new acsubmit(subtime, result, contestid, title, point, url)
+        return s
+    }
+
+    toSubmissions(results) {
+        const subs = new submissions()
+        for(const res of results){
+            subs.add(this.resToSub(res))
+        }
+        return subs
+    }
 }
 
 export default class Inputs extends Component{
@@ -138,9 +177,9 @@ export default class Inputs extends Component{
     }
 
     handleClick = () => {
-        //codeforces
-
         const submiss = new submissions()
+
+        //codeforces
         if(this.state.cfuser !== ""){
             const url = "https://codeforces.com/api/user.status?handle=" + this.state.cfuser + "&from=1&count=1000";
             fetch(url).then((res) => {
@@ -148,17 +187,13 @@ export default class Inputs extends Component{
             }).then((codeforces) => {
                 this.setState({isloaded : true});
                 for(const data of codeforces.result){
+                    const subtime = data['creationTimeSeconds'] * 1000;
                     const contestid = data['problem']['contestId']
                     const title = data['problem']['index'] + '. ' + data['problem']['name']
                     const point = data['problem']['rating']
                     const url = "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
-                    if(data['verdict'] === 'OK'){
-                        const subtime = data['creationTimeSeconds'] * 1000;
-
-                        const sub = new cfsubmit(subtime, "OK", contestid, title, point, url)
-                        submiss.add(sub)
-
-                    }
+                    const sub = new cfsubmit(subtime, "OK", contestid, title, point, url)
+                    submiss.add(sub)
                 }
                 this.setState({
                      submiss: submiss
@@ -168,36 +203,17 @@ export default class Inputs extends Component{
 
         //atcoder
         if(this.state.acuser !== ""){
-            const url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + this.state.acuser;
-            fetch(url).then(res => {
-                return res.json()
-            }).then(atcoder => {
-                /*
-                var prob_dic = {}
-                    
-                for(const e in acp){
-                    prob_dic[acp[e]['id']] = acp[e]['title'];
-                }
-                */
-                this.setState({isloaded : true});
-                for(const e in atcoder){
-                    const data = atcoder[e];
-                    const contestid =  data['contest_id'].toUpperCase()
-                    const title = data['problem_id']
-                    const point = data['point']
-                    const url =  "https://atcoder.jp/contests/" + data['contest_id'] + "/submissions/" + data['id']
-                    if(data['result'] === 'AC'){
-                        const subtime = data['epoch_second'] * 1000;
-                        const s = new acsubmit(subtime, 'AC', contestid, title, point, url)
-                        submiss.add(s)
-
-                    }
-                }
+            const c = new acclient(this.state.acuser)
+            c.fetch().then(json => {
+                const subs = c.toSubmissions(json)
+                submiss.merge(subs)
                 this.setState({
+                    isloaded: true,
                     submiss: submiss
                 })
             })
         }
+
         //aoj
         if(this.state.aojuser !== ""){
             const url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.state.aojuser + "?page=0&size=10000";
@@ -207,13 +223,11 @@ export default class Inputs extends Component{
                 this.setState({isloaded : true});
                 for(const e in aoj){
                     const data = aoj[e];
-                    if(data['status'] === 4){
-                        const subtime = data['submissionDate'];
-                        const title = data['problemId']
-                        const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
-                        const s = new aojsubmit(subtime, 'AC', '', title, null, url)
-                        submiss.add(s)
-                    }
+                    const subtime = data['submissionDate'];
+                    const title = data['problemId']
+                    const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
+                    const s = new aojsubmit(subtime, 'AC', '', title, null, url)
+                    submiss.add(s)
                 }
                 this.setState({
                     submiss: submiss

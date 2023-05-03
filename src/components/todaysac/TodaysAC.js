@@ -32,6 +32,7 @@ export default class TodaysAC extends Component {
     }
     tweet_text += "Sum : " + keys.length + "%0A";
     tweet_text += "%23ACLogger";
+    console.log(this.props.data)
 
 
     

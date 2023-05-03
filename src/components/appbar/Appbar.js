@@ -15,7 +15,7 @@ export default class Bar extends React.Component{
                 <AppBar position="static" color="default">
                     <Toolbar>
                         <img src = {icon} className = 'acicon' alt = 'logo'></img>
-                        <h3 className = 'logo'>Logger</h3>
+                        <h3 className = 'logo'>HeatMap</h3>
                         <Pop id = 'about' title = 'About' ></Pop>
                     </Toolbar>
                 </AppBar>

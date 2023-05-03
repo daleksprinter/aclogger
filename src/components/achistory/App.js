@@ -26,6 +26,7 @@ export default class App extends Component {
     keys.sort();
     keys.reverse();
 
+    console.log(this.props.data)
     
     return (
       <Paper className = 'log'>
@@ -44,7 +45,7 @@ export default class App extends Component {
           <TableBody>
             {this.props.data.map((submit) => (
               <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(submit.url, "_blank")}>
-                <TableCell align="left">{getdate(submit.time)}</TableCell>
+                <TableCell align="left">{getdate(submit.t)}</TableCell>
                 <TableCell align="center" >{submit.getSite()}</TableCell>
                 <TableCell align="center">{submit.contest}</TableCell>
                 <TableCell align="center">{submit.title}</TableCell>
