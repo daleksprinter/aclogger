@@ -133,6 +133,7 @@ class client{}
 class acclient extends client{
     constructor(user) {
         super();
+        this.user = user
         this.url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + user
     }
     fetch() {
@@ -162,6 +163,40 @@ class acclient extends client{
     }
 }
 
+class cfclient extends client {
+    constructor(user) {
+        super();
+        this.user = user
+        this.url = "https://codeforces.com/api/user.status?handle=" + this.user + "&from=1&count=1000"
+    }
+
+    fetch() {
+        return fetch(this.url).then((res) => {
+            return res.json()
+        })
+    }
+
+    resToSub(res) {
+          const subtime = res['creationTimeSeconds'] * 1000;
+          const result = res['verdict']
+          const contestid = res['problem']['contestId']
+          const title = res['problem']['index'] + '. ' + res['problem']['name']
+          const point = res['problem']['rating']
+          const url = "https://codeforces.com/contest/" + res['problem']['contestId'] + "/submission/" + res['id']
+          const sub = new cfsubmit(subtime, result, contestid, title, point, url)
+          return sub
+    }
+
+    toSubmissions(results) {
+        const subs = new submissions()
+        for(const res of results){
+            subs.add(this.resToSub(res))
+        }
+        return subs
+    }
+
+}
+
 export default class Inputs extends Component{
 
     constructor(){
@@ -180,39 +215,26 @@ export default class Inputs extends Component{
         const submiss = new submissions()
 
         //codeforces
-        if(this.state.cfuser !== ""){
-            const url = "https://codeforces.com/api/user.status?handle=" + this.state.cfuser + "&from=1&count=1000";
-            fetch(url).then((res) => {
-                return res.json()
-            }).then((codeforces) => {
-                this.setState({isloaded : true});
-                for(const data of codeforces.result){
-                    const subtime = data['creationTimeSeconds'] * 1000;
-                    const contestid = data['problem']['contestId']
-                    const title = data['problem']['index'] + '. ' + data['problem']['name']
-                    const point = data['problem']['rating']
-                    const url = "https://codeforces.com/contest/" + data['problem']['contestId'] + "/submission/" + data['id']
-                    const sub = new cfsubmit(subtime, "OK", contestid, title, point, url)
-                    submiss.add(sub)
-                }
-                this.setState({
-                     submiss: submiss
-                });
-            })  
-        }
+        const cf = new cfclient(this.state.cfuser)
+        cf.fetch().then(json => {
+            const subs = cf.toSubmissions(json['result'])
+            submiss.merge(subs)
+            this.setState({
+                isloaded: true,
+                submiss: submiss
+            })
+        })
 
         //atcoder
-        if(this.state.acuser !== ""){
-            const c = new acclient(this.state.acuser)
-            c.fetch().then(json => {
-                const subs = c.toSubmissions(json)
-                submiss.merge(subs)
-                this.setState({
-                    isloaded: true,
-                    submiss: submiss
-                })
+        const ac = new acclient(this.state.acuser)
+        ac.fetch().then(json => {
+            const subs = ac.toSubmissions(json)
+            submiss.merge(subs)
+            this.setState({
+                isloaded: true,
+                submiss: submiss
             })
-        }
+        })
 
         //aoj
         if(this.state.aojuser !== ""){
