@@ -8,9 +8,13 @@ export class acclient extends client{
         this.url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + user
     }
     fetch() {
-        return fetch(this.url).then((res) => {
-            return res.json()
-        })
+        if(this.user !== "" && this.user !== undefined) {
+            return fetch(this.url).then((res) => {
+                return res.json()
+            })
+        } else{
+            return Promise.resolve([])
+        }
     }
 
     resToSub(res) {
@@ -42,9 +46,13 @@ export class cfclient extends client {
     }
 
     fetch() {
-        return fetch(this.url).then((res) => {
-            return res.json()
-        })
+        if(this.user !== "" && this.user !== undefined) {
+            return fetch(this.url).then((res) => {
+                return res.json()
+            })
+        }else{
+            return Promise.resolve({result:[]})
+        }
     }
 
     resToSub(res) {
@@ -68,7 +76,6 @@ export class cfclient extends client {
 
 }
 
-
 export class aojclient extends client{
     constructor(user) {
         super();
@@ -76,9 +83,13 @@ export class aojclient extends client{
         this.url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.user + "?page=0&size=10000";
     }
     fetch() {
-        return fetch(this.url).then((res) => {
-            return res.json()
-        })
+        if(this.user !== "" && this.user !== undefined) {
+            return fetch(this.url).then((res) => {
+                return res.json()
+            })
+        }else{
+            return Promise.resolve([])
+        }
     }
 
     resToSub(res) {
@@ -89,6 +100,43 @@ export class aojclient extends client{
         const point = null
         const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + res['judgeId']
         const s = new aojsubmit(subtime, result, contestid, title, point, url)
+        return s
+    }
+
+    toSubmissions(results) {
+        const subs = new submissions()
+        for(const res of results){
+            subs.add(this.resToSub(res))
+        }
+        return subs
+    }
+}
+
+
+export class ycclient extends client{
+    constructor(user) {
+        super();
+        this.user = user
+        this.url = "https://yukicoder.me/api/v1/solved/name/" + this.user
+    }
+    fetch() {
+        if(this.user !== "" && this.user !== undefined) {
+            return fetch(this.url).then((res) => {
+                return res.json()
+            })
+        }else{
+            return Promise.resolve([])
+        }
+    }
+
+    resToSub(res) {
+        const subtime = new Date(res['Date']).getTime();
+        const result = "AC"
+        const contestid = null
+        const title = res['Title']
+        const point =  res['Level']
+        const url  = "https://yukicoder.me/"
+        const s = new ycsubmit(subtime, result, contestid, title, point, url)
         return s
     }
 

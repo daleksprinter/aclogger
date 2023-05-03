@@ -6,8 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './inputs.css';
-import {acclient, aojclient, cfclient} from "../../modules/client";
-import {submissions, ycsubmit} from "../../modules/submit";
+import {acclient, aojclient, cfclient, ycclient} from "../../modules/client";
+import {submissions} from "../../modules/submit";
 
 const styles = theme => ({
     container: {
@@ -62,7 +62,7 @@ export default class Inputs extends Component{
                 isloaded: true,
                 submiss: submiss
             })
-        })
+        }).catch()
 
         //atcoder
         const ac = new acclient(this.state.acuser)
@@ -73,7 +73,8 @@ export default class Inputs extends Component{
                 isloaded: true,
                 submiss: submiss
             })
-        })
+        }).catch()
+
         //aoj
         const aojc = new aojclient(this.state.aojuser)
         aojc.fetch().then(json => {
@@ -84,31 +85,18 @@ export default class Inputs extends Component{
                 isloaded: true,
                 submiss: submiss
             })
-        })
+        }).catch()
 
         //ycuser
-        /*if(this.state.ycuser !== ""){
-            const url = "https://yukicoder.me/api/v1/solved/name/" + this.state.ycuser;
-            fetch(url).then(res => {
-                return res.json()
-            }).then(yc => {
-                this.setState({isloaded : true});
-                for(const e in yc){
-                    const data = yc[e];
-                    if(data["Level"] >= 3) continue;
-                    const subtime = new Date(data['Date']).getTime();
-                    const title = data['Title']
-                    const point =  data['Level']
-                    const url  = "https://yukicoder.me/"
-                    const s = new ycsubmit(subtime, null, title, point, url)
-                    submiss.add(s)
-                }
-                this.setState({
-                    submiss: submiss
-                })
+        const ycc = new ycclient(this.state.ycuser)
+        ycc.fetch().then(json => {
+            const subs = ycc.toSubmissions(json)
+            submiss.merge(subs)
+            this.setState({
+                isloaded: true,
+                submiss: submiss
             })
-        }
-*/
+        }).catch()
     }
 
     handleChange = (e) => {
