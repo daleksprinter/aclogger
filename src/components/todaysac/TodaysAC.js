@@ -50,13 +50,13 @@ export default class TodaysAC extends Component {
           </TableHead>
           
           <TableBody>
-            {keys.map((key) => (
-              <TableRow className = "subdet" key = {key} onClick = {() => window.open(this.props.data[key]['detail'], "_blank")}>
+            {this.props.data.map((submit) => (
+              <TableRow className = "subdet" key = {'hoge'} onClick = {() => window.open(submit.url, "_blank")}>
                 <TableCell align="left">Today</TableCell>
-                <TableCell align="center" >{this.props.data[key]['site']}</TableCell>
-                <TableCell align="center">{this.props.data[key]['contestId']}</TableCell>
-                <TableCell align="center">{this.props.data[key]['title']}</TableCell>
-                <TableCell align="center">{this.props.data[key]['point']}</TableCell>
+                <TableCell align="center" >{'AtCoder'}</TableCell>
+                <TableCell align="center">{submit.contestid}</TableCell>
+                <TableCell align="center">{submit.title}</TableCell>
+                <TableCell align="center">{submit.point}</TableCell>
               </TableRow>
             ))}
           </TableBody>

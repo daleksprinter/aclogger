@@ -333,11 +333,11 @@ export default class Inputs extends Component{
                                 'AtCoder' : this.state.submiss.account(),
                                 'Aizu Online Judge' : this.state.submiss.aojcount(),
                                 'yukicoder' : this.state.submiss.ykcount(),
-                                'Sum' : this.state.account + this.state.cfcount + this.state.aojcount + this.state.syccount,
+                                'Sum' : this.state.submiss.count(),
                             }
                         }
                     ></UserData>
-                    <TodaysAC data = {this.state.todaysac} />
+                    <TodaysAC data = {this.state.submiss.getTodayAC()} />
                     <App data = {this.state.submissions} />
                 </div>
             )
