@@ -166,10 +166,6 @@ export default class Inputs extends Component{
                         const sub = new cfsubmit(subtime, "OK", contestid, title, point, url)
                         submiss.add(sub)
 
-                        if(getdate(subtime) === d){
-                        }else{
-                        }
-//                        addCount(getdate(subtime));
                     }
                 }
                 this.setState({
@@ -212,10 +208,6 @@ export default class Inputs extends Component{
                         console.log('added')
                         submiss.add(s)
 
-                        if(getdate(subtime) === d){
-                        }else{
-                        }
-//                        addCount(getdate(subtime));
                     }
                 }
                 this.setState({
@@ -229,7 +221,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then(aoj => {
                 this.setState({isloaded : true});
-                let aojcount = 0;
                 for(const e in aoj){
                     const data = aoj[e];
                     if(data['status'] === 4){
@@ -242,14 +233,8 @@ export default class Inputs extends Component{
                             'point' : null,
                             'detail' : "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
                         }
-                        if(getdate(subtime) === d){
-                        }else{
-                        }
-//                        addCount(getdate(subtime));
                     }
                 }
-                this.setState({
-                })
             })
         }
         //ycuser
@@ -259,7 +244,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then(yc => {
                 this.setState({isloaded : true});
-                let yccount = 0;
                 for(const e in yc){
                     const data = yc[e];
                     if(data["Level"] >= 3) continue;
@@ -272,13 +256,7 @@ export default class Inputs extends Component{
                         'point' : data['Level'],
                         'detail' : "https://yukicoder.me/"
                     }
-//                    addCount(getdate(subtime));
-                    if(getdate(subtime) === d){
-                    }else{
-                    }
                 }
-                this.setState({
-                })
             })
         }
         this.setState({
