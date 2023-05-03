@@ -152,7 +152,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then((codeforces) => {
                 this.setState({isloaded : true});
-                let subs = this.state.submissions;
                 let cfcount = 0;
                 for(const data of codeforces.result){
                     const contestid = data['problem']['contestId']
@@ -175,7 +174,6 @@ export default class Inputs extends Component{
 
                         if(getdate(subtime) === d){
                         }else{
-                            subs[subtime] = tmp;
                         }
                         cfcount += 1;
 //                        addCount(getdate(subtime));
@@ -183,7 +181,6 @@ export default class Inputs extends Component{
                 }
                 this.setState({
                     cfcount : cfcount,
-                    submissions: subs,
                 });
             })  
         }
@@ -202,7 +199,6 @@ export default class Inputs extends Component{
                 }
                 */
                 this.setState({isloaded : true});
-                let subs = this.state.submissions;
                 let account = 0;
                 for(const e in atcoder){
                     const data = atcoder[e];
@@ -227,14 +223,12 @@ export default class Inputs extends Component{
 
                         if(getdate(subtime) === d){
                         }else{
-                            subs[subtime] = tmp;
                         }
 //                        addCount(getdate(subtime));
                         account += 1;
                     }
                 }
                 this.setState({
-                    submissions:subs,
                     account: account
                 })
             })
@@ -246,7 +240,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then(aoj => {
                 this.setState({isloaded : true});
-                let subs = this.state.submissions;
                 let aojcount = 0;
                 for(const e in aoj){
                     const data = aoj[e];
@@ -262,14 +255,12 @@ export default class Inputs extends Component{
                         }
                         if(getdate(subtime) === d){
                         }else{
-                            subs[subtime] = tmp;
                         }
 //                        addCount(getdate(subtime));
                         aojcount += 1;
                     }
                 }
                 this.setState({
-                    submissions:subs,
                     aojcount: aojcount,
                 })
             })
@@ -281,7 +272,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then(yc => {
                 this.setState({isloaded : true});
-                let subs = this.state.submissions;
                 let yccount = 0;
                 for(const e in yc){
                     const data = yc[e];
@@ -298,12 +288,10 @@ export default class Inputs extends Component{
 //                    addCount(getdate(subtime));
                     if(getdate(subtime) === d){
                     }else{
-                        subs[subtime] = tmp;
                     }
                     yccount += 1
                 }
                 this.setState({
-                    submissions:subs,
                     yccount:yccount
                 })
             })
