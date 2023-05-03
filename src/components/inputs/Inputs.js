@@ -75,12 +75,27 @@ class submissions {
     }
 
     add(submission) {
-        console.log(this.submissions)
         this.submissions.push(submission)
     }
 
     count() {
         return this.submissions.length
+    }
+
+    account() {
+        return 1
+    }
+
+    cfcount(){
+        return 1
+    }
+
+    ykcount()  {
+        return 1
+    }
+
+    aojcount() {
+        return 1
     }
 }
 
@@ -95,6 +110,7 @@ export default class Inputs extends Component{
             yccount : 0,
             todaysac : {},
             submissions : {},
+            submiss: new submissions(),
             isloaded : false,
             cfuser : "",
             acuser : "",
@@ -281,7 +297,9 @@ export default class Inputs extends Component{
                 })
             })
         }
-        console.log('submiss', submiss.count())
+        this.setState({
+            submiss: submiss
+        })
     }
 
     handleChange = (e) => {
@@ -311,10 +329,10 @@ export default class Inputs extends Component{
                     <UserData 
                         data = {
                             {
-                                'Codeforces' : this.state.cfcount, 
-                                'AtCoder' : this.state.account, 
-                                'Aizu Online Judge' : this.state.aojcount, 
-                                'yukicoder' : this.state.yccount,
+                                'Codeforces' : this.state.submiss.cfcount(),
+                                'AtCoder' : this.state.submiss.account(),
+                                'Aizu Online Judge' : this.state.submiss.aojcount(),
+                                'yukicoder' : this.state.submiss.ykcount(),
                                 'Sum' : this.state.account + this.state.cfcount + this.state.aojcount + this.state.syccount,
                             }
                         }
