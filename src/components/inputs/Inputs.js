@@ -128,11 +128,6 @@ export default class Inputs extends Component{
     constructor(){
         super();
         this.state = {
-            cfcount : 0,
-            account : 0,
-            aojcount : 0,
-            yccount : 0,
-            submissions : {},
             submiss: new submissions(),
             isloaded : false,
             cfuser : "",
@@ -152,7 +147,6 @@ export default class Inputs extends Component{
                 return res.json()
             }).then((codeforces) => {
                 this.setState({isloaded : true});
-                let cfcount = 0;
                 for(const data of codeforces.result){
                     const contestid = data['problem']['contestId']
                     const title = data['problem']['index'] + '. ' + data['problem']['name']
@@ -175,12 +169,10 @@ export default class Inputs extends Component{
                         if(getdate(subtime) === d){
                         }else{
                         }
-                        cfcount += 1;
 //                        addCount(getdate(subtime));
                     }
                 }
                 this.setState({
-                    cfcount : cfcount,
                 });
             })  
         }
@@ -199,7 +191,6 @@ export default class Inputs extends Component{
                 }
                 */
                 this.setState({isloaded : true});
-                let account = 0;
                 for(const e in atcoder){
                     const data = atcoder[e];
                     const contestid =  data['contest_id'].toUpperCase()
@@ -225,11 +216,9 @@ export default class Inputs extends Component{
                         }else{
                         }
 //                        addCount(getdate(subtime));
-                        account += 1;
                     }
                 }
                 this.setState({
-                    account: account
                 })
             })
         }
@@ -257,11 +246,9 @@ export default class Inputs extends Component{
                         }else{
                         }
 //                        addCount(getdate(subtime));
-                        aojcount += 1;
                     }
                 }
                 this.setState({
-                    aojcount: aojcount,
                 })
             })
         }
@@ -289,10 +276,8 @@ export default class Inputs extends Component{
                     if(getdate(subtime) === d){
                     }else{
                     }
-                    yccount += 1
                 }
                 this.setState({
-                    yccount:yccount
                 })
             })
         }
