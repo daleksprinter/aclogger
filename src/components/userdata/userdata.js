@@ -9,11 +9,6 @@ import './userdata.css';
 export default class UserData extends Component{
 
     render(){
-        var tweettext = "";
-        for(const k in this.props.data){
-            tweettext += k + " : " + this.props.data[k] + "AC" + "%0A";
-        }
-        tweettext += "Send by ACLogger";
         return(
             <Paper className = 'userdata'>
 
