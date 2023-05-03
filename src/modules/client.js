@@ -1,4 +1,4 @@
-import {submissions} from "./submit";
+import {submissions, acsubmit, cfsubmit, aojsubmit, ycsubmit} from "./submit";
 
 class client{}
 export class acclient extends client{
@@ -66,4 +66,37 @@ export class cfclient extends client {
         return subs
     }
 
+}
+
+
+export class aojclient extends client{
+    constructor(user) {
+        super();
+        this.user = user
+        this.url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.user + "?page=0&size=10000";
+    }
+    fetch() {
+        return fetch(this.url).then((res) => {
+            return res.json()
+        })
+    }
+
+    resToSub(res) {
+        const subtime = res['submissionDate'];
+        const result = res['status']
+        const contestid = null
+        const title = res['problemId']
+        const point = null
+        const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + res['judgeId']
+        const s = new aojsubmit(subtime, result, contestid, title, point, url)
+        return s
+    }
+
+    toSubmissions(results) {
+        const subs = new submissions()
+        for(const res of results){
+            subs.add(this.resToSub(res))
+        }
+        return subs
+    }
 }

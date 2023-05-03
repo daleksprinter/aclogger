@@ -6,8 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './inputs.css';
-import {acclient, cfclient} from "../../modules/client";
-import {submissions} from "../../modules/submit";
+import {acclient, aojclient, cfclient} from "../../modules/client";
+import {submissions, ycsubmit} from "../../modules/submit";
 
 const styles = theme => ({
     container: {
@@ -74,29 +74,20 @@ export default class Inputs extends Component{
                 submiss: submiss
             })
         })
-
         //aoj
-        if(this.state.aojuser !== ""){
-            const url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.state.aojuser + "?page=0&size=10000";
-            fetch(url).then(res => {
-                return res.json()
-            }).then(aoj => {
-                this.setState({isloaded : true});
-                for(const e in aoj){
-                    const data = aoj[e];
-                    const subtime = data['submissionDate'];
-                    const title = data['problemId']
-                    const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + data['judgeId']
-                    const s = new aojsubmit(subtime, 'AC', '', title, null, url)
-                    submiss.add(s)
-                }
-                this.setState({
-                    submiss: submiss
-                })
+        const aojc = new aojclient(this.state.aojuser)
+        aojc.fetch().then(json => {
+            console.log(json)
+            const subs = aojc.toSubmissions(json)
+            submiss.merge(subs)
+            this.setState({
+                isloaded: true,
+                submiss: submiss
             })
-        }
+        })
+
         //ycuser
-        if(this.state.ycuser !== ""){
+        /*if(this.state.ycuser !== ""){
             const url = "https://yukicoder.me/api/v1/solved/name/" + this.state.ycuser;
             fetch(url).then(res => {
                 return res.json()
@@ -117,7 +108,7 @@ export default class Inputs extends Component{
                 })
             })
         }
-
+*/
     }
 
     handleChange = (e) => {

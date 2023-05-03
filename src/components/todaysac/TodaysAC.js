@@ -24,7 +24,6 @@ export default class TodaysAC extends Component {
     keys.sort();
     keys.reverse();
 
-
     var tweet_text = "Today's AC%0A";
 
     for(const key of keys){
@@ -32,10 +31,7 @@ export default class TodaysAC extends Component {
     }
     tweet_text += "Sum : " + keys.length + "%0A";
     tweet_text += "%23ACLogger";
-    console.log(this.props.data)
 
-
-    
     return (
       <Paper className = 'log'>
         <div className = 'todaysactitle'>Today's AC</div>

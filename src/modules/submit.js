@@ -9,22 +9,22 @@ class submit {
     }
 }
 
-class acsubmit extends submit {
+export class acsubmit extends submit {
     getSite() {
         return "AtCoder"
     }
 }
-class cfsubmit extends submit {
+export class cfsubmit extends submit {
     getSite() {
         return "CodeForces"
     }
 }
-class aojsubmit extends submit {
+export class aojsubmit extends submit {
      getSite() {
         return "AizuOnlineJudge"
     }
 }
-class ycsubmit extends submit {
+export class ycsubmit extends submit {
      getSite() {
         return "yukicoder"
     }
