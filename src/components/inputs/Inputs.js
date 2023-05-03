@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './inputs.css';
-import {acclient, aojclient, cfclient, ycclient} from "../../modules/client";
+import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/client";
 import {submissions} from "../../modules/submit";
 
 const styles = theme => ({
@@ -54,7 +54,7 @@ export default class Inputs extends Component{
         const submiss = new submissions()
 
         //codeforces
-        const cf = new cfclient(this.state.cfuser)
+        const cf = new CodeForcesClient(this.state.cfuser)
         cf.fetch().then(json => {
             const subs = cf.toSubmissions(json['result'])
             submiss.merge(subs)
@@ -65,7 +65,7 @@ export default class Inputs extends Component{
         }).catch()
 
         //atcoder
-        const ac = new acclient(this.state.acuser)
+        const ac = new AtCoderClient(this.state.acuser)
         ac.fetch().then(json => {
             const subs = ac.toSubmissions(json)
             submiss.merge(subs)
@@ -76,7 +76,7 @@ export default class Inputs extends Component{
         }).catch()
 
         //aoj
-        const aojc = new aojclient(this.state.aojuser)
+        const aojc = new AizuOnlineJudgeClient(this.state.aojuser)
         aojc.fetch().then(json => {
             console.log(json)
             const subs = aojc.toSubmissions(json)
@@ -88,7 +88,7 @@ export default class Inputs extends Component{
         }).catch()
 
         //ycuser
-        const ycc = new ycclient(this.state.ycuser)
+        const ycc = new yukicoderClient(this.state.ycuser)
         ycc.fetch().then(json => {
             const subs = ycc.toSubmissions(json)
             submiss.merge(subs)
