@@ -9,13 +9,28 @@ import ReactTooltip from 'react-tooltip';
 import './HeatMap.css';
 
 export default class Hoge extends Component {
+
+    dataToValues(data){
+        let cntmap = {}
+        for(const sub of data) {
+            const date = sub.getDate()
+            const cnt = cntmap[date] ? cntmap[date] + 1 : 1
+            cntmap[date] = cnt
+        }
+        let ret = []
+        for(const date in cntmap) {
+            const val = {date: date, count: cntmap[date]}
+            ret.push(val)
+        }
+        return ret
+    }
   render() {
     return (
       <Paper className = "heatmap">
         <CalendarHeatmap
           startDate={new Date('2022-01-01')}
           endDate={new Date()}
-          values={this.props.data}
+          values={this.dataToValues(this.props.data)}
           classForValue={value => {
             if (!value) {
               return 'color-empty';
