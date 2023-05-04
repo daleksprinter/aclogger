@@ -76,26 +76,113 @@ export default class Filter extends React.Component{
     }
     render(){
         return (
-            <div>
-                <Paper>
-                    <TextField
-                        id="from_date"
-                        label="From Date"
-                        className={styles.textField}
-                        margin="normal"
-                        onChange = {this.handleChange}
-                        name = 'from_date'
-                    />
-                </Paper>
-                    <Button
-                            variant="outlined"
-                            color="primary"
-                            className={styles.button}
-                            onClick = {this.handleClick}
-                        >
-                          Filter
-                    </Button>
-            </div>
+            <Paper>
+                <TextField
+                    id="from_date"
+                    label="From Date"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'from_date'
+                />
+                <TextField
+                    id="to_date"
+                    label="To Date"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'to_date'
+                />
+                <TextField
+                    id="atocder_lower_point"
+                    label="AtCoder Point From"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'atocder_lower_point'
+                />
+                <TextField
+                    id="atcoder_upper_point"
+                    label="AtCoder Point To"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'atcoder_upper_point'
+                />
+                <TextField
+                    id="atcoder_status"
+                    label="AtCoder Status"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'atcoder_status'
+                />
+                <TextField
+                    id="codeforces_lower_point"
+                    label="Codeforces Point From"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'codeforces_lower_point'
+                />
+                <TextField
+                    id="codeforces_upper_point"
+                    label="Codeforces Point To"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'codeforces_upper_point'
+                />
+                <TextField
+                    id="codeforces_status"
+                    label="Codeforces Status"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'codeforces_status'
+                />
+                <TextField
+                    id="aoj_status"
+                    label="AOJ Status"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'aoj_status'
+                />
+                <TextField
+                    id="yukicoder_lower_point"
+                    label="yukicoder Point From"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'yukicoder_lower_point'
+                />
+                <TextField
+                    id="yukiconder_upper_point"
+                    label="yukicoder Point To"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'yukiconder_upper_point'
+                />
+                <TextField
+                    id="yukicoder_status"
+                    label="yukicoder Status"
+                    className={styles.textField}
+                    margin="normal"
+                    onChange = {this.handleChange}
+                    name = 'yukicoder_status'
+                />
+                <Button
+                        variant="outlined"
+                        color="primary"
+                        className={styles.button}
+                        onClick = {this.handleClick}
+                >
+                      Filter
+                </Button>
+
+            </Paper>
       );
     }
 }
