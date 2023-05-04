@@ -84,13 +84,17 @@ export default class App extends Component{
         }
     }
 
+    update(cond) {
+        console.log(cond)
+    }
+
 
     render(props, state){
         return (
             <div>
                 <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
                 <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
-                <Filter></Filter>
+                <Filter update = {this.update}></Filter>
                 <SubmissionCounts
                     data = {
                         {

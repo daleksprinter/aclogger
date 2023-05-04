@@ -1,5 +1,6 @@
 import React from 'react';
 import {Paper, TextField, Button} from '@material-ui/core';
+import {conditionsDTO} from "../../modules/condition";
 
 const styles = theme => ({
     textField: {
@@ -24,7 +25,7 @@ export default class Filter extends React.Component{
             codeforces_status: "",
             aoj_status: "",
             yukicoder_lower_point: "",
-            yukiconder_upper_point: "",
+            yukicoder_upper_point: "",
             yukicoder_status: "",
         }
     }
@@ -38,7 +39,7 @@ export default class Filter extends React.Component{
                 this.setState({to_date : e.target.value})
                 break
             case "atocder_lower_point" :
-                this.setState({atocder_lower_point : e.target.value})
+                this.setState({atcoder_lower_point : e.target.value})
                 break
             case "atcoder_upper_point" :
                 this.setState({atcoder_upper_point : e.target.value})
@@ -61,8 +62,8 @@ export default class Filter extends React.Component{
             case "yukicoder_lower_point" :
                 this.setState({yukicoder_lower_point : e.target.value})
                 break
-            case "yukiconder_upper_point" :
-                this.setState({yukiconder_upper_point : e.target.value})
+            case "yukicoder_upper_point" :
+                this.setState({yukicoder_upper_point : e.target.value})
                 break
             case "yukicoder_status" :
                 this.setState({yukicoder_status : e.target.value})
@@ -73,6 +74,21 @@ export default class Filter extends React.Component{
     }
 
     handleClick = () => {
+       const conddto = new conditionsDTO(
+           this.state.from_date,
+           this.state.to_date,
+           this.state.atcoder_lower_point,
+           this.state.atcoder_upper_point,
+           this.state.atcoder_status,
+           this.state.codeforces_lower_point,
+           this.state.codeforces_upper_point,
+           this.state.codeforces_status,
+           this.state.aoj_status,
+           this.state.yukicoder_lower_point,
+           this.state.yukicoder_upper_point,
+           this.state.yukicoder_status
+       )
+        this.props.update(conddto)
     }
     render(){
         return (
@@ -158,12 +174,12 @@ export default class Filter extends React.Component{
                     name = 'yukicoder_lower_point'
                 />
                 <TextField
-                    id="yukiconder_upper_point"
+                    id="yukicoder_upper_point"
                     label="yukicoder Point To"
                     className={styles.textField}
                     margin="normal"
                     onChange = {this.handleChange}
-                    name = 'yukiconder_upper_point'
+                    name = 'yukicoder_upper_point'
                 />
                 <TextField
                     id="yukicoder_status"
