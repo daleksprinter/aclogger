@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper, TextField, Button, Select, MenuItem} from '@material-ui/core';
+import {Paper, TextField, Button, Select, MenuItem, Input} from '@material-ui/core';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 
@@ -20,7 +20,7 @@ export default class Filter extends React.Component{
             to_date: "",
             atocder_lower_point: "",
             atcoder_upper_point: "",
-            atcoder_status: "",
+            atcoder_status: [],
             codeforces_lower_point: "",
             codeforces_upper_point: "",
             codeforces_status: "",
@@ -166,14 +166,26 @@ export default class Filter extends React.Component{
                     <MenuItem value={1100}>1100</MenuItem>
                 </Select>
 
-                <TextField
-                    id="atcoder_status"
-                    label="AtCoder Status"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'atcoder_status'
-                />
+                <Select
+                  labelId="atcoder_status"
+                  id="atcoder_status"
+                  name="atcoder_status"
+                  multiple
+                  value={this.state.atcoder_status}
+                  onChange={this.handleChange}
+
+                 input={<Input id="atcoder_status" />}
+                >
+                  {["AC", "WA", "RE"].map((name) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+
                 <div>CodeForces</div>
                 <TextField
                     id="codeforces_lower_point"
