@@ -91,29 +91,23 @@ export default class Inputs extends Component{
 
 
     render(props, state){
-        if(this.state.isloaded){
-            return (
-                <div>
-                    <UserData 
-                        data = {
-                            {
-                                'Codeforces' : this.state.submiss.cfcount(),
-                                'AtCoder' : this.state.submiss.account(),
-                                'Aizu Online Judge' : this.state.submiss.aojcount(),
-                                'yukicoder' : this.state.submiss.ykcount(),
-                                'Sum' : this.state.submiss.count(),
-                            }
-                        }
-                    ></UserData>
-                    <TodaysAC data = {this.state.submiss.getTodayAC()} />
-                    <App data = {this.state.submiss.getAll()} />
-                </div>
-            )
-        }else{
-            return (
+        return (
+            <div>
                 <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
-            )   
-        }
-  
+                <UserData
+                    data = {
+                        {
+                            'Codeforces' : this.state.submiss.cfcount(),
+                            'AtCoder' : this.state.submiss.account(),
+                            'Aizu Online Judge' : this.state.submiss.aojcount(),
+                            'yukicoder' : this.state.submiss.ykcount(),
+                            'Sum' : this.state.submiss.count(),
+                        }
+                    }
+                ></UserData>
+                <TodaysAC data = {this.state.submiss.getTodayAC()} />
+                <App data = {this.state.submiss.getAll()} />
+            </div>
+        )
     }
 }

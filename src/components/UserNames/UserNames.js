@@ -57,7 +57,7 @@ export default class UserNames extends React.Component{
                             className={styles.button}
                             onClick = {this.props.handleClick}
                         >
-                            Search
+                           Refresh
                         </Button>
                     </div>
                 </Paper>
