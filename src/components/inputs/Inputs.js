@@ -105,7 +105,6 @@ export default class Inputs extends Component{
                         }
                     }
                 ></UserData>
-                <TodaysAC data = {this.state.submiss.getTodayAC()} />
                 <App data = {this.state.submiss.getAll()} />
             </div>
         )
