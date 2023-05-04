@@ -23,11 +23,10 @@ export default class Filter extends React.Component{
             atcoder_status: [],
             codeforces_lower_point: "",
             codeforces_upper_point: "",
-            codeforces_status: "",
-            aoj_status: "",
+            codeforces_status: [],
+            aoj_status: [],
             yukicoder_lower_point: "",
             yukicoder_upper_point: "",
-            yukicoder_status: "",
         }
     }
 
@@ -65,9 +64,6 @@ export default class Filter extends React.Component{
                 break
             case "yukicoder_upper_point" :
                 this.setState({yukicoder_upper_point : e.target.value})
-                break
-            case "yukicoder_status" :
-                this.setState({yukicoder_status : e.target.value})
                 break
             default:
                 break
@@ -115,8 +111,8 @@ export default class Filter extends React.Component{
                     onChange = {this.handleChange}
                     name = 'to_date'
                 />
-                <div>AtCoder</div>
 
+                <div>AtCoder</div>
                 <Select
                     value={this.state.atcoder_lower_point}
                     onChange={this.handleChange}
@@ -173,8 +169,7 @@ export default class Filter extends React.Component{
                   multiple
                   value={this.state.atcoder_status}
                   onChange={this.handleChange}
-
-                 input={<Input id="atcoder_status" />}
+                  input={<Input id="atcoder_status" />}
                 >
                   {["AC", "WA", "RE"].map((name) => (
                     <MenuItem
@@ -187,64 +182,134 @@ export default class Filter extends React.Component{
                 </Select>
 
                 <div>CodeForces</div>
-                <TextField
-                    id="codeforces_lower_point"
-                    label="Codeforces Point From"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'codeforces_lower_point'
-                />
-                <TextField
-                    id="codeforces_upper_point"
-                    label="Codeforces Point To"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'codeforces_upper_point'
-                />
-                <TextField
-                    id="codeforces_status"
-                    label="Codeforces Status"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'codeforces_status'
-                />
+                <Select
+                    value={this.state.codeforces_lower_point}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'codeforces_lower_point',
+                      id: 'codeforces_lower_point',
+                    }}
+                  >
+                    <MenuItem value={0}>
+                      <em></em>
+                    </MenuItem>
+                    <MenuItem value={100}>100</MenuItem>
+                    <MenuItem value={200}>200</MenuItem>
+                    <MenuItem value={300}>300</MenuItem>
+                    <MenuItem value={400}>400</MenuItem>
+                    <MenuItem value={500}>500</MenuItem>
+                    <MenuItem value={600}>600</MenuItem>
+                    <MenuItem value={700}>700</MenuItem>
+                    <MenuItem value={800}>800</MenuItem>
+                    <MenuItem value={900}>900</MenuItem>
+                    <MenuItem value={1000}>1000</MenuItem>
+                    <MenuItem value={1100}>1100</MenuItem>
+                </Select>
+                <span> ~ </span>
+
+                <Select
+                    value={this.state.codeforces_upper_point}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'codeforces_upper_point',
+                      id: 'codeforces_upper_point',
+                    }}
+                  >
+                    <MenuItem value={0}>
+                      <em></em>
+                    </MenuItem>
+                    <MenuItem value={100}>100</MenuItem>
+                    <MenuItem value={200}>200</MenuItem>
+                    <MenuItem value={300}>300</MenuItem>
+                    <MenuItem value={400}>400</MenuItem>
+                    <MenuItem value={500}>500</MenuItem>
+                    <MenuItem value={600}>600</MenuItem>
+                    <MenuItem value={700}>700</MenuItem>
+                    <MenuItem value={800}>800</MenuItem>
+                    <MenuItem value={900}>900</MenuItem>
+                    <MenuItem value={1000}>1000</MenuItem>
+                    <MenuItem value={1100}>1100</MenuItem>
+                </Select>
+
+                <Select
+                  labelId="codeforces_status"
+                  id="codeforces_status"
+                  name="codeforces_status"
+                  multiple
+                  value={this.state.codeforces_status}
+                  onChange={this.handleChange}
+                  input={<Input id="codeforces_status" />}
+                >
+                  {["AC", "WA", "RE"].map((name) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+
                 <div>AOJ</div>
-                <TextField
-                    id="aoj_status"
-                    label="AOJ Status"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'aoj_status'
-                />
+                <Select
+                  labelId="aoj_status"
+                  id="aoj_status"
+                  name="aoj_status"
+                  multiple
+                  value={this.state.aoj_status}
+                  onChange={this.handleChange}
+                  input={<Input id="aoj_status" />}
+                >
+                  {["AC", "WA", "RE"].map((name) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+
                 <div>yukicoder</div>
-                <TextField
-                    id="yukicoder_lower_point"
-                    label="yukicoder Point From"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'yukicoder_lower_point'
-                />
-                <TextField
-                    id="yukicoder_upper_point"
-                    label="yukicoder Point To"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'yukicoder_upper_point'
-                />
-                <TextField
-                    id="yukicoder_status"
-                    label="yukicoder Status"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'yukicoder_status'
-                />
+                <Select
+                    value={this.state.yukicoder_lower_point}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'yukicoder_lower_point',
+                      id: 'yukicoder_lower_point',
+                    }}
+                  >
+                    <MenuItem value={0}>
+                      <em></em>
+                    </MenuItem>
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={6}>6</MenuItem>
+                </Select>
+                <span> ~ </span>
+
+                <Select
+                    value={this.state.yukicoder_upper_point}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'yukicoder_upper_point',
+                      id: 'yukicoder_upper_point',
+                    }}
+                  >
+                    <MenuItem value={0}>
+                      <em></em>
+                    </MenuItem>
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={6}>6</MenuItem>
+                </Select>
+
                 <div></div>
                 <Button
                         variant="outlined"
