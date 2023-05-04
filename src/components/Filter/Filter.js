@@ -16,17 +16,17 @@ export default class Filter extends React.Component{
     constructor() {
         super();
         this.state = {
-            from_date: "",
-            to_date: "",
-            atocder_lower_point: "",
-            atcoder_upper_point: "",
+            from_date: "2017-01-01",
+            to_date: "2025-01-01",
+            atocder_lower_point: 0,
+            atcoder_upper_point: 10000,
             atcoder_status: [],
-            codeforces_lower_point: "",
-            codeforces_upper_point: "",
+            codeforces_lower_point: 0,
+            codeforces_upper_point: 10000,
             codeforces_status: [],
             aoj_status: [],
-            yukicoder_lower_point: "",
-            yukicoder_upper_point: "",
+            yukicoder_lower_point: 0,
+            yukicoder_upper_point: 10,
         }
     }
 
@@ -95,7 +95,7 @@ export default class Filter extends React.Component{
                     id="from_date"
                     label="From Date"
                     type="date"
-                    defaultValue="2020-05-24"
+                    defaultValue="2017-05-24"
                     className={styles.textField}
                     margin="normal"
                     onChange = {this.handleChange}

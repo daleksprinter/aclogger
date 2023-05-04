@@ -46,8 +46,8 @@ export class ycsubmit extends submit {
 }
 
 export class submissions {
-    constructor() {
-        this.subs = []
+    constructor(subs) {
+        this.subs = subs ? subs : []
     }
 
     add(submission) {
@@ -84,9 +84,9 @@ export class submissions {
         })
     }
 
-    filter(condition) {
+    filter(conditions) {
         return this.getAll().filter(sub => {
-            return condition.accept(sub)
+            return conditions.accept(sub)
         })
     }
 }
