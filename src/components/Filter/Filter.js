@@ -18,7 +18,7 @@ export default class Filter extends React.Component{
         this.state = {
             from_date: "2017-01-01",
             to_date: "2025-01-01",
-            atocder_lower_point: 0,
+            atcoder_lower_point: 0,
             atcoder_upper_point: 10000,
             atcoder_status: [],
             codeforces_lower_point: 0,
@@ -318,6 +318,14 @@ export default class Filter extends React.Component{
                         onClick = {this.handleClick}
                 >
                       Filter
+                </Button>
+
+                  <Button
+                        variant="outlined"
+                        color="primary"
+                        className={styles.button}
+                >
+                     Reset
                 </Button>
 
             </Paper>
