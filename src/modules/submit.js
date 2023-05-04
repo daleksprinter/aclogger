@@ -8,6 +8,10 @@ class submit {
         this.url = url
     }
 
+    accept(condition){
+        return true
+    }
+
 }
 
 export class acsubmit extends submit {
@@ -67,6 +71,12 @@ export class submissions {
     merge(submissions){
         submissions.getAll().map(sub => {
             this.add(sub)
+        })
+    }
+
+    filter(condition) {
+        return this.getAll().filter(sub => {
+            return sub.accept(condition)
         })
     }
 }
