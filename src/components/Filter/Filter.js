@@ -11,6 +11,8 @@ const styles = theme => ({
     },
 })
 
+const Statuses = ["AC", "WA", "RE"]
+
 export default class Filter extends React.Component{
 
     constructor() {
@@ -171,7 +173,7 @@ export default class Filter extends React.Component{
                   onChange={this.handleChange}
                   input={<Input id="atcoder_status" />}
                 >
-                  {["AC", "WA", "RE"].map((name) => (
+                  {Statuses.map((name) => (
                     <MenuItem
                       key={name}
                       value={name}
@@ -240,7 +242,7 @@ export default class Filter extends React.Component{
                   onChange={this.handleChange}
                   input={<Input id="codeforces_status" />}
                 >
-                  {["AC", "WA", "RE"].map((name) => (
+                  {Statuses.map((name) => (
                     <MenuItem
                       key={name}
                       value={name}
@@ -260,7 +262,7 @@ export default class Filter extends React.Component{
                   onChange={this.handleChange}
                   input={<Input id="aoj_status" />}
                 >
-                  {["AC", "WA", "RE"].map((name) => (
+                  {Statuses.map((name) => (
                     <MenuItem
                       key={name}
                       value={name}
