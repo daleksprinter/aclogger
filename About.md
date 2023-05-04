@@ -8,6 +8,10 @@
 
 ## Support
 - AtCoder
+  - https://github.com/kenkoooo/AtCoderProblems/blob/master/doc/api.md#submission-api
 - Codeforces
+  - https://codeforces.com/apiHelp/objects#Submission
 - AOJ
+  - https://judge.u-aizu.ac.jp/onlinejudge/api.jsp
 - yukicoder
+  - https://petstore.swagger.io/?url=https://yukicoder.me/api/swagger.yaml
