@@ -46,8 +46,16 @@ export class AtCoderCondition extends Condition {
         this.atcoder_upper_point = upper;
     }
 
-    accept(submission) {
+    acceptStatus(submission){
         return true
+    }
+
+    acceptPoint(submission){
+        return this.atcoder_lower_point <= submission.getPoint() && submission.getPoint() <= this.atcoder_upper_point;
+    }
+
+    accept(submission) {
+        return this.acceptPoint(submission) && this.acceptStatus(submission)
     }
 }
 
@@ -58,19 +66,28 @@ export class CodeforcesCondition extends Condition {
         this.codeforces_lower_point = lower;
         this.codeforces_upper_point = upper;
     }
-    accept(submission) {
+    acceptStatus(submission){
         return true
+    }
+    acceptPoint(submission){
+        return this.codeforces_lower_point <= submission.getPoint() && submission.getPoint() <= this.codeforces_upper_point;
+    }
+
+    accept(submission) {
+        return this.acceptPoint(submission) && this.acceptStatus(submission)
     }
 }
 export class AizuOnlineJudgeCondition extends Condition {
-    constructor(lower, upper, statuses) {
+    constructor(statuses) {
         super();
         this.statuses = statuses;
-        this.aoj_lower_point = lower;
-        this.aoj_upper_point = upper;
+    }
+
+    acceptStatus(submission){
+        return true
     }
     accept(submission) {
-        return true
+        return this.acceptStatus(submission);
     }
 }
 export class yukiconderCondition extends Condition {
@@ -80,7 +97,12 @@ export class yukiconderCondition extends Condition {
         this.yukicoder_lower_point = lower;
         this.yukicoder_upper_point = upper;
     }
+
+    acceptPoint(submission){
+        return this.yukicoder_lower_point <= submission.getPoint() && submission.getPoint() <= this.yukicoder_upper_point;
+    }
+
     accept(submission) {
-       return true
+        return this.acceptPoint(submission)
     }
 }

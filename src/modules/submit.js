@@ -10,6 +10,10 @@ class submit {
         this.url = url
     }
 
+    getPoint(){
+        return this.point
+    }
+
     getDateString() {
         return getdate(this.t)
     }

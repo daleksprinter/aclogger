@@ -24,7 +24,7 @@ export default class SubmissionHistories extends Component {
           <TableBody>
             {this.props.data.map((submit) => (
               <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(submit.url, "_blank")}>
-                <TableCell align="left">{submit.getDate()}</TableCell>
+                <TableCell align="left">{submit.getDateString()}</TableCell>
                 <TableCell align="center" >{submit.getSite()}</TableCell>
                 <TableCell align="center">{submit.contest}</TableCell>
                 <TableCell align="center">{submit.title}</TableCell>
