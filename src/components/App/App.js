@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import App from '../achistory/App';
-import UserData from '../userdata/userdata';
-import './inputs.css';
+import SubmissionHistories from '../SubmissionHistories/SubmissionHistories';
+import SubmissionCounts from '../SubmissionCounts/SubmissionCounts';
+import './App.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
 import {submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
 
-export default class Inputs extends Component{
+export default class App extends Component{
 
     constructor(){
         super();
@@ -93,7 +93,7 @@ export default class Inputs extends Component{
         return (
             <div>
                 <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
-                <UserData
+                <SubmissionCounts
                     data = {
                         {
                             'Codeforces' : this.state.submiss.cfcount(),
@@ -103,8 +103,8 @@ export default class Inputs extends Component{
                             'Sum' : this.state.submiss.count(),
                         }
                     }
-                ></UserData>
-                <App data = {this.state.submiss.getAll()} />
+                ></SubmissionCounts>
+                <SubmissionHistories data = {this.state.submiss.getAll()} />
             </div>
         )
     }

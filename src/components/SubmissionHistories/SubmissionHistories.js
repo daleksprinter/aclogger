@@ -11,7 +11,7 @@ function getdate(millisec){
   return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
 }
 
-export default class App extends Component {
+export default class SubmissionHistories extends Component {
 
   render() {
     var keys = Object.keys(this.props.data);

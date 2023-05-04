@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './account.css'
-export default class ACData extends Component{
+import './SubmissionCount.css'
+export default class SubmissionCount extends Component{
 
     render(){
         return(
