@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import App from '../achistory/App';
+import SubmissionHistories from '../SubmissionHistories/SubmissionHistories';
 import UserData from '../userdata/userdata';
 import './inputs.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
@@ -104,7 +104,7 @@ export default class Inputs extends Component{
                         }
                     }
                 ></UserData>
-                <App data = {this.state.submiss.getAll()} />
+                <SubmissionHistories data = {this.state.submiss.getAll()} />
             </div>
         )
     }
