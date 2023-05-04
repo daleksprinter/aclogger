@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper, TextField, Button} from '@material-ui/core';
+import {Paper, TextField, Button, Select, MenuItem} from '@material-ui/core';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 
@@ -98,6 +98,8 @@ export default class Filter extends React.Component{
                 <TextField
                     id="from_date"
                     label="From Date"
+                    type="date"
+                    defaultValue="2020-05-24"
                     className={styles.textField}
                     margin="normal"
                     onChange = {this.handleChange}
@@ -107,27 +109,63 @@ export default class Filter extends React.Component{
                     id="to_date"
                     label="To Date"
                     className={styles.textField}
+                    type="date"
+                    defaultValue="2023-05-24"
                     margin="normal"
                     onChange = {this.handleChange}
                     name = 'to_date'
                 />
                 <div>AtCoder</div>
-                <TextField
-                    id="atocder_lower_point"
-                    label="AtCoder Point From"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'atocder_lower_point'
-                />
-                <TextField
-                    id="atcoder_upper_point"
-                    label="AtCoder Point To"
-                    className={styles.textField}
-                    margin="normal"
-                    onChange = {this.handleChange}
-                    name = 'atcoder_upper_point'
-                />
+
+                <Select
+                    value={this.state.atcoder_lower_point}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'atocder_lower_point',
+                      id: 'atocder_lower_point',
+                    }}
+                  >
+                    <MenuItem value={0}>
+                      <em></em>
+                    </MenuItem>
+                    <MenuItem value={100}>100</MenuItem>
+                    <MenuItem value={200}>200</MenuItem>
+                    <MenuItem value={300}>300</MenuItem>
+                    <MenuItem value={400}>400</MenuItem>
+                    <MenuItem value={500}>500</MenuItem>
+                    <MenuItem value={600}>600</MenuItem>
+                    <MenuItem value={700}>700</MenuItem>
+                    <MenuItem value={800}>800</MenuItem>
+                    <MenuItem value={900}>900</MenuItem>
+                    <MenuItem value={1000}>1000</MenuItem>
+                    <MenuItem value={1100}>1100</MenuItem>
+                </Select>
+                <span> ~ </span>
+
+                <Select
+                    value={this.state.atcoder_upper_point}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'atcoder_upper_point',
+                      id: 'atcoder_upper_point',
+                    }}
+                  >
+                    <MenuItem value={0}>
+                      <em></em>
+                    </MenuItem>
+                    <MenuItem value={100}>100</MenuItem>
+                    <MenuItem value={200}>200</MenuItem>
+                    <MenuItem value={300}>300</MenuItem>
+                    <MenuItem value={400}>400</MenuItem>
+                    <MenuItem value={500}>500</MenuItem>
+                    <MenuItem value={600}>600</MenuItem>
+                    <MenuItem value={700}>700</MenuItem>
+                    <MenuItem value={800}>800</MenuItem>
+                    <MenuItem value={900}>900</MenuItem>
+                    <MenuItem value={1000}>1000</MenuItem>
+                    <MenuItem value={1100}>1100</MenuItem>
+                </Select>
+
                 <TextField
                     id="atcoder_status"
                     label="AtCoder Status"
