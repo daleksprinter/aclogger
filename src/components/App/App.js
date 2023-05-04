@@ -6,6 +6,8 @@ import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient}
 import {submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
 import HeatMap from "../HeatMap/HeatMap";
+import Filter from "../Filter/Filter";
+import {Conditions} from "../../modules/condition";
 export default class App extends Component{
 
     constructor(){
@@ -83,12 +85,20 @@ export default class App extends Component{
         }
     }
 
+    update = (conddto) => {
+         const filtered =  this.state.submiss.filter(new Conditions(conddto))
+         this.setState({
+            submiss: new submissions(filtered)
+         })
+    }
+
 
     render(props, state){
         return (
             <div>
                 <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
                 <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
+                <Filter update = {this.update}></Filter>
                 <SubmissionCounts
                     data = {
                         {

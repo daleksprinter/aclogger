@@ -3,3 +3,6 @@ install:
 
 run:
 	docker compose run --rm --service-ports acheatmap npm start
+
+test:
+	npm test

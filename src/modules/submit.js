@@ -1,3 +1,5 @@
+import {getdate} from "./utils";
+
 class submit {
     constructor(t, result, contest, title, point, url) {
         this.t = t
@@ -6,6 +8,18 @@ class submit {
         this.title = title
         this.point = point
         this.url = url
+    }
+
+    getPoint(){
+        return this.point
+    }
+
+    getDateString() {
+        return getdate(this.t)
+    }
+
+    getDate(){
+        return new Date(this.t)
     }
 
 }
@@ -32,8 +46,8 @@ export class ycsubmit extends submit {
 }
 
 export class submissions {
-    constructor() {
-        this.subs = []
+    constructor(subs) {
+        this.subs = subs ? subs : []
     }
 
     add(submission) {
@@ -67,6 +81,12 @@ export class submissions {
     merge(submissions){
         submissions.getAll().map(sub => {
             this.add(sub)
+        })
+    }
+
+    filter(conditions) {
+        return this.getAll().filter(sub => {
+            return conditions.accept(sub)
         })
     }
 }

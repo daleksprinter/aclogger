@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import {Table, TableBody, TableCell, TableHead, TableRow, Paper} from '@material-ui/core';
 import './App.css';
-import {getdate} from "../../modules/utils";
-
-
 
 export default class SubmissionHistories extends Component {
-
   render() {
     var keys = Object.keys(this.props.data);
     keys.sort();
@@ -22,17 +18,19 @@ export default class SubmissionHistories extends Component {
               <TableCell align="center">Contest Name</TableCell>
               <TableCell align="center">Problem Name</TableCell>
               <TableCell align="center">Point</TableCell>
+              <TableCell align="center">Result</TableCell>
             </TableRow>
           </TableHead>
           
           <TableBody>
             {this.props.data.map((submit) => (
               <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(submit.url, "_blank")}>
-                <TableCell align="left">{getdate(submit.t)}</TableCell>
+                <TableCell align="left">{submit.getDateString()}</TableCell>
                 <TableCell align="center" >{submit.getSite()}</TableCell>
                 <TableCell align="center">{submit.contest}</TableCell>
                 <TableCell align="center">{submit.title}</TableCell>
                 <TableCell align="center">{submit.point}</TableCell>
+                <TableCell align="center">{submit.result}</TableCell>
               </TableRow>
             ))}
           </TableBody>

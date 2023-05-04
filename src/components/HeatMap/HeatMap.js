@@ -7,14 +7,13 @@ import Paper from '@material-ui/core/Paper';
 import ReactTooltip from 'react-tooltip';
 
 import './HeatMap.css';
-import {getdate} from "../../modules/utils";
 
 export default class Hoge extends Component {
 
     dataToValues(data){
         let cntmap = {}
         for(const sub of data) {
-            const date = getdate(sub.t)
+            const date = sub.getDateString()
             const cnt = cntmap[date] ? cntmap[date] + 1 : 1
             cntmap[date] = cnt
         }
