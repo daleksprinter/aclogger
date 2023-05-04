@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import SubmissionHistories from '../SubmissionHistories/SubmissionHistories';
 import SubmissionCounts from '../SubmissionCounts/SubmissionCounts';
-import './App.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
 import {submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
 import HeatMap from "../HeatMap/HeatMap";
 import Filter from "../Filter/Filter";
 import {Conditions} from "../../modules/condition";
+
+import './App.css';
 export default class App extends Component{
 
     constructor(){
@@ -97,19 +98,10 @@ export default class App extends Component{
         return (
             <div>
                 <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
-                <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
                 <Filter update = {this.update}></Filter>
-                <SubmissionCounts
-                    data = {
-                        {
-                            'Codeforces' : this.state.submiss.cfcount(),
-                            'AtCoder' : this.state.submiss.account(),
-                            'Aizu Online Judge' : this.state.submiss.aojcount(),
-                            'yukicoder' : this.state.submiss.ykcount(),
-                            'Sum' : this.state.submiss.count(),
-                        }
-                    }
-                ></SubmissionCounts>
+
+                <SubmissionCounts data = {this.state.submiss}></SubmissionCounts>
+                <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
                 <SubmissionHistories data = {this.state.submiss.getAll()} />
             </div>
         )

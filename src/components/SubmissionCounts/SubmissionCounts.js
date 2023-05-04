@@ -8,9 +8,10 @@ export default class SubmissionCounts extends Component{
     render(){
         return(
             <Paper className = 'userdata'>
-                {Object.keys(this.props.data).map((key) => (
-                    <SubmissionCount className = "account" site = {key} count = {this.props.data[key]} />
-                ))}
+                <SubmissionCount className = "account" site = {"AtCoder"} count = {this.props.data.account()} />
+                <SubmissionCount className = "account" site = {"Codeforces"} count = {this.props.data.cfcount()} />
+                <SubmissionCount className = "account" site = {"AOJ"} count = {this.props.data.aojcount()} />
+                <SubmissionCount className = "account" site = {"yukicoder"} count = {this.props.data.ykcount()} />
             </Paper>
         )
     }
