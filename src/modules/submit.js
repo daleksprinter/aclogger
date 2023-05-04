@@ -54,24 +54,9 @@ export class submissions {
         this.subs.push(submission)
     }
 
-    count() {
-        return this.subs.length
-    }
-
-    account() {
-        return 1
-    }
-
-    cfcount(){
-        return 1
-    }
-
-    ykcount()  {
-        return 1
-    }
-
-    aojcount() {
-        return 1
+    count(site) {
+        if(site) return this.getAll().filter(sub => sub.getSite() === site).length
+        return this.getAll().length
     }
 
     getAll()  {
