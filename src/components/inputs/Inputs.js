@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import App from '../achistory/App';
 import UserData from '../userdata/userdata';
-import TodaysAC from '../todaysac/TodaysAC';
 import './inputs.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
 import {submissions} from "../../modules/submit";
@@ -105,7 +104,6 @@ export default class Inputs extends Component{
                         }
                     }
                 ></UserData>
-                <TodaysAC data = {this.state.submiss.getTodayAC()} />
                 <App data = {this.state.submiss.getAll()} />
             </div>
         )

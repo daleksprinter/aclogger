@@ -18,11 +18,8 @@ export default class App extends Component {
     keys.sort();
     keys.reverse();
 
-    console.log(this.props.data)
-    
     return (
       <Paper className = 'log'>
-        <div className = 'title'>Past AC History</div>
         <Table>
           <TableHead>
             <TableRow>
