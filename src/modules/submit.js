@@ -7,6 +7,7 @@ class submit {
         this.point = point
         this.url = url
     }
+
 }
 
 export class acsubmit extends submit {

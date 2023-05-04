@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
 import {Table, TableBody, TableCell, TableHead, TableRow, Paper} from '@material-ui/core';
 import './App.css';
+import {getdate} from "../../modules/utils";
 
-function zeroPadding(num, len){
-  return ('00000' + num).slice(-len);
-}
 
-function getdate(millisec){
-  const date = new Date(millisec);
-  return date.getFullYear() + "-" + zeroPadding(Number(date.getMonth()) + 1, 2) + "-" + zeroPadding(date.getDate(), 2);
-}
 
 export default class SubmissionHistories extends Component {
 
