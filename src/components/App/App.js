@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import SubmissionHistories from '../SubmissionHistories/SubmissionHistories';
 import SubmissionCounts from '../SubmissionCounts/SubmissionCounts';
-import './inputs.css';
+import './App.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
 import {submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
 
-export default class Inputs extends Component{
+export default class App extends Component{
 
     constructor(){
         super();

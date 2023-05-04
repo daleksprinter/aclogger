@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppBar, Toolbar} from '@material-ui/core';
-import icon from './acicon.jpeg';
-import './appbar.css';
+import icon from './logo.jpeg';
+import './NavBar.css';
 
 export default class Bar extends React.Component{
     
