@@ -2,37 +2,10 @@ import React, { Component } from 'react';
 import App from '../achistory/App';
 import UserData from '../userdata/userdata';
 import TodaysAC from '../todaysac/TodaysAC';
-import {Paper, TextField, Button} from '@material-ui/core';
 import './inputs.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
 import {submissions} from "../../modules/submit";
-
-const styles = theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
-    },
-    dense: {
-      marginTop: 19,
-    },
-    menu: {
-      width: 200,
-    },
-    button: {
-        margin: theme.spacing.unit,
-      },
-    input: {
-        display: 'none',
-    },
-    progress: {
-        margin: theme.spacing.unit * 2,
-    },
-  });
+import UserNames from "../UserNames/UserNames";
 
 export default class Inputs extends Component{
 
@@ -138,55 +111,7 @@ export default class Inputs extends Component{
             )
         }else{
             return (
-                <Paper className = 'inputbar'>
-                    <TextField
-                        id="cfid"
-                        label="Codeforces ID"
-                        className={styles.textField}
-                        margin="normal"
-                        onChange = {this.handleChange}
-                        name = 'cfuser'
-                    />
-                    <div></div>
-                    <TextField
-                        id="acid"
-                        label="AtCoder ID"
-                        className={styles.textField}
-                        margin="normal"
-                        onChange = {this.handleChange}
-                        name = 'acuser'
-                    />
-                    <div></div>
-                    <TextField
-                        id="aojid"
-                        label="Aizu Online Judge ID"
-                        className={styles.textField}
-                        margin="normal"
-                        onChange = {this.handleChange}
-                        name = 'aojuser'
-                    />
-                    <div></div>
-                    <TextField
-                        id="ycid"
-                        label="yukicoder ID"
-                        className={styles.textField}
-                        margin="normal"
-                        onChange = {this.handleChange}
-                        name = 'ycuser'
-                    />
-                    <div></div>
-                    <br></br>
-                    <div id = 'status'>
-                        <Button 
-                            variant="outlined" 
-                            color="primary" 
-                            className={styles.button} 
-                            onClick = {this.handleClick}
-                        >
-                            Search
-                        </Button>
-                    </div>
-                </Paper>
+                <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
             )   
         }
   
