@@ -1,6 +1,6 @@
 import {getdate} from "./utils";
 
-class submit {
+class Submit {
     constructor(t, result, contest, title, point, url) {
         this.t = t
         this.result = result
@@ -24,28 +24,28 @@ class submit {
 
 }
 
-export class acsubmit extends submit {
+export class AtCoderSubmit extends Submit {
     getSite() {
         return "AtCoder"
     }
 }
-export class cfsubmit extends submit {
+export class CodeforcesSubmit extends Submit {
     getSite() {
         return "CodeForces"
     }
 }
-export class aojsubmit extends submit {
+export class AOJSubmit extends Submit {
      getSite() {
         return "AizuOnlineJudge"
     }
 }
-export class ycsubmit extends submit {
+export class yukicoderSubmit extends Submit {
      getSite() {
         return "yukicoder"
     }
 }
 
-export class submissions {
+export class Submissions {
     constructor(subs) {
         this.subs = subs ? subs : []
     }

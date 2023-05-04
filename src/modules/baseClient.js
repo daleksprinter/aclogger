@@ -1,4 +1,4 @@
-import {submissions, acsubmit, cfsubmit, aojsubmit, ycsubmit} from "./submit";
+import {Submissions, AtCoderSubmit, CodeforcesSubmit, AOJSubmit, yukicoderSubmit} from "./submit";
 
 class BaseClient {}
 export class AtCoderClient extends BaseClient{
@@ -25,12 +25,12 @@ export class AtCoderClient extends BaseClient{
         const point = res['point']
         const url =  "https://atcoder.jp/contests/" + res['contest_id'] + "/submissions/" + res['id']
 
-        const s = new acsubmit(subtime, result, contestid, title, point, url)
+        const s = new AtCoderSubmit(subtime, result, contestid, title, point, url)
         return s
     }
 
     toSubmissions(results) {
-        const subs = new submissions()
+        const subs = new Submissions()
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -62,12 +62,12 @@ export class CodeForcesClient extends BaseClient {
           const title = res['problem']['index'] + '. ' + res['problem']['name']
           const point = res['problem']['rating']
           const url = "https://codeforces.com/contest/" + res['problem']['contestId'] + "/submission/" + res['id']
-          const sub = new cfsubmit(subtime, result, contestid, title, point, url)
+          const sub = new CodeforcesSubmit(subtime, result, contestid, title, point, url)
           return sub
     }
 
     toSubmissions(results) {
-        const subs = new submissions()
+        const subs = new Submissions()
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -99,12 +99,12 @@ export class AizuOnlineJudgeClient extends BaseClient{
         const title = res['problemId']
         const point = null
         const url = "http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=" + res['judgeId']
-        const s = new aojsubmit(subtime, result, contestid, title, point, url)
+        const s = new AOJSubmit(subtime, result, contestid, title, point, url)
         return s
     }
 
     toSubmissions(results) {
-        const subs = new submissions()
+        const subs = new Submissions()
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -136,12 +136,12 @@ export class yukicoderClient extends BaseClient{
         const title = res['Title']
         const point =  res['Level']
         const url  = "https://yukicoder.me/"
-        const s = new ycsubmit(subtime, result, contestid, title, point, url)
+        const s = new yukicoderSubmit(subtime, result, contestid, title, point, url)
         return s
     }
 
     toSubmissions(results) {
-        const subs = new submissions()
+        const subs = new Submissions()
         for(const res of results){
             subs.add(this.resToSub(res))
         }

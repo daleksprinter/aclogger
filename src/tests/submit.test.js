@@ -1,31 +1,31 @@
-import {acsubmit, submissions} from "../modules/submit";
+import {AtCoderSubmit, Submissions} from "../modules/submit";
 import {conditionsDTO, Conditions} from "../modules/condition";
 
 test("submissions add", () => {
-    const s = new acsubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    const submiss = new submissions();
+    const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
+    const submiss = new Submissions();
     submiss.add(s)
     expect(submiss.count()).toBe(1)
 })
 
 test("submissions count", () => {
-    const s = new acsubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    const submiss = new submissions([s]);
+    const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
+    const submiss = new Submissions([s]);
     expect(submiss.count("AtCoder")).toBe(1)
     expect(submiss.count("Codeforces")).toBe(0)
 })
 
 test("submissions merge", () => {
-    const s = new acsubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    const submiss1 = new submissions([s]);
-    const submiss2 = new submissions([s]);
+    const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
+    const submiss1 = new Submissions([s]);
+    const submiss2 = new Submissions([s]);
     submiss1.merge(submiss2)
     expect(submiss1.count("AtCoder")).toBe(2)
 })
 
 test("submissions filter", () => {
-    const s = new acsubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    const submiss = new submissions([s]);
+    const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
+    const submiss = new Submissions([s]);
 
     const conddto = new conditionsDTO('2023-01-01', '2024-01-01', 0, 1000, [], 0, 1000, [], [], 1, 6, [])
     const conds = new Conditions(conddto)

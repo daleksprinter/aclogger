@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SubmissionHistories from '../SubmissionHistories/SubmissionHistories';
 import SubmissionCounts from '../SubmissionCounts/SubmissionCounts';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
-import {submissions} from "../../modules/submit";
+import {Submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
 import HeatMap from "../HeatMap/HeatMap";
 import Filter from "../Filter/Filter";
@@ -14,7 +14,7 @@ export default class App extends Component{
     constructor(){
         super();
         this.state = {
-            submiss: new submissions(),
+            submiss: new Submissions(),
             cfuser : "",
             acuser : "",
             aojuser : "",
@@ -23,7 +23,7 @@ export default class App extends Component{
     }
 
     handleClick = () => {
-        const submiss = new submissions()
+        const submiss = new Submissions()
 
         //codeforces
         const cf = new CodeForcesClient(this.state.cfuser)
@@ -89,7 +89,7 @@ export default class App extends Component{
     update = (conddto) => {
          const filtered =  this.state.submiss.filter(new Conditions(conddto))
          this.setState({
-            submiss: new submissions(filtered)
+            submiss: new Submissions(filtered)
          })
     }
 
