@@ -4,16 +4,3 @@
     text-align: center;
     position: relative;
 }
-
-.tweetbutton{
-    margin : 3px;
-    position: absolute;
-    right : 0;
-    bottom : 0;
-    background-color: transparent;
-}
-.tweetbutton:hover {
-    -webkit-transform: translateY(-5px);
-    -ms-transform: translateY(-5px);
-    transform: translateY(-5px);
-}

@@ -1,5 +1,3 @@
-class Condition {}
-
 export class conditionsDTO {
     constructor(from_date,
                 to_date,
@@ -49,6 +47,9 @@ export class Conditions {
         return false;
     }
 }
+
+
+class Condition {}
 
 export class SubmissionDateCondition extends Condition {
     constructor(from, to) {
