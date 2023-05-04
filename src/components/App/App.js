@@ -5,7 +5,7 @@ import './App.css';
 import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
 import {submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
-
+import HeatMap from "../HeatMap/HeatMap";
 export default class App extends Component{
 
     constructor(){
@@ -93,6 +93,7 @@ export default class App extends Component{
         return (
             <div>
                 <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
+                <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
                 <SubmissionCounts
                     data = {
                         {
