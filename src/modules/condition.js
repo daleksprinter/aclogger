@@ -16,7 +16,7 @@ export class conditionsDTO {
     ) {
                 this.from_date = from_date,
                 this.to_date = to_date,
-                this.atocder_lower_point = atocder_lower_point,
+                this.atcoder_lower_point = atocder_lower_point,
                 this.atcoder_upper_point = atcoder_upper_point,
                 this.atcoder_status = atcoder_status,
                 this.codeforces_lower_point = codeforces_lower_point,
