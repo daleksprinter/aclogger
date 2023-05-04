@@ -1,6 +1,7 @@
 import React from 'react';
 import {Paper, TextField, Button} from '@material-ui/core';
 import {conditionsDTO} from "../../modules/condition";
+import '../Filter/Filter.css'
 
 const styles = theme => ({
     textField: {
@@ -92,7 +93,7 @@ export default class Filter extends React.Component{
     }
     render(){
         return (
-            <Paper>
+            <Paper className="filter">
                 <div>Common</div>
                 <TextField
                     id="from_date"
@@ -194,6 +195,7 @@ export default class Filter extends React.Component{
                     onChange = {this.handleChange}
                     name = 'yukicoder_status'
                 />
+                <div></div>
                 <Button
                         variant="outlined"
                         color="primary"
