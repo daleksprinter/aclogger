@@ -93,6 +93,7 @@ export default class Filter extends React.Component{
     render(){
         return (
             <Paper>
+                <div>Common</div>
                 <TextField
                     id="from_date"
                     label="From Date"
@@ -109,6 +110,7 @@ export default class Filter extends React.Component{
                     onChange = {this.handleChange}
                     name = 'to_date'
                 />
+                <div>AtCoder</div>
                 <TextField
                     id="atocder_lower_point"
                     label="AtCoder Point From"
@@ -133,6 +135,7 @@ export default class Filter extends React.Component{
                     onChange = {this.handleChange}
                     name = 'atcoder_status'
                 />
+                <div>CodeForces</div>
                 <TextField
                     id="codeforces_lower_point"
                     label="Codeforces Point From"
@@ -157,6 +160,7 @@ export default class Filter extends React.Component{
                     onChange = {this.handleChange}
                     name = 'codeforces_status'
                 />
+                <div>AOJ</div>
                 <TextField
                     id="aoj_status"
                     label="AOJ Status"
@@ -165,6 +169,7 @@ export default class Filter extends React.Component{
                     onChange = {this.handleChange}
                     name = 'aoj_status'
                 />
+                <div>yukicoder</div>
                 <TextField
                     id="yukicoder_lower_point"
                     label="yukicoder Point From"
