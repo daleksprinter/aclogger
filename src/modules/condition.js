@@ -21,15 +21,18 @@ export class Conditions {
     }
 }
 
-class SubmissionDateCondition extends Condition {
+export class SubmissionDateCondition extends Condition {
     constructor(from, to) {
         super();
         this.submit_from = from;
         this.submit_to = to;
     }
+    accept(submission) {
+        return true
+    }
 }
 
-class AtCoderCondition extends Condition {
+export class AtCoderCondition extends Condition {
     constructor(lower, upper, statuses) {
         super();
         this.statuses = statuses;
@@ -42,7 +45,7 @@ class AtCoderCondition extends Condition {
     }
 }
 
-class CodeforcesCondition extends Condition {
+export class CodeforcesCondition extends Condition {
     constructor(lower, upper, statuses) {
         super();
         this.statuses = statuses;
@@ -53,7 +56,7 @@ class CodeforcesCondition extends Condition {
         return true
     }
 }
-class AizuOnlineJudgeCondition extends Condition {
+export class AizuOnlineJudgeCondition extends Condition {
     constructor(lower, upper, statuses) {
         super();
         this.statuses = statuses;
@@ -64,7 +67,7 @@ class AizuOnlineJudgeCondition extends Condition {
         return true
     }
 }
-class yukiconderCondition extends Condition {
+export class yukiconderCondition extends Condition {
     constructor(lower, upper, statuses) {
         super();
         this.statuses = statuses;
