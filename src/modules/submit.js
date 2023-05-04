@@ -1,3 +1,5 @@
+import {getdate} from "./utils";
+
 class submit {
     constructor(t, result, contest, title, point, url) {
         this.t = t
@@ -6,6 +8,14 @@ class submit {
         this.title = title
         this.point = point
         this.url = url
+    }
+
+    getDateString() {
+        return getdate(this.t)
+    }
+
+    getDate(){
+        return new Date(this.t)
     }
 
 }

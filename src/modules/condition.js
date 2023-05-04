@@ -24,11 +24,17 @@ export class Conditions {
 export class SubmissionDateCondition extends Condition {
     constructor(from, to) {
         super();
-        this.submit_from = from;
-        this.submit_to = to;
+        if(!this.isvalid()) throw Error('date condition is not invalid')
+        this.submit_from = new Date(from);
+        this.submit_to = new Date(to);
     }
-    accept(submission) {
+
+    isvalid(from, to) {
+        // TODO implement
         return true
+    }
+    accept(sub) {
+        return this.submit_from.getTime() < sub.getDate().getTime() && sub.getDate().getTime() <= this.submit_to.getTime()
     }
 }
 
