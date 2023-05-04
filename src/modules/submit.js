@@ -60,10 +60,6 @@ export class submissions {
         return 1
     }
 
-    getTodayAC() {
-        return [new acsubmit('', 'AC', '', '', '', '')]
-    }
-
     getAll()  {
         return this.subs
     }

@@ -12,7 +12,6 @@ export default class App extends Component{
         super();
         this.state = {
             submiss: new submissions(),
-            isloaded : false,
             cfuser : "",
             acuser : "",
             aojuser : "",
@@ -29,7 +28,6 @@ export default class App extends Component{
             const subs = cf.toSubmissions(json['result'])
             submiss.merge(subs)
             this.setState({
-                isloaded: true,
                 submiss: submiss
             })
         }).catch()
@@ -40,7 +38,6 @@ export default class App extends Component{
             const subs = ac.toSubmissions(json)
             submiss.merge(subs)
             this.setState({
-                isloaded: true,
                 submiss: submiss
             })
         }).catch()
@@ -52,7 +49,6 @@ export default class App extends Component{
             const subs = aojc.toSubmissions(json)
             submiss.merge(subs)
             this.setState({
-                isloaded: true,
                 submiss: submiss
             })
         }).catch()
@@ -63,7 +59,6 @@ export default class App extends Component{
             const subs = ycc.toSubmissions(json)
             submiss.merge(subs)
             this.setState({
-                isloaded: true,
                 submiss: submiss
             })
         }).catch()
