@@ -13,10 +13,10 @@ export class Conditions {
 
     accept(submission){
         for(const c of this.baseConditions) if(!c.accept(submision)) return false;
-        if(submissio.getSite() === "AtCoder") return this.accond.accept(submission);
-        if(submissio.getSite() === "CodeForces") return this.cfcond.accept(submission);
-        if(submissio.getSite() === "AizuOnlineJudge") return this.aojcond.accept(submission);
-        if(submissio.getSite() === "yukicoder") return this.ycond.accept(submission);
+        if(submission.getSite() === "AtCoder") return this.accond.accept(submission);
+        if(submission.getSite() === "CodeForces") return this.cfcond.accept(submission);
+        if(submission.getSite() === "AizuOnlineJudge") return this.aojcond.accept(submission);
+        if(submission.getSite() === "yukicoder") return this.ycond.accept(submission);
         return false;
     }
 }

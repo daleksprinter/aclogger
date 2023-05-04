@@ -8,10 +8,6 @@ class submit {
         this.url = url
     }
 
-    accept(condition){
-        return true
-    }
-
 }
 
 export class acsubmit extends submit {
@@ -76,7 +72,7 @@ export class submissions {
 
     filter(condition) {
         return this.getAll().filter(sub => {
-            return sub.accept(condition)
+            return condition.accept(sub)
         })
     }
 }
