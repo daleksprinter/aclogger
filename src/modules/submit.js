@@ -8,9 +8,6 @@ class submit {
         this.url = url
     }
 
-    getDate() {
-        return '2023-01-01'
-    }
 }
 
 export class acsubmit extends submit {
