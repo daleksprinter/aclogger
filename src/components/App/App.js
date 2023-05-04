@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SubmissionHistories from '../SubmissionHistories/SubmissionHistories';
 import SubmissionCounts from '../SubmissionCounts/SubmissionCounts';
-import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/baseClient";
+import {AtCoderClient, AizuOnlineJudgeClient, CodeForcesClient, yukicoderClient} from "../../modules/client";
 import {Submissions} from "../../modules/submit";
 import UserNames from "../UserNames/UserNames";
 import HeatMap from "../HeatMap/HeatMap";
