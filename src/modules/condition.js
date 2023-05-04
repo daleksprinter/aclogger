@@ -1,14 +1,43 @@
 class Condition {}
 
+class conditionsDTO {
+    constructor(from_date,
+                to_date,
+                atocder_lower_point,
+                atcoder_upper_point,
+                atcoder_status,
+                codeforces_lower_point,
+                codeforces_upper_point,
+                codeforces_status,
+                aoj_status,
+                yukicoder_lower_point,
+                yukiconder_upper_point,
+                yukicoder_status
+    ) {
+                this.from_date = from_date,
+                this.to_date = to_date,
+                this.atocder_lower_point = atocder_lower_point,
+                this.atcoder_upper_point = atcoder_upper_point,
+                this.atcoder_status = atcoder_status,
+                this.codeforces_lower_point = codeforces_lower_point,
+                this.codeforces_upper_point = codeforces_upper_point,
+                this.codeforces_status = codeforces_status,
+                this.aoj_status = aoj_status,
+                this.yukicoder_lower_point = yukicoder_lower_point,
+                this.yukiconder_upper_point = yukiconder_upper_point,
+                this.yukicoder_status = yukicoder_status
+    }
+}
+
 export class Conditions {
-    constructor() {
+    constructor(conddto) {
         this.baseConditions = [
-            new SubmissionDateCondition('2020-01-01', '2023-01-01'),
+            new SubmissionDateCondition(conddto.from_date, conddto.to_date),
         ]
-        this.accond = new AtCoderCondition(0, 3000, []),
-        this.cfcond = new CodeforcesCondition(0, 3000, []),
-        this.aojcond = new AizuOnlineJudgeCondition(0, 0, []),
-        this.ycond = new yukiconderCondition(0, 6, [])
+        this.accond = new AtCoderCondition(conddto.atcoder_lower_point, conddto.atcoder_upper_point, conddto.atcoder_status),
+        this.cfcond = new CodeforcesCondition(conddto.codeforces_lower_point, conddto.codeforces_upper_point, conddto.codeforces_status),
+        this.aojcond = new AizuOnlineJudgeCondition(conddto.aoj_status),
+        this.ycond = new yukiconderCondition(conddto.yukicoder_lower_point, conddto.yukiconder_upper_point, conddto.yukicoder_status)
     }
 
     accept(submission){
