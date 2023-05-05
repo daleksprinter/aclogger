@@ -16,10 +16,6 @@ export default class App extends Component{
         super();
         this.state = {
             submiss: new Submissions(),
-            cfuser : "",
-            acuser : "",
-            aojuser : "",
-            ycuser : "",
         }
     }
 
@@ -29,28 +25,9 @@ export default class App extends Component{
         })
     }
 
-    handleClick = () => {
-        const c = new Clients(this.state.acuser, this.state.cfuser, this.state.aojuser, this.state.ycuser)
+    handleClick = (acuser, cfuser, aojuser, ycuser) => {
+        const c = new Clients(acuser, cfuser, aojuser, ycuser)
         c.fetch(this.setSubmissions)
-    }
-
-    handleChange = (e) => {
-        switch(e.target.name){
-            case "cfuser" :
-                this.setState({cfuser : e.target.value})
-                break
-            case "acuser" :
-                this.setState({acuser : e.target.value})
-                break
-            case "aojuser" :
-                this.setState({aojuser : e.target.value})
-                break
-            case "ycuser" :
-                this.setState({ycuser : e.target.value})
-                break
-            default:
-                break
-        }
     }
 
     update = (conddto) => {
@@ -60,13 +37,11 @@ export default class App extends Component{
          })
     }
 
-
     render(props, state){
         return (
             <div>
-                <UserNames handleChange={this.handleChange} handleClick={this.handleClick}></UserNames>
+                <UserNames handleClick={this.handleClick}></UserNames>
                 <Filter update = {this.update}></Filter>
-
                 <SubmissionCounts data = {this.state.submiss}></SubmissionCounts>
                 <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
                 <SubmissionHistories data = {this.state.submiss.getAll()} />

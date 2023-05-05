@@ -10,6 +10,39 @@ const styles = theme => ({
 });
 
 export default class UserNames extends React.Component{
+
+    constructor(){
+        super();
+        this.state = {
+            cfuser : "",
+            acuser : "",
+            aojuser : "",
+            ycuser : "",
+        }
+    }
+
+    handleChange = (e) => {
+        switch(e.target.name){
+            case "cfuser" :
+                this.setState({cfuser : e.target.value})
+                break
+            case "acuser" :
+                this.setState({acuser : e.target.value})
+                break
+            case "aojuser" :
+                this.setState({aojuser : e.target.value})
+                break
+            case "ycuser" :
+                this.setState({ycuser : e.target.value})
+                break
+            default:
+                break
+        }
+    }
+
+    handleClick = () => {
+        this.props.handleClick(this.state.acuser, this.state.cfuser, this.state.aojuser, this.state.ycuser)
+    }
     render(){
         return (
              <Paper className = 'inputbar'>
@@ -18,7 +51,7 @@ export default class UserNames extends React.Component{
                         label="Codeforces ID"
                         className={styles.textField}
                         margin="normal"
-                        onChange = {this.props.handleChange}
+                        onChange = {this.handleChange}
                         name = 'cfuser'
                     />
                     <div></div>
@@ -27,7 +60,7 @@ export default class UserNames extends React.Component{
                         label="AtCoder ID"
                         className={styles.textField}
                         margin="normal"
-                        onChange = {this.props.handleChange}
+                        onChange = {this.handleChange}
                         name = 'acuser'
                     />
                     <div></div>
@@ -36,7 +69,7 @@ export default class UserNames extends React.Component{
                         label="Aizu Online Judge ID"
                         className={styles.textField}
                         margin="normal"
-                        onChange = {this.props.handleChange}
+                        onChange = {this.handleChange}
                         name = 'aojuser'
                     />
                     <div></div>
@@ -45,7 +78,7 @@ export default class UserNames extends React.Component{
                         label="yukicoder ID"
                         className={styles.textField}
                         margin="normal"
-                        onChange = {this.props.handleChange}
+                        onChange = {this.handleChange}
                         name = 'ycuser'
                     />
                     <div></div>
@@ -55,7 +88,7 @@ export default class UserNames extends React.Component{
                             variant="outlined"
                             color="primary"
                             className={styles.button}
-                            onClick = {this.props.handleClick}
+                            onClick = {this.handleClick}
                         >
                            Refresh
                         </Button>
