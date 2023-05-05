@@ -17,6 +17,13 @@ export class AtCoderClient extends BaseClient{
         }
     }
 
+    getAllSubmissions() {
+        return this.fetch().then(json => {
+            const subs = this.toSubmissions(json)
+            return Promise.resolve(subs)
+        })
+    }
+
     resToSub(res) {
         const subtime = res['epoch_second'] * 1000;
         const result = res['result']
@@ -53,6 +60,13 @@ export class CodeForcesClient extends BaseClient {
         }else{
             return Promise.resolve({result:[]})
         }
+    }
+
+    getAllSubmissions() {
+        return this.fetch().then(json => {
+            const subs = this.toSubmissions(json['result'])
+            return Promise.resolve(subs)
+        })
     }
 
     resToSub(res) {
@@ -92,6 +106,13 @@ export class AizuOnlineJudgeClient extends BaseClient{
         }
     }
 
+    getAllSubmissions() {
+        return this.fetch().then(json => {
+            const subs = this.toSubmissions(json)
+            return Promise.resolve(subs)
+        })
+    }
+
     resToSub(res) {
         const subtime = res['submissionDate'];
         const result = res['status']
@@ -129,6 +150,13 @@ export class yukicoderClient extends BaseClient{
         }
     }
 
+    getAllSubmissions() {
+        return this.fetch().then(json => {
+            const subs = this.toSubmissions(json)
+            return Promise.resolve(subs)
+        })
+    }
+
     resToSub(res) {
         const subtime = new Date(res['Date']).getTime();
         const result = "AC"
@@ -146,5 +174,22 @@ export class yukicoderClient extends BaseClient{
             subs.add(this.resToSub(res))
         }
         return subs
+    }
+}
+
+export class Clients {
+    constructor(AtCoderUser, CodeforcesUser, AOJUser, yukicoderUser) {
+        this.atcoderClient = new AtCoderClient(AtCoderUser)
+        this.codeforcesClient = new CodeForcesClient(CodeforcesUser)
+        this.aojClient = new AizuOnlineJudgeClient(AOJUser)
+        this.yukicoderClient = new yukicoderClient(yukicoderUser)
+    }
+
+    fetch(callback) {
+        return Promise.all([this.atcoderClient.getAllSubmissions(), this.codeforcesClient.getAllSubmissions(), this.aojClient.getAllSubmissions(), this.yukicoderClient.getAllSubmissions()])
+            .then(res => {
+                const s = res.reduce((accum, subs) => accum.merge(subs), new Submissions())
+                callback(s)
+            })
     }
 }
