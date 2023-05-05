@@ -1,5 +1,6 @@
 import {AtCoderSubmit, Submissions} from "../modules/submit";
 import {conditionsDTO, Conditions} from "../modules/condition";
+import {sitefactory} from "../modules/site";
 
 test("submissions add", () => {
     const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
@@ -11,8 +12,8 @@ test("submissions add", () => {
 test("submissions count", () => {
     const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
     const submiss = new Submissions([s]);
-    expect(submiss.count("AtCoder")).toBe(1)
-    expect(submiss.count("Codeforces")).toBe(0)
+    expect(submiss.count(sitefactory.AtCoder())).toBe(1)
+    expect(submiss.count(sitefactory.Codeforces())).toBe(0)
 })
 
 test("submissions merge", () => {
@@ -20,7 +21,7 @@ test("submissions merge", () => {
     const submiss1 = new Submissions([s]);
     const submiss2 = new Submissions([s]);
     submiss1.merge(submiss2)
-    expect(submiss1.count("AtCoder")).toBe(2)
+    expect(submiss1.count(sitefactory.AtCoder())).toBe(2)
 })
 
 test("submissions filter", () => {

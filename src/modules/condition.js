@@ -1,3 +1,5 @@
+import {sitefactory} from "./site";
+
 export class conditionsDTO {
     constructor(from_date,
                 to_date,
@@ -40,10 +42,10 @@ export class Conditions {
 
     accept(submission){
         for(const c of this.baseConditions) if(!c.accept(submission)) return false;
-        if(submission.getSite() === "AtCoder") return this.accond.accept(submission);
-        if(submission.getSite() === "CodeForces") return this.cfcond.accept(submission);
-        if(submission.getSite() === "AizuOnlineJudge") return this.aojcond.accept(submission);
-        if(submission.getSite() === "yukicoder") return this.ycond.accept(submission);
+        if(submission.getSite().isSame(sitefactory.AtCoder())) return this.accond.accept(submission);
+        if(submission.getSite().isSame(sitefactory.Codeforces())) return this.cfcond.accept(submission);
+        if(submission.getSite().isSame(sitefactory.AOJ())) return this.aojcond.accept(submission);
+        if(submission.getSite().isSame(sitefactory.yukicoder())) return this.ycond.accept(submission);
         return false;
     }
 }

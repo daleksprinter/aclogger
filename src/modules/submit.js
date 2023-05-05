@@ -1,4 +1,5 @@
 import {getdate} from "./utils";
+import {sitefactory} from "./site";
 
 class Submit {
     constructor(t, result, contest, title, point, url) {
@@ -26,22 +27,22 @@ class Submit {
 
 export class AtCoderSubmit extends Submit {
     getSite() {
-        return "AtCoder"
+        return sitefactory.AtCoder()
     }
 }
 export class CodeforcesSubmit extends Submit {
     getSite() {
-        return "CodeForces"
+        return sitefactory.Codeforces()
     }
 }
 export class AOJSubmit extends Submit {
      getSite() {
-        return "AizuOnlineJudge"
+         return sitefactory.AOJ()
     }
 }
 export class yukicoderSubmit extends Submit {
      getSite() {
-        return "yukicoder"
+         return sitefactory.yukicoder()
     }
 }
 
@@ -55,7 +56,7 @@ export class Submissions {
     }
 
     count(site) {
-        if(site) return this.getAll().filter(sub => sub.getSite() === site).length
+        if(site) return this.getAll().filter(sub => sub.getSite().isSame(site)).length
         return this.getAll().length
     }
 
