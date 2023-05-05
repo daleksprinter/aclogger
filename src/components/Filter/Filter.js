@@ -11,8 +11,10 @@ const styles = theme => ({
     },
 })
 
-const Statuses = ["AC", "WA", "RE"]
-
+const Statuses = ["AC", "WA", "RE", "TLE", "CE"]
+const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
+const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
+const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
 export default class Filter extends React.Component{
 
     constructor() {
@@ -92,7 +94,6 @@ export default class Filter extends React.Component{
     render(){
         return (
             <Paper className="filter">
-                <div>Common</div>
                 <TextField
                     id="from_date"
                     label="From Date"
@@ -126,17 +127,11 @@ export default class Filter extends React.Component{
                     <MenuItem value={0}>
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={100}>100</MenuItem>
-                    <MenuItem value={200}>200</MenuItem>
-                    <MenuItem value={300}>300</MenuItem>
-                    <MenuItem value={400}>400</MenuItem>
-                    <MenuItem value={500}>500</MenuItem>
-                    <MenuItem value={600}>600</MenuItem>
-                    <MenuItem value={700}>700</MenuItem>
-                    <MenuItem value={800}>800</MenuItem>
-                    <MenuItem value={900}>900</MenuItem>
-                    <MenuItem value={1000}>1000</MenuItem>
-                    <MenuItem value={1100}>1100</MenuItem>
+                    {AtCoderProblemPoints.map(p => {
+                        return (
+                            <MenuItem value={p}>{p}</MenuItem>
+                        )
+                    })}
                 </Select>
                 <span> ~ </span>
 
@@ -151,17 +146,11 @@ export default class Filter extends React.Component{
                     <MenuItem value={0}>
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={100}>100</MenuItem>
-                    <MenuItem value={200}>200</MenuItem>
-                    <MenuItem value={300}>300</MenuItem>
-                    <MenuItem value={400}>400</MenuItem>
-                    <MenuItem value={500}>500</MenuItem>
-                    <MenuItem value={600}>600</MenuItem>
-                    <MenuItem value={700}>700</MenuItem>
-                    <MenuItem value={800}>800</MenuItem>
-                    <MenuItem value={900}>900</MenuItem>
-                    <MenuItem value={1000}>1000</MenuItem>
-                    <MenuItem value={1100}>1100</MenuItem>
+                    {AtCoderProblemPoints.map(p => {
+                        return (
+                            <MenuItem value={p}>{p}</MenuItem>
+                        )
+                    })}
                 </Select>
 
                 <Select
@@ -195,17 +184,11 @@ export default class Filter extends React.Component{
                     <MenuItem value={0}>
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={100}>100</MenuItem>
-                    <MenuItem value={200}>200</MenuItem>
-                    <MenuItem value={300}>300</MenuItem>
-                    <MenuItem value={400}>400</MenuItem>
-                    <MenuItem value={500}>500</MenuItem>
-                    <MenuItem value={600}>600</MenuItem>
-                    <MenuItem value={700}>700</MenuItem>
-                    <MenuItem value={800}>800</MenuItem>
-                    <MenuItem value={900}>900</MenuItem>
-                    <MenuItem value={1000}>1000</MenuItem>
-                    <MenuItem value={1100}>1100</MenuItem>
+                    {CodeforcesProblemPoints.map(p => {
+                        return (
+                            <MenuItem value={p}>{p}</MenuItem>
+                        )
+                    })}
                 </Select>
                 <span> ~ </span>
 
@@ -217,20 +200,14 @@ export default class Filter extends React.Component{
                       id: 'codeforces_upper_point',
                     }}
                   >
-                    <MenuItem value={0}>
+                     <MenuItem value={0}>
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={100}>100</MenuItem>
-                    <MenuItem value={200}>200</MenuItem>
-                    <MenuItem value={300}>300</MenuItem>
-                    <MenuItem value={400}>400</MenuItem>
-                    <MenuItem value={500}>500</MenuItem>
-                    <MenuItem value={600}>600</MenuItem>
-                    <MenuItem value={700}>700</MenuItem>
-                    <MenuItem value={800}>800</MenuItem>
-                    <MenuItem value={900}>900</MenuItem>
-                    <MenuItem value={1000}>1000</MenuItem>
-                    <MenuItem value={1100}>1100</MenuItem>
+                    {CodeforcesProblemPoints.map(p => {
+                        return (
+                            <MenuItem value={p}>{p}</MenuItem>
+                        )
+                    })}
                 </Select>
 
                 <Select
@@ -284,12 +261,11 @@ export default class Filter extends React.Component{
                     <MenuItem value={0}>
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
+                    {yukicoderProblemPoints.map(p => {
+                        return (
+                            <MenuItem value={p}>{p}</MenuItem>
+                        )
+                    })}
                 </Select>
                 <span> ~ </span>
 
@@ -301,15 +277,15 @@ export default class Filter extends React.Component{
                       id: 'yukicoder_upper_point',
                     }}
                   >
+
                     <MenuItem value={0}>
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
+                    {yukicoderProblemPoints.map(p => {
+                        return (
+                            <MenuItem value={p}>{p}</MenuItem>
+                        )
+                    })}
                 </Select>
 
                 <div></div>
