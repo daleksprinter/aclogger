@@ -67,6 +67,7 @@ export class Submissions {
         submissions.getAll().map(sub => {
             this.add(sub)
         })
+        return this
     }
 
     filter(conditions) {

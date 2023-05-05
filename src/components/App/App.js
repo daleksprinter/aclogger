@@ -7,6 +7,7 @@ import UserNames from "../UserNames/UserNames";
 import HeatMap from "../HeatMap/HeatMap";
 import Filter from "../Filter/Filter";
 import {Conditions} from "../../modules/condition";
+import {Clients} from "../../modules/client";
 
 import './App.css';
 export default class App extends Component{
@@ -22,49 +23,15 @@ export default class App extends Component{
         }
     }
 
+    setSubmissions = (submiss) => {
+        this.setState({
+            submiss:  submiss
+        })
+    }
+
     handleClick = () => {
-        const submiss = new Submissions()
-
-        //codeforces
-        const cf = new CodeForcesClient(this.state.cfuser)
-        cf.fetch().then(json => {
-            const subs = cf.toSubmissions(json['result'])
-            submiss.merge(subs)
-            this.setState({
-                submiss: submiss
-            })
-        }).catch()
-
-        //atcoder
-        const ac = new AtCoderClient(this.state.acuser)
-        ac.fetch().then(json => {
-            const subs = ac.toSubmissions(json)
-            submiss.merge(subs)
-            this.setState({
-                submiss: submiss
-            })
-        }).catch()
-
-        //aoj
-        const aojc = new AizuOnlineJudgeClient(this.state.aojuser)
-        aojc.fetch().then(json => {
-            console.log(json)
-            const subs = aojc.toSubmissions(json)
-            submiss.merge(subs)
-            this.setState({
-                submiss: submiss
-            })
-        }).catch()
-
-        //ycuser
-        const ycc = new yukicoderClient(this.state.ycuser)
-        ycc.fetch().then(json => {
-            const subs = ycc.toSubmissions(json)
-            submiss.merge(subs)
-            this.setState({
-                submiss: submiss
-            })
-        }).catch()
+        const c = new Clients(this.state.acuser, this.state.cfuser, this.state.aojuser, this.state.ycuser)
+        c.fetch(this.setSubmissions)
     }
 
     handleChange = (e) => {
