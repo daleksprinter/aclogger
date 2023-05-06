@@ -77,7 +77,7 @@ export default class SubmissionHistories extends Component {
     super();
     this.state = {
       page: 0,
-      rowsperpage: 30
+      rowsperpage: 10
     }
   }
   handleChangePage = (event, newPage) => {
