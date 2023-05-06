@@ -38,12 +38,17 @@ export default class App extends Component{
 
     render(props, state){
         return (
-            <div>
-                <UserNames handleClick={this.handleClick}></UserNames>
-                <Filter update = {this.update}></Filter>
-                <SubmissionCounts data = {this.state.submiss}></SubmissionCounts>
-                <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
-                <SubmissionHistories data = {this.state.submiss.getAll()} />
+            <div class = {"app"}>
+                <div class={"sidebar"}>
+                    <UserNames handleClick={this.handleClick}></UserNames>
+                    <Filter update = {this.update}></Filter>
+                </div>
+                <div class={"content"}>
+                    <SubmissionCounts data = {this.state.submiss}></SubmissionCounts>
+                    <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
+                    <SubmissionHistories data = {this.state.submiss.getAll()} />
+                </div>
+
             </div>
         )
     }

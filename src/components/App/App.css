@@ -1,9 +1,13 @@
-.inputbar{
-    width : 50%;
-    text-align: center;
-    padding : 10px;
-    margin : 10px auto;
+.app{
+   display: flex;
+   margin: 1%;
 }
-.fail{
-    color : red;
+
+.sidebar{
+    margin-right:1%;
+    width:20%;
+}
+
+.content {
+    width:100%
 }

@@ -115,7 +115,9 @@ export default class Filter extends React.Component{
                     name = 'to_date'
                 />
 
-                <div>AtCoder</div>
+                <h3>AtCoder</h3>
+
+                <span>Point : </span>
                 <Select
                     value={this.state.atcoder_lower_point}
                     onChange={this.handleChange}
@@ -153,6 +155,8 @@ export default class Filter extends React.Component{
                     })}
                 </Select>
 
+                <div></div>
+                <span>Status : </span>
                 <Select
                   labelId="atcoder_status"
                   id="atcoder_status"
@@ -172,7 +176,9 @@ export default class Filter extends React.Component{
                   ))}
                 </Select>
 
-                <div>CodeForces</div>
+                <h3>CodeForces</h3>
+
+                <span>Point : </span>
                 <Select
                     value={this.state.codeforces_lower_point}
                     onChange={this.handleChange}
@@ -210,6 +216,8 @@ export default class Filter extends React.Component{
                     })}
                 </Select>
 
+                <div></div>
+                <span>Status : </span>
                 <Select
                   labelId="codeforces_status"
                   id="codeforces_status"
@@ -229,7 +237,10 @@ export default class Filter extends React.Component{
                   ))}
                 </Select>
 
-                <div>AOJ</div>
+
+                <div></div>
+                <h3>AOJ</h3>
+                <span>Status : </span>
                 <Select
                   labelId="aoj_status"
                   id="aoj_status"
@@ -249,7 +260,11 @@ export default class Filter extends React.Component{
                   ))}
                 </Select>
 
-                <div>yukicoder</div>
+
+                <div></div>
+                <h3>yukicoder</h3>
+
+                <span>Level : </span>
                 <Select
                     value={this.state.yukicoder_lower_point}
                     onChange={this.handleChange}
@@ -268,7 +283,6 @@ export default class Filter extends React.Component{
                     })}
                 </Select>
                 <span> ~ </span>
-
                 <Select
                     value={this.state.yukicoder_upper_point}
                     onChange={this.handleChange}

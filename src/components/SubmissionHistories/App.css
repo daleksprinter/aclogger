@@ -1,15 +1,6 @@
 .log{
-  margin : 1% 2% 2%;
   position: relative;
-
-}
-.title{
-  font-weight: bold;
-  margin :10px;
-  color : rgb(80, 80, 80);
-}
-.acicon{
-  width : 30px;
+ padding:1%
 }
 
 .subdet:hover{
