@@ -1,11 +1,11 @@
 import React from 'react';
 import {Paper, TextField, Button} from "@mui/material";
+import './usernames.css'
 
 const styles = theme => ({
     textField: {
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
-      width: 200,
     },
 });
 
