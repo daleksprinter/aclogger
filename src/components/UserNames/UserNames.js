@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper, TextField, Button} from "@material-ui/core";
+import {Paper, TextField, Button} from "@mui/material";
 
 const styles = theme => ({
     textField: {

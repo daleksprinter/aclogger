@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Paper} from '@material-ui/core';
+import {Paper} from '@mui/material';
 import SubmissionCount from './SubmissionCount';
 import './SubmissionCounts.css';
 import {sitefactory} from "../../modules/site";

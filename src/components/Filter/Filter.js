@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper, TextField, Button, Select, MenuItem, Input} from '@material-ui/core';
+import {Paper, TextField, Button, Select, MenuItem, Input} from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 
