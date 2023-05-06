@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, TableBody, TableCell, TableHead, TableRow, Paper} from '@material-ui/core';
+import {Table, TableBody, TableCell, TableHead, TableRow, Paper} from '@mui/material';
 import './App.css';
 
 export default class SubmissionHistories extends Component {
@@ -21,7 +21,7 @@ export default class SubmissionHistories extends Component {
               <TableCell align="center">Result</TableCell>
             </TableRow>
           </TableHead>
-          
+
           <TableBody>
             {this.props.data.map((submit) => (
               <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(submit.url, "_blank")}>

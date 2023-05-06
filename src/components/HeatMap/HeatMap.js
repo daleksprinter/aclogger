@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 
-import Paper from '@material-ui/core/Paper';
-import ReactTooltip from 'react-tooltip';
+import {Paper} from '@mui/material';
+import {Tooltip as ReactTooltip} from 'react-tooltip';
 
 import './HeatMap.css';
 
