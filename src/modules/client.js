@@ -34,6 +34,7 @@ export class AtCoderClient extends BaseClient{
         else if(res === "TLE") return statusfactory.TimeLimitEceeded()
         else if(res === "MLE") return statusfactory.MemoryLimitEceeded()
         else if(res === "OLE") return statusfactory.OutputLimitEceeded()
+        else return statusfactory.Null()
     }
 
     resToSub(res) {
@@ -88,6 +89,7 @@ export class CodeForcesClient extends BaseClient {
         else if(res === "COMPILATION_ERROR") return statusfactory.CompileError()
         else if(res === "TIME_LIMIT_EXCEEDED") return statusfactory.TimeLimitEceeded()
         else if(res === "MEMORY_LIMIT_EXCEEDED") return statusfactory.MemoryLimitEceeded()
+        else return statusfactory.Null()
     }
 
     resToSub(res) {
@@ -135,12 +137,13 @@ export class AizuOnlineJudgeClient extends BaseClient{
     }
 
     parseResult = (res) => {
-        if(res === "4") return statusfactory.Accept()
-        else if(res === "1") return statusfactory.WrongAnswer()
-        else if(res === "7") return statusfactory.RuntimeError()
-        else if(res === "0") return statusfactory.CompileError()
-        else if(res === "2") return statusfactory.TimeLimitEceeded()
-        else if(res === "3") return statusfactory.MemoryLimitEceeded()
+        if(res === 4) return statusfactory.Accept()
+        else if(res === 1) return statusfactory.WrongAnswer()
+        else if(res === 7) return statusfactory.RuntimeError()
+        else if(res === 0) return statusfactory.CompileError()
+        else if(res === 2) return statusfactory.TimeLimitEceeded()
+        else if(res === 3) return statusfactory.MemoryLimitEceeded()
+        else return statusfactory.Null()
     }
     resToSub(res) {
         const subtime = res['submissionDate'];

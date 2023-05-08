@@ -29,6 +29,7 @@ class StatusFactory {
     RuntimeError() {return new Status(RuntimeError)}
     CompileError() {return new Status(CompileError)}
     InternalError() {return new Status(InternalError)}
+    Null() {return new Status("")}
 }
 
 export const statusfactory = new StatusFactory()
