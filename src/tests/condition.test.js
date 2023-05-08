@@ -25,15 +25,18 @@ test("atcoder condition", () => {
 })
 
 test("codeforces condition", () => {
-    const s = new CodeforcesSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    expect(new CodeforcesCondition(0, 1000, []).accept(s)).toBe(true)
-    expect(new CodeforcesCondition(0, 100, []).accept(s)).toBe(false)
-    expect(new CodeforcesCondition(1000, 2000, []).accept(s)).toBe(false)
+    const s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
+    expect(new CodeforcesCondition(0, 1000, []).acceptPoint(s)).toBe(true)
+    expect(new CodeforcesCondition(0, 100, []).acceptPoint(s)).toBe(false)
+    expect(new CodeforcesCondition(1000, 2000, []).acceptPoint(s)).toBe(false)
+
+
+    expect(new CodeforcesCondition(0, 0, [statusfactory.Accept()]).acceptStatus(s)).toBe(true)
 })
 
 test("aoj condition", () => {
-    const s = new AOJSubmit(1683188344 * 1000, "", "", "", null, ""); //2023-05-04
-    expect(new AizuOnlineJudgeCondition([]).accept(s)).toBe(true)
+    const s = new AOJSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", null, ""); //2023-05-04
+    expect(new AizuOnlineJudgeCondition([statusfactory.Accept()]).acceptStatus(s)).toBe(true)
 })
 
 test("yukicoder condition", () => {
@@ -44,19 +47,19 @@ test("yukicoder condition", () => {
 })
 
 test("conditions", () => {
-    let s = new CodeforcesSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    let conddto = new conditionsDTO('2023-01-01', '2024-01-01', 0, 1000, [], 0, 1000, [], [], 1, 6, [])
+    let s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
+    let conddto = new conditionsDTO('2023-01-01', '2024-01-01', 0, 1000, [], 0, 1000, [statusfactory.Accept()], [], 1, 6, [])
     let conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(true)
 
 
-    s = new CodeforcesSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    conddto = new conditionsDTO('2023-12-01', '2024-01-01', 0, 1000, [], 0, 1000, [], [], 1, 6, [])
+    s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
+    conddto = new conditionsDTO('2023-12-01', '2024-01-01', 0, 1000, [], 0, 1000, [statusfactory.Accept()], [], 1, 6, [])
     conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(false)
 
-    s = new CodeforcesSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    conddto = new conditionsDTO('2023-12-01', '2024-01-01', 0, 1000, [], 600, 1000, [], [], 1, 6, [])
+    s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
+    conddto = new conditionsDTO('2023-12-01', '2024-01-01', 0, 1000, [], 600, 1000, [statusfactory.Accept()], [], 1, 6, [])
     conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(false)
 })
