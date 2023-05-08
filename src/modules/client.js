@@ -1,4 +1,5 @@
 import {Submissions, AtCoderSubmit, CodeforcesSubmit, AOJSubmit, yukicoderSubmit} from "./submit";
+import {statusfactory} from "./status";
 
 class BaseClient {}
 export class AtCoderClient extends BaseClient{
@@ -24,9 +25,20 @@ export class AtCoderClient extends BaseClient{
         })
     }
 
+    parseResult = (res) => {
+        if(res === "AC") return statusfactory.Accept()
+        else if(res === "WA") return statusfactory.WrongAnswer()
+        else if(res === "RE") return statusfactory.RuntimeError()
+        else if(res === "CE") return statusfactory.CompileError()
+        else if(res === "IE") return statusfactory.InternalError()
+        else if(res === "TLE") return statusfactory.TimeLimitEceeded()
+        else if(res === "MLE") return statusfactory.MemoryLimitEceeded()
+        else if(res === "OLE") return statusfactory.OutputLimitEceeded()
+    }
+
     resToSub(res) {
         const subtime = res['epoch_second'] * 1000;
-        const result = res['result']
+        const result = this.parseResult(res['result'])
         const contestid =  res['contest_id'].toUpperCase()
         const title = res['problem_id']
         const point = res['point']
@@ -69,9 +81,18 @@ export class CodeForcesClient extends BaseClient {
         })
     }
 
+    parseResult = (res) => {
+        if(res === "OK") return statusfactory.Accept()
+        else if(res === "WRONG_ANSWER") return statusfactory.WrongAnswer()
+        else if(res === "RUNTIME_ERROR") return statusfactory.RuntimeError()
+        else if(res === "COMPILATION_ERROR") return statusfactory.CompileError()
+        else if(res === "TIME_LIMIT_EXCEEDED") return statusfactory.TimeLimitEceeded()
+        else if(res === "MEMORY_LIMIT_EXCEEDED") return statusfactory.MemoryLimitEceeded()
+    }
+
     resToSub(res) {
           const subtime = res['creationTimeSeconds'] * 1000;
-          const result = res['verdict']
+          const result = this.parseResult(res['verdict'])
           const contestid = res['problem']['contestId']
           const title = res['problem']['index'] + '. ' + res['problem']['name']
           const point = res['problem']['rating']
@@ -113,9 +134,17 @@ export class AizuOnlineJudgeClient extends BaseClient{
         })
     }
 
+    parseResult = (res) => {
+        if(res === "4") return statusfactory.Accept()
+        else if(res === "1") return statusfactory.WrongAnswer()
+        else if(res === "7") return statusfactory.RuntimeError()
+        else if(res === "0") return statusfactory.CompileError()
+        else if(res === "2") return statusfactory.TimeLimitEceeded()
+        else if(res === "3") return statusfactory.MemoryLimitEceeded()
+    }
     resToSub(res) {
         const subtime = res['submissionDate'];
-        const result = res['status']
+        const result = this.parseResult(res['status'])
         const contestid = null
         const title = res['problemId']
         const point = null
@@ -159,7 +188,7 @@ export class yukicoderClient extends BaseClient{
 
     resToSub(res) {
         const subtime = new Date(res['Date']).getTime();
-        const result = "AC"
+        const result = statusfactory.Accept()
         const contestid = null
         const title = res['Title']
         const point =  res['Level']
