@@ -2,6 +2,7 @@ import React from 'react';
 import {Paper, TextField, Button, Select, MenuItem, Input} from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
+import {statusfactory} from "../../modules/status";
 
 const styles = theme => ({
     textField: {
@@ -11,7 +12,7 @@ const styles = theme => ({
     },
 })
 
-const Statuses = ["AC", "WA", "RE", "TLE", "CE"]
+const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
@@ -166,12 +167,9 @@ export default class Filter extends React.Component{
                   onChange={this.handleChange}
                   input={<Input id="atcoder_status" />}
                 >
-                  {Statuses.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                    >
-                      {name}
+                  {Statuses.map((s) => (
+                    <MenuItem key={s.getStatus()} value={s}>
+                      {s.getStatus()}
                     </MenuItem>
                   ))}
                 </Select>
@@ -227,12 +225,9 @@ export default class Filter extends React.Component{
                   onChange={this.handleChange}
                   input={<Input id="codeforces_status" />}
                 >
-                  {Statuses.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                    >
-                      {name}
+                  {Statuses.map((s) => (
+                    <MenuItem key={s.getStatus()} value={s}>
+                      {s.getStatus()}
                     </MenuItem>
                   ))}
                 </Select>
@@ -250,12 +245,9 @@ export default class Filter extends React.Component{
                   onChange={this.handleChange}
                   input={<Input id="aoj_status" />}
                 >
-                  {Statuses.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                    >
-                      {name}
+                  {Statuses.map((s) => (
+                    <MenuItem key={s.getStatus()} value={s}>
+                      {s.getStatus()}
                     </MenuItem>
                   ))}
                 </Select>

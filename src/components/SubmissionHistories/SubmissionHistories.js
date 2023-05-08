@@ -122,7 +122,7 @@ export default class SubmissionHistories extends Component {
                 <TableCell align="center">{submit.contest}</TableCell>
                 <TableCell align="center">{submit.title}</TableCell>
                 <TableCell align="center">{submit.point}</TableCell>
-                <TableCell align="center">{submit.result}</TableCell>
+                <TableCell align="center">{submit.result.getStatus()}</TableCell>
               </TableRow>
             ))}
           </TableBody>

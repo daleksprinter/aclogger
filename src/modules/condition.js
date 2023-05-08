@@ -79,7 +79,7 @@ export class AtCoderCondition extends Condition {
     }
 
     acceptStatus(submission){
-        return true
+        return this.statuses.map(s => s.getStatus()).includes(submission.getResult().getStatus())
     }
 
     acceptPoint(submission){
@@ -99,7 +99,7 @@ export class CodeforcesCondition extends Condition {
         this.codeforces_upper_point = upper;
     }
     acceptStatus(submission){
-        return true
+        return this.statuses.map(s => s.getStatus()).includes(submission.getResult().getStatus())
     }
     acceptPoint(submission){
         return this.codeforces_lower_point <= submission.getPoint() && submission.getPoint() <= this.codeforces_upper_point;
@@ -116,8 +116,9 @@ export class AizuOnlineJudgeCondition extends Condition {
     }
 
     acceptStatus(submission){
-        return true
+        return this.statuses.map(s => s.getStatus()).includes(submission.getResult().getStatus())
     }
+
     accept(submission) {
         return this.acceptStatus(submission);
     }

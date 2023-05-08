@@ -11,6 +11,9 @@ class Submit {
         this.url = url
     }
 
+    getResult() {
+        return this.result
+    }
     getPoint(){
         return this.point
     }
