@@ -1,6 +1,7 @@
 import {AtCoderSubmit, Submissions} from "../modules/submit";
 import {conditionsDTO, Conditions} from "../modules/condition";
 import {sitefactory} from "../modules/site";
+import {statusfactory} from "../modules/status";
 
 test("submissions add", () => {
     const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
@@ -25,10 +26,10 @@ test("submissions merge", () => {
 })
 
 test("submissions filter", () => {
-    const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
+    const s = new AtCoderSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
     const submiss = new Submissions([s]);
 
-    const conddto = new conditionsDTO('2023-01-01', '2024-01-01', 0, 1000, [], 0, 1000, [], [], 1, 6, [])
+    const conddto = new conditionsDTO('2023-01-01', '2024-01-01', 0, 1000, [statusfactory.Accept()], 0, 1000, [], [], 1, 6, [])
     const conds = new Conditions(conddto)
 
     expect(submiss.filter(conds).length).toBe(1)

@@ -79,7 +79,7 @@ export class AtCoderCondition extends Condition {
     }
 
     acceptStatus(submission){
-        return this.statuses.includes(submission.getResult())
+        return this.statuses.map(s => s.getStatus()).includes(submission.getResult().getStatus())
     }
 
     acceptPoint(submission){

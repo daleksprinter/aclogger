@@ -168,10 +168,7 @@ export default class Filter extends React.Component{
                   input={<Input id="atcoder_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem
-                      key={s.getStatus()}
-                      value={s}
-                    >
+                    <MenuItem key={s.getStatus()} value={s}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -249,10 +246,7 @@ export default class Filter extends React.Component{
                   input={<Input id="aoj_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem
-                      key={s.getStatus()}
-                      value={s}
-                    >
+                    <MenuItem key={s.getStatus()} value={s}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}

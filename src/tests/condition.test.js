@@ -6,6 +6,7 @@ import {
     yukiconderCondition
 } from "../modules/condition";
 import {AtCoderSubmit, AOJSubmit, CodeforcesSubmit, yukicoderSubmit} from "../modules/submit";
+import {statusfactory} from "../modules/status";
 
 test("submission date condition", () => {
     const s = new AtCoderSubmit(1683188344 * 1000); //2023-05-04
@@ -15,10 +16,12 @@ test("submission date condition", () => {
 })
 
 test("atcoder condition", () => {
-    const s = new AtCoderSubmit(1683188344 * 1000, "", "", "", 500, ""); //2023-05-04
-    expect(new AtCoderCondition(0, 1000, []).accept(s)).toBe(true)
-    expect(new AtCoderCondition(0, 100, []).accept(s)).toBe(false)
-    expect(new AtCoderCondition(1000, 2000, []).accept(s)).toBe(false)
+    const s = new AtCoderSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
+    expect(new AtCoderCondition(0, 1000, []).acceptPoint(s)).toBe(true)
+    expect(new AtCoderCondition(0, 100, []).acceptPoint(s)).toBe(false)
+    expect(new AtCoderCondition(1000, 2000, []).acceptPoint(s)).toBe(false)
+
+    expect(new AtCoderCondition(0, 0, [statusfactory.Accept()]).acceptStatus(s)).toBe(true)
 })
 
 test("codeforces condition", () => {
