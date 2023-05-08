@@ -1,11 +1,11 @@
-const Accept = "Accept"
-const WrongAnswer = "WrongAnswer"
-const TimeLimitExceeded = "TimeLImitEcceded"
-const MemoryLimitEceeded = "MemoryLimitEceeded"
-const OutputLimitEceeded = "OutputLimitEceeded"
-const RuntimeError = "RuntimeError"
-const CompileError = "CompileError"
-const InternalError = "InternalError"
+const Accept = "AC"
+const WrongAnswer = "WA"
+const TimeLimitExceeded = "TLE"
+const MemoryLimitEceeded = "MLE"
+const OutputLimitEceeded = "OLE"
+const RuntimeError = "RE"
+const CompileError = "CE"
+const InternalError = "IE"
 class Status {
     constructor(status) {
         this.status = status
