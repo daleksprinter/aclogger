@@ -16,11 +16,11 @@ interface AppState{
     to_date:string
     atcoder_lower_point: string,
     atcoder_upper_point: string,
-    atcoder_status: Status[],
+    atcoder_status: string,
     codeforces_lower_point: string,
     codeforces_upper_point: string,
-    codeforces_status: Status[],
-    aoj_status: Status[],
+    codeforces_status: string,
+    aoj_status: string,
     yukicoder_lower_point: string,
     yukicoder_upper_point: string,
 }
@@ -34,11 +34,11 @@ export default class Filter extends React.Component<AppProps, AppState>{
             to_date: "2025-01-01",
             atcoder_lower_point: '0',
             atcoder_upper_point: '10000',
-            atcoder_status: [],
+            atcoder_status: '',
             codeforces_lower_point: '0',
             codeforces_upper_point: '10000',
-            codeforces_status: [],
-            aoj_status: [],
+            codeforces_status: '',
+            aoj_status: '',
             yukicoder_lower_point: '0',
             yukicoder_upper_point: '10',
         }
@@ -86,6 +86,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
 
     handleClick = () => {
        const conddto = new conditionsDTO(
+          0, 0, 0, 0, [] , 0, 0, [], [], 0, 0, []
+          /*
            this.state.from_date,
            this.state.to_date,
            this.state.atcoder_lower_point,
@@ -98,6 +100,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
            this.state.yukicoder_lower_point,
            this.state.yukicoder_upper_point,
            this.state.yukicoder_status
+           */
        )
         this.props.update(conddto)
     }
@@ -175,7 +178,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   input={<Input id="atcoder_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem key={s.getStatus()} value={s}>
+                    <MenuItem value={s}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -233,7 +236,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   input={<Input id="codeforces_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem key={s.getStatus()} value={s}>
+                    <MenuItem value={s}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -253,7 +256,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   input={<Input id="aoj_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem key={s.getStatus()} value={s}>
+                    <MenuItem value={s}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}

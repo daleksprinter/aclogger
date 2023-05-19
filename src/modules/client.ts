@@ -118,9 +118,9 @@ export class CodeForcesClient extends BaseClient {
 }
 
 export class AizuOnlineJudgeClient extends BaseClient{
-    user: string
+    user:String
     url: string
-    constructor(user: string) {
+    constructor(user: String) {
         super();
         this.user = user
         this.url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.user + "?page=0&size=10000";
@@ -173,9 +173,9 @@ export class AizuOnlineJudgeClient extends BaseClient{
 
 
 export class yukicoderClient extends BaseClient{
-    user: string
+    user:String
     url: string
-    constructor(user: string) {
+    constructor(user: String) {
         super();
         this.user = user
         this.url = "https://yukicoder.me/api/v1/solved/name/" + this.user
@@ -223,7 +223,7 @@ export class Clients {
     codeforcesClient: CodeForcesClient
     aojClient: AizuOnlineJudgeClient
     yukicoderClient: yukicoderClient
-    constructor(AtCoderUser: String, CodeforcesUser: String, AOJUser: string, yukicoderUser: string) {
+    constructor(AtCoderUser: String, CodeforcesUser: String, AOJUser: String, yukicoderUser: String) {
         this.atcoderClient = new AtCoderClient(AtCoderUser)
         this.codeforcesClient = new CodeForcesClient(CodeforcesUser)
         this.aojClient = new AizuOnlineJudgeClient(AOJUser)

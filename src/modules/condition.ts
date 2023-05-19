@@ -3,30 +3,30 @@ import {Submissions, Submit} from "./submit";
 import {Status} from "./status"
 
 export class conditionsDTO {
-    from_date: String
-    to_date: String
-    atcoder_lower_point: String
-    atcoder_upper_point: String
+    from_date:number
+    to_date:number
+    atcoder_lower_point:number
+    atcoder_upper_point:number
     atcoder_status: Status[]
-    codeforces_lower_point: String
-    codeforces_upper_point: String
+    codeforces_lower_point:number
+    codeforces_upper_point:number
     codeforces_status: Status[]
     aoj_status: Status[]
-    yukicoder_lower_point: String
-    yukiconder_upper_point: String
+    yukicoder_lower_point:number
+    yukiconder_upper_point:number
     yukicoder_status: Status[]
 
-    constructor(from_date: String,
-                to_date: String,
-                atocder_lower_point: String,
-                atcoder_upper_point: String,
+    constructor(from_date: number,
+                to_date: number,
+                atocder_lower_point: number,
+                atcoder_upper_point: number,
                 atcoder_status: Status[],
-                codeforces_lower_point: String,
-                codeforces_upper_point: String,
+                codeforces_lower_point: number,
+                codeforces_upper_point: number,
                 codeforces_status: Status[],
                 aoj_status: Status[],
-                yukicoder_lower_point: String,
-                yukiconder_upper_point: String,
+                yukicoder_lower_point: number,
+                yukiconder_upper_point: number,
                 yukicoder_status: Status[],
     ) {
                 this.from_date = from_date
@@ -134,9 +134,9 @@ export class CodeforcesCondition extends Condition {
     acceptStatus(s: Submit){
         return this.statuses.map(s => s.getStatus()).includes(s.getResult().getStatus())
     }
-    acceptPoint(s: Submit){
+    acceptPoint(s: Submit):boolean{
         const p =  s.getPoint()
-        if(p===null) return
+        if(p===null) return false
         return this.codeforces_lower_point <= p && p <= this.codeforces_upper_point;
     }
 
@@ -171,8 +171,9 @@ export class yukiconderCondition extends Condition {
         this.yukicoder_upper_point = upper;
     }
 
-    acceptPoint(s: Submit){
+    acceptPoint(s: Submit):boolean{
         const p = s.getPoint()
+        if(p === null ) return false
         return this.yukicoder_lower_point <= p && p <= this.yukicoder_upper_point;
     }
 
