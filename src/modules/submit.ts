@@ -8,9 +8,9 @@ export abstract class Submit {
     result: Status
     contest: String | null
     title: String
-    point: String | null
+    point: number | null
     url: String
-    constructor(t: number, result: Status, contest: String | null, title: String, point: String | null, url: String) {
+    constructor(t: number, result: Status, contest: String | null, title: String, point: number | null, url: String) {
         this.t = t
         this.result = result
         this.contest  = contest

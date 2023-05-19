@@ -14,11 +14,11 @@ export default class SubmissionCounts extends Component<AppProps, AppState>{
     render(){
         return(
             <Paper className = 'userdata'>
-                <SubmissionCount className = "account" site = {"AtCoder"} count = {this.props.data.count(sitefactory.AtCoder())} />
-                <SubmissionCount className = "account" site = {"Codeforces"} count = {this.props.data.count(sitefactory.Codeforces())} />
-                <SubmissionCount className = "account" site = {"AOJ"} count = {this.props.data.count(sitefactory.AOJ())} />
-                <SubmissionCount className = "account" site = {"yukicoder"} count = {this.props.data.count(sitefactory.yukicoder())} />
-                <SubmissionCount className = "account" site = {"Sum"} count = {this.props.data.count(null)} />
+                <SubmissionCount site = {"AtCoder"} count = {this.props.data.count(sitefactory.AtCoder())} />
+                <SubmissionCount site = {"Codeforces"} count = {this.props.data.count(sitefactory.Codeforces())} />
+                <SubmissionCount site = {"AOJ"} count = {this.props.data.count(sitefactory.AOJ())} />
+                <SubmissionCount site = {"yukicoder"} count = {this.props.data.count(sitefactory.yukicoder())} />
+                <SubmissionCount site = {"Sum"} count = {this.props.data.count(null)} />
             </Paper>
         )
     }

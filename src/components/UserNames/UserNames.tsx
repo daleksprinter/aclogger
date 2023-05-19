@@ -2,15 +2,7 @@ import React from 'react';
 import {Paper, TextField, Button} from "@mui/material";
 import './usernames.css'
 
-const styles = theme => ({
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-    },
-});
-
 interface AppProps{
-    handleClick:
 }
 interface AppState{
     cfuser: String
@@ -58,7 +50,6 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                     <TextField
                         id="cfid"
                         label="Codeforces ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'cfuser'
@@ -67,7 +58,6 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                     <TextField
                         id="acid"
                         label="AtCoder ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'acuser'
@@ -76,7 +66,6 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                     <TextField
                         id="aojid"
                         label="Aizu Online Judge ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'aojuser'
@@ -85,7 +74,6 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                     <TextField
                         id="ycid"
                         label="yukicoder ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'ycuser'
@@ -96,7 +84,6 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                         <Button
                             variant="outlined"
                             color="primary"
-                            className={styles.button}
                             onClick = {this.handleClick}
                         >
                            Refresh

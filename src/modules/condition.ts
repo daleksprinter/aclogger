@@ -96,9 +96,9 @@ export class SubmissionDateCondition extends Condition {
 
 export class AtCoderCondition extends Condition {
     statuses: Status[]
-    atcoder_lower_point: String
-    atcoder_upper_point: String
-    constructor(lower: String, upper: String, statuses: Status[]) {
+    atcoder_lower_point:number
+    atcoder_upper_point:number
+    constructor(lower: number, upper: number, statuses: Status[]) {
         super();
         this.statuses = statuses;
         this.atcoder_lower_point = lower;
@@ -110,7 +110,9 @@ export class AtCoderCondition extends Condition {
     }
 
     acceptPoint(s: Submit){
-        return this.atcoder_lower_point <= s.getPoint() && s.getPoint() <= this.atcoder_upper_point;
+        const p =  s.getPoint()
+        if(p===null) return false
+        return this.atcoder_lower_point <= p && p <= this.atcoder_upper_point;
     }
 
     accept(s: Submit) {
@@ -120,10 +122,10 @@ export class AtCoderCondition extends Condition {
 
 export class CodeforcesCondition extends Condition {
     statuses: Status[]
-    codeforces_lower_point: String
-    codeforces_upper_point: String
+    codeforces_lower_point:number
+    codeforces_upper_point:number
 
-    constructor(lower: String, upper: String, statuses: Status[]) {
+    constructor(lower: number, upper: number, statuses: Status[]) {
         super();
         this.statuses = statuses;
         this.codeforces_lower_point = lower;
@@ -133,7 +135,9 @@ export class CodeforcesCondition extends Condition {
         return this.statuses.map(s => s.getStatus()).includes(s.getResult().getStatus())
     }
     acceptPoint(s: Submit){
-        return this.codeforces_lower_point <= s.getPoint() && s.getPoint() <= this.codeforces_upper_point;
+        const p =  s.getPoint()
+        if(p===null) return
+        return this.codeforces_lower_point <= p && p <= this.codeforces_upper_point;
     }
 
     accept(s: Submit) {
@@ -157,10 +161,10 @@ export class AizuOnlineJudgeCondition extends Condition {
 }
 export class yukiconderCondition extends Condition {
     statuses: Status[]
-    yukicoder_lower_point: String
-    yukicoder_upper_point: String
+    yukicoder_lower_point:number
+    yukicoder_upper_point:number
 
-    constructor(lower: String, upper: String, statuses: Status[]) {
+    constructor(lower: number, upper: number, statuses: Status[]) {
         super();
         this.statuses = statuses;
         this.yukicoder_lower_point = lower;

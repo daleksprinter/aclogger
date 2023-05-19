@@ -27,7 +27,7 @@ export class AtCoderClient extends BaseClient{
         })
     }
 
-    parseResult = (res: String) => {
+    parseResult = (res: string) => {
         if(res === "AC") return statusfactory.Accept()
         else if(res === "WA") return statusfactory.WrongAnswer()
         else if(res === "RE") return statusfactory.RuntimeError()
@@ -39,7 +39,7 @@ export class AtCoderClient extends BaseClient{
         else return statusfactory.Null()
     }
 
-    resToSub(res) {
+    resToSub(res: any) {
         const subtime = res['epoch_second'] * 1000;
         const result = this.parseResult(res['result'])
         const contestid =  res['contest_id'].toUpperCase()
@@ -51,7 +51,7 @@ export class AtCoderClient extends BaseClient{
         return s
     }
 
-    toSubmissions(results) {
+    toSubmissions(results: any) {
         const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
@@ -86,7 +86,7 @@ export class CodeForcesClient extends BaseClient {
         })
     }
 
-    parseResult = (res) => {
+    parseResult = (res: string) => {
         if(res === "OK") return statusfactory.Accept()
         else if(res === "WRONG_ANSWER") return statusfactory.WrongAnswer()
         else if(res === "RUNTIME_ERROR") return statusfactory.RuntimeError()
@@ -96,7 +96,7 @@ export class CodeForcesClient extends BaseClient {
         else return statusfactory.Null()
     }
 
-    resToSub(res) {
+    resToSub(res: any) {
           const subtime = res['creationTimeSeconds'] * 1000;
           const result = this.parseResult(res['verdict'])
           const contestid = res['problem']['contestId']
@@ -107,7 +107,7 @@ export class CodeForcesClient extends BaseClient {
           return sub
     }
 
-    toSubmissions(results) {
+    toSubmissions(results: any) {
         const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
@@ -142,7 +142,7 @@ export class AizuOnlineJudgeClient extends BaseClient{
         })
     }
 
-    parseResult = (res) => {
+    parseResult = (res: number) => {
         if(res === 4) return statusfactory.Accept()
         else if(res === 1) return statusfactory.WrongAnswer()
         else if(res === 7) return statusfactory.RuntimeError()
@@ -151,7 +151,7 @@ export class AizuOnlineJudgeClient extends BaseClient{
         else if(res === 3) return statusfactory.MemoryLimitEceeded()
         else return statusfactory.Null()
     }
-    resToSub(res) {
+    resToSub(res: any) {
         const subtime = res['submissionDate'];
         const result = this.parseResult(res['status'])
         const contestid = null
@@ -162,7 +162,7 @@ export class AizuOnlineJudgeClient extends BaseClient{
         return s
     }
 
-    toSubmissions(results) {
+    toSubmissions(results: any) {
         const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
@@ -197,7 +197,7 @@ export class yukicoderClient extends BaseClient{
         })
     }
 
-    resToSub(res) {
+    resToSub(res: any) {
         const subtime = new Date(res['Date']).getTime();
         const result = statusfactory.Accept()
         const contestid = null
@@ -208,7 +208,7 @@ export class yukicoderClient extends BaseClient{
         return s
     }
 
-    toSubmissions(results) {
+    toSubmissions(results: any) {
         const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
@@ -223,7 +223,7 @@ export class Clients {
     codeforcesClient: CodeForcesClient
     aojClient: AizuOnlineJudgeClient
     yukicoderClient: yukicoderClient
-    constructor(AtCoderUser: String, CodeforcesUser: String, AOJUser: String, yukicoderUser: String) {
+    constructor(AtCoderUser: String, CodeforcesUser: String, AOJUser: string, yukicoderUser: string) {
         this.atcoderClient = new AtCoderClient(AtCoderUser)
         this.codeforcesClient = new CodeForcesClient(CodeforcesUser)
         this.aojClient = new AizuOnlineJudgeClient(AOJUser)

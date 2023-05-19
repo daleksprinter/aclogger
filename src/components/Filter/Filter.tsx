@@ -1,17 +1,9 @@
 import React from 'react';
-import {Paper, TextField, Button, Select, MenuItem, Input} from '@mui/material';
+import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 import {statusfactory} from "../../modules/status";
 import {Status} from "../../modules/status";
-
-const styles = theme => ({
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
-    },
-})
 
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
@@ -22,15 +14,15 @@ interface AppProps{
 interface AppState{
     from_date: string
     to_date:string
-    atcoder_lower_point: String,
-    atcoder_upper_point: String,
+    atcoder_lower_point: string,
+    atcoder_upper_point: string,
     atcoder_status: Status[],
-    codeforces_lower_point: String,
-    codeforces_upper_point: String,
+    codeforces_lower_point: string,
+    codeforces_upper_point: string,
     codeforces_status: Status[],
     aoj_status: Status[],
-    yukicoder_lower_point: String,
-    yukicoder_upper_point: String,
+    yukicoder_lower_point: string,
+    yukicoder_upper_point: string,
 }
 
 export default class Filter extends React.Component<AppProps, AppState>{
@@ -52,7 +44,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
         }
     }
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange = (e: SelectChangeEvent) => {
         switch(e.target.name){
             case "from_date" :
                 this.setState({from_date : e.target.value})
@@ -117,7 +109,6 @@ export default class Filter extends React.Component<AppProps, AppState>{
                     label="From Date"
                     type="date"
                     defaultValue="2017-05-24"
-                    className={styles.textField}
                     margin="normal"
                     onChange = {this.handleChange}
                     name = 'from_date'
@@ -125,7 +116,6 @@ export default class Filter extends React.Component<AppProps, AppState>{
                 <TextField
                     id="to_date"
                     label="To Date"
-                    className={styles.textField}
                     type="date"
                     defaultValue="2023-05-24"
                     margin="normal"
@@ -315,7 +305,6 @@ export default class Filter extends React.Component<AppProps, AppState>{
                 <Button
                         variant="outlined"
                         color="primary"
-                        className={styles.button}
                         onClick = {this.handleClick}
                 >
                       Filter
@@ -324,7 +313,6 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   <Button
                         variant="outlined"
                         color="primary"
-                        className={styles.button}
                 >
                      Reset
                 </Button>
