@@ -9,10 +9,19 @@ const styles = theme => ({
     },
 });
 
-export default class UserNames extends React.Component{
+interface AppProps{
+    handleClick:
+}
+interface AppState{
+    cfuser: String
+    acuser: String
+    aojuser: String
+    ycuser: String
+}
+export default class UserNames extends React.Component<AppProps, AppState>{
 
-    constructor(){
-        super();
+    constructor(props: AppProps){
+        super(props);
         this.state = {
             cfuser : "",
             acuser : "",
@@ -21,7 +30,7 @@ export default class UserNames extends React.Component{
         }
     }
 
-    handleChange = (e) => {
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch(e.target.name){
             case "cfuser" :
                 this.setState({cfuser : e.target.value})

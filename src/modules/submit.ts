@@ -1,8 +1,16 @@
 import {getdate} from "./utils";
-import {sitefactory} from "./site";
+import {sitefactory, Site} from "./site";
+import {Status} from "./status"
+import {Conditions} from "./condition";
 
-class Submit {
-    constructor(t, result, contest, title, point, url) {
+export abstract class Submit {
+    t: number
+    result: Status
+    contest: String | null
+    title: String
+    point: String | null
+    url: String
+    constructor(t: number, result: Status, contest: String | null, title: String, point: String | null, url: String) {
         this.t = t
         this.result = result
         this.contest  = contest
@@ -26,6 +34,7 @@ class Submit {
         return new Date(this.t)
     }
 
+    abstract getSite(): Site
 }
 
 export class AtCoderSubmit extends Submit {
@@ -50,15 +59,16 @@ export class yukicoderSubmit extends Submit {
 }
 
 export class Submissions {
-    constructor(subs) {
+    subs: Submit[]
+    constructor(subs: Submit[] | null) {
         this.subs = subs ? subs : []
     }
 
-    add(submission) {
+    add(submission: Submit) {
         this.subs.push(submission)
     }
 
-    count(site) {
+    count(site: Site | null) {
         if(site) return this.getAll().filter(sub => sub.getSite().isSame(site)).length
         return this.getAll().length
     }
@@ -67,14 +77,14 @@ export class Submissions {
         return this.subs
     }
 
-    merge(submissions){
+    merge(submissions: Submissions){
         submissions.getAll().map(sub => {
             this.add(sub)
         })
         return this
     }
 
-    filter(conditions) {
+    filter(conditions: Conditions) {
         return this.getAll().filter(sub => {
             return conditions.accept(sub)
         })

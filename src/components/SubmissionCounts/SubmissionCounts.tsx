@@ -3,8 +3,13 @@ import {Paper} from '@mui/material';
 import SubmissionCount from './SubmissionCount';
 import './SubmissionCounts.css';
 import {sitefactory} from "../../modules/site";
+import {Submissions} from "../../modules/submit";
 
-export default class SubmissionCounts extends Component{
+interface AppProps{
+    data: Submissions
+}
+interface AppState{}
+export default class SubmissionCounts extends Component<AppProps, AppState>{
 
     render(){
         return(
@@ -13,7 +18,7 @@ export default class SubmissionCounts extends Component{
                 <SubmissionCount className = "account" site = {"Codeforces"} count = {this.props.data.count(sitefactory.Codeforces())} />
                 <SubmissionCount className = "account" site = {"AOJ"} count = {this.props.data.count(sitefactory.AOJ())} />
                 <SubmissionCount className = "account" site = {"yukicoder"} count = {this.props.data.count(sitefactory.yukicoder())} />
-                <SubmissionCount className = "account" site = {"Sum"} count = {this.props.data.count()} />
+                <SubmissionCount className = "account" site = {"Sum"} count = {this.props.data.count(null)} />
             </Paper>
         )
     }

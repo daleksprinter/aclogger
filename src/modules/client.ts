@@ -3,7 +3,9 @@ import {statusfactory} from "./status";
 
 class BaseClient {}
 export class AtCoderClient extends BaseClient{
-    constructor(user) {
+    user: String
+    url: string
+    constructor(user: String) {
         super();
         this.user = user
         this.url = "https://kenkoooo.com/atcoder/atcoder-api/results?user=" + user
@@ -25,7 +27,7 @@ export class AtCoderClient extends BaseClient{
         })
     }
 
-    parseResult = (res) => {
+    parseResult = (res: String) => {
         if(res === "AC") return statusfactory.Accept()
         else if(res === "WA") return statusfactory.WrongAnswer()
         else if(res === "RE") return statusfactory.RuntimeError()
@@ -50,7 +52,7 @@ export class AtCoderClient extends BaseClient{
     }
 
     toSubmissions(results) {
-        const subs = new Submissions()
+        const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -59,7 +61,9 @@ export class AtCoderClient extends BaseClient{
 }
 
 export class CodeForcesClient extends BaseClient {
-    constructor(user) {
+    user: String
+    url: string
+    constructor(user: String) {
         super();
         this.user = user
         this.url = "https://codeforces.com/api/user.status?handle=" + this.user + "&from=1&count=1000"
@@ -104,7 +108,7 @@ export class CodeForcesClient extends BaseClient {
     }
 
     toSubmissions(results) {
-        const subs = new Submissions()
+        const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -114,7 +118,9 @@ export class CodeForcesClient extends BaseClient {
 }
 
 export class AizuOnlineJudgeClient extends BaseClient{
-    constructor(user) {
+    user: string
+    url: string
+    constructor(user: string) {
         super();
         this.user = user
         this.url = "https://judgeapi.u-aizu.ac.jp/submission_records/users/" + this.user + "?page=0&size=10000";
@@ -157,7 +163,7 @@ export class AizuOnlineJudgeClient extends BaseClient{
     }
 
     toSubmissions(results) {
-        const subs = new Submissions()
+        const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -167,7 +173,9 @@ export class AizuOnlineJudgeClient extends BaseClient{
 
 
 export class yukicoderClient extends BaseClient{
-    constructor(user) {
+    user: string
+    url: string
+    constructor(user: string) {
         super();
         this.user = user
         this.url = "https://yukicoder.me/api/v1/solved/name/" + this.user
@@ -201,7 +209,7 @@ export class yukicoderClient extends BaseClient{
     }
 
     toSubmissions(results) {
-        const subs = new Submissions()
+        const subs = new Submissions(null)
         for(const res of results){
             subs.add(this.resToSub(res))
         }
@@ -210,7 +218,12 @@ export class yukicoderClient extends BaseClient{
 }
 
 export class Clients {
-    constructor(AtCoderUser, CodeforcesUser, AOJUser, yukicoderUser) {
+
+    atcoderClient: AtCoderClient
+    codeforcesClient: CodeForcesClient
+    aojClient: AizuOnlineJudgeClient
+    yukicoderClient: yukicoderClient
+    constructor(AtCoderUser: String, CodeforcesUser: String, AOJUser: String, yukicoderUser: String) {
         this.atcoderClient = new AtCoderClient(AtCoderUser)
         this.codeforcesClient = new CodeForcesClient(CodeforcesUser)
         this.aojClient = new AizuOnlineJudgeClient(AOJUser)
@@ -220,7 +233,7 @@ export class Clients {
     fetch(callback) {
         return Promise.all([this.atcoderClient.getAllSubmissions(), this.codeforcesClient.getAllSubmissions(), this.aojClient.getAllSubmissions(), this.yukicoderClient.getAllSubmissions()])
             .then(res => {
-                const s = res.reduce((accum, subs) => accum.merge(subs), new Submissions())
+                const s = res.reduce((accum, subs) => accum.merge(subs), new Submissions(null))
                 callback(s)
             })
     }

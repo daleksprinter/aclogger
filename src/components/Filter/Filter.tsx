@@ -3,6 +3,7 @@ import {Paper, TextField, Button, Select, MenuItem, Input} from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 import {statusfactory} from "../../modules/status";
+import {Status} from "../../modules/status";
 
 const styles = theme => ({
     textField: {
@@ -16,26 +17,42 @@ const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfac
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
-export default class Filter extends React.Component{
+interface AppProps{
+}
+interface AppState{
+    from_date: string
+    to_date:string
+    atcoder_lower_point: String,
+    atcoder_upper_point: String,
+    atcoder_status: Status[],
+    codeforces_lower_point: String,
+    codeforces_upper_point: String,
+    codeforces_status: Status[],
+    aoj_status: Status[],
+    yukicoder_lower_point: String,
+    yukicoder_upper_point: String,
+}
 
-    constructor() {
-        super();
+export default class Filter extends React.Component<AppProps, AppState>{
+
+    constructor(props: AppProps) {
+        super(props);
         this.state = {
             from_date: "2017-01-01",
             to_date: "2025-01-01",
-            atcoder_lower_point: 0,
-            atcoder_upper_point: 10000,
+            atcoder_lower_point: '0',
+            atcoder_upper_point: '10000',
             atcoder_status: [],
-            codeforces_lower_point: 0,
-            codeforces_upper_point: 10000,
+            codeforces_lower_point: '0',
+            codeforces_upper_point: '10000',
             codeforces_status: [],
             aoj_status: [],
-            yukicoder_lower_point: 0,
-            yukicoder_upper_point: 10,
+            yukicoder_lower_point: '0',
+            yukicoder_upper_point: '10',
         }
     }
 
-    handleChange = (e) => {
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch(e.target.name){
             case "from_date" :
                 this.setState({from_date : e.target.value})
