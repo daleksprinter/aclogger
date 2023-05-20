@@ -1,41 +1,50 @@
 import React from 'react';
-import {Paper, TextField, Button, Select, MenuItem, Input} from '@mui/material';
+import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 import {statusfactory} from "../../modules/status";
-
-const styles = theme => ({
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
-    },
-})
 
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
-export default class Filter extends React.Component{
+interface AppProps{
+   update: any
+}
+interface AppState{
+    from_date: string
+    to_date:string
+    atcoder_lower_point: string,
+    atcoder_upper_point: string,
+    atcoder_status: [],
+    codeforces_lower_point: string,
+    codeforces_upper_point: string,
+    codeforces_status: [],
+    aoj_status: [],
+    yukicoder_lower_point: string,
+    yukicoder_upper_point: string,
+}
 
-    constructor() {
-        super();
+export default class Filter extends React.Component<AppProps, AppState>{
+
+    constructor(props: AppProps) {
+        super(props);
         this.state = {
             from_date: "2017-01-01",
             to_date: "2025-01-01",
-            atcoder_lower_point: 0,
-            atcoder_upper_point: 10000,
+            atcoder_lower_point: '0',
+            atcoder_upper_point: '10000',
             atcoder_status: [],
-            codeforces_lower_point: 0,
-            codeforces_upper_point: 10000,
+            codeforces_lower_point: '0',
+            codeforces_upper_point: '10000',
             codeforces_status: [],
             aoj_status: [],
-            yukicoder_lower_point: 0,
-            yukicoder_upper_point: 10,
+            yukicoder_lower_point: '0',
+            yukicoder_upper_point: '10',
         }
     }
 
-    handleChange = (e) => {
+    handleChange = (e: any) => {
         switch(e.target.name){
             case "from_date" :
                 this.setState({from_date : e.target.value})
@@ -77,6 +86,8 @@ export default class Filter extends React.Component{
 
     handleClick = () => {
        const conddto = new conditionsDTO(
+          0, 0, 0, 0, [] , 0, 0, [], [], 0, 0, []
+          /*
            this.state.from_date,
            this.state.to_date,
            this.state.atcoder_lower_point,
@@ -89,6 +100,7 @@ export default class Filter extends React.Component{
            this.state.yukicoder_lower_point,
            this.state.yukicoder_upper_point,
            this.state.yukicoder_status
+           */
        )
         this.props.update(conddto)
     }
@@ -100,7 +112,6 @@ export default class Filter extends React.Component{
                     label="From Date"
                     type="date"
                     defaultValue="2017-05-24"
-                    className={styles.textField}
                     margin="normal"
                     onChange = {this.handleChange}
                     name = 'from_date'
@@ -108,7 +119,6 @@ export default class Filter extends React.Component{
                 <TextField
                     id="to_date"
                     label="To Date"
-                    className={styles.textField}
                     type="date"
                     defaultValue="2023-05-24"
                     margin="normal"
@@ -168,7 +178,7 @@ export default class Filter extends React.Component{
                   input={<Input id="atcoder_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem key={s.getStatus()} value={s}>
+                    <MenuItem value={s.getStatus()}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -226,7 +236,7 @@ export default class Filter extends React.Component{
                   input={<Input id="codeforces_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem key={s.getStatus()} value={s}>
+                    <MenuItem value={s.getStatus()}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -246,7 +256,7 @@ export default class Filter extends React.Component{
                   input={<Input id="aoj_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem key={s.getStatus()} value={s}>
+                    <MenuItem value={s.getStatus()}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -298,7 +308,6 @@ export default class Filter extends React.Component{
                 <Button
                         variant="outlined"
                         color="primary"
-                        className={styles.button}
                         onClick = {this.handleClick}
                 >
                       Filter
@@ -307,7 +316,6 @@ export default class Filter extends React.Component{
                   <Button
                         variant="outlined"
                         color="primary"
-                        className={styles.button}
                 >
                      Reset
                 </Button>

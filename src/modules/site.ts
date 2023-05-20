@@ -2,9 +2,9 @@ const AtCoderSiteStr = "AtCoder"
 const CodeforcesSiteStr = "Codeforces"
 const AOJSiteStr = "AOJ"
 const yukicoderSiteStr = "yukicoder"
-class Site {
-
-    constructor(siteStr) {
+export class Site {
+    siteStr: String
+    constructor(siteStr: String) {
         this.siteStr = siteStr
     }
 
@@ -12,7 +12,7 @@ class Site {
         return this.siteStr
     }
 
-    isSame(site) {
+    isSame(site: Site) {
         return this.getStr() === site.getStr()
     }
 }

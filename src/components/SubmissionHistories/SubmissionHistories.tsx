@@ -7,33 +7,34 @@ import {
   TableRow,
   Paper,
   TableFooter,
-  TablePagination,
   Box, IconButton
 } from '@mui/material';
+import {TablePagination} from "@mui/base";
 import { useTheme } from '@mui/material/styles';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import './App.css';
+import {Submit} from "../../modules/submit";
 
-function TablePaginationActions(props) {
+function TablePaginationActions(props: any) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
-  const handleFirstPageButtonClick = (event) => {
+  const handleFirstPageButtonClick = (event: any) => {
     onPageChange(event, 0);
   };
 
-  const handleBackButtonClick = (event) => {
+  const handleBackButtonClick = (event: any) => {
     onPageChange(event, page - 1);
   };
 
-  const handleNextButtonClick = (event) => {
+  const handleNextButtonClick = (event: any) => {
     onPageChange(event, page + 1);
   };
 
-  const handleLastPageButtonClick = (event) => {
+  const handleLastPageButtonClick = (event: any) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
@@ -71,22 +72,28 @@ function TablePaginationActions(props) {
   );
 }
 
-export default class SubmissionHistories extends Component {
-
-  constructor() {
-    super();
+interface AppProps{
+    data: Submit[]
+}
+interface AppState{
+    page:number
+    rowsperpage: number
+}
+export default class SubmissionHistories extends Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
     this.state = {
       page: 0,
       rowsperpage:5
     }
   }
-  handleChangePage = (event, newPage) => {
+  handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     this.setState({
-      page: newPage
+      page:page
     })
   };
 
-  handleChangeRowsPerPage = (event) => {
+  handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       rowsperpage: parseInt(event.target.value, 30),
       page: 0
@@ -115,14 +122,14 @@ export default class SubmissionHistories extends Component {
             {(this.state.rowsperpage > 0
             ? this.props.data.slice(this.state.page * this.state.rowsperpage, this.state.page * this.state.rowsperpage + this.state.rowsperpage)
             : this.props.data
-          ).map((submit) => (
-              <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(submit.url, "_blank")}>
-                <TableCell align="left">{submit.getDateString()}</TableCell>
-                <TableCell align="center" >{submit.getSite().getStr()}</TableCell>
-                <TableCell align="center">{submit.contest}</TableCell>
-                <TableCell align="center">{submit.title}</TableCell>
-                <TableCell align="center">{submit.point}</TableCell>
-                <TableCell align="center">{submit.result.getStatus()}</TableCell>
+          ).map((s) => (
+              <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(s.url, "_blank")}>
+                <TableCell align="left">{s.getDateString()}</TableCell>
+                <TableCell align="center" >{s.getSite().getStr()}</TableCell>
+                <TableCell align="center">{s.contest}</TableCell>
+                <TableCell align="center">{s.title}</TableCell>
+                <TableCell align="center">{s.point}</TableCell>
+                <TableCell align="center">{s.result.getStatus()}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -134,15 +141,8 @@ export default class SubmissionHistories extends Component {
                 count={this.props.data.length}
                 rowsPerPage={this.state.rowsperpage}
                 page={this.state.page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                }}
                 onPageChange={this.handleChangePage}
                 onRowsPerPageChange={this.handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
               />
             </TableRow>
         </TableFooter>

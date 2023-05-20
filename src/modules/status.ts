@@ -6,8 +6,9 @@ const OutputLimitEceeded = "OLE"
 const RuntimeError = "RE"
 const CompileError = "CE"
 const InternalError = "IE"
-class Status {
-    constructor(status) {
+export class Status {
+    status:string
+    constructor(status: string) {
         this.status = status
     }
 
@@ -15,7 +16,7 @@ class Status {
         return this.status
     }
 
-    isSame(status) {
+    isSame(status: Status) {
         return this.getStatus() === status.getStatus()
     }
 }

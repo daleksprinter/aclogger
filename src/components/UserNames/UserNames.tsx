@@ -2,17 +2,19 @@ import React from 'react';
 import {Paper, TextField, Button} from "@mui/material";
 import './usernames.css'
 
-const styles = theme => ({
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-    },
-});
+interface AppProps{
+   handleClick: any
+}
+interface AppState{
+    cfuser: String
+    acuser: String
+    aojuser: String
+    ycuser: String
+}
+export default class UserNames extends React.Component<AppProps, AppState>{
 
-export default class UserNames extends React.Component{
-
-    constructor(){
-        super();
+    constructor(props: AppProps){
+        super(props);
         this.state = {
             cfuser : "",
             acuser : "",
@@ -21,7 +23,7 @@ export default class UserNames extends React.Component{
         }
     }
 
-    handleChange = (e) => {
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch(e.target.name){
             case "cfuser" :
                 this.setState({cfuser : e.target.value})
@@ -49,7 +51,6 @@ export default class UserNames extends React.Component{
                     <TextField
                         id="cfid"
                         label="Codeforces ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'cfuser'
@@ -58,7 +59,6 @@ export default class UserNames extends React.Component{
                     <TextField
                         id="acid"
                         label="AtCoder ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'acuser'
@@ -67,7 +67,6 @@ export default class UserNames extends React.Component{
                     <TextField
                         id="aojid"
                         label="Aizu Online Judge ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'aojuser'
@@ -76,7 +75,6 @@ export default class UserNames extends React.Component{
                     <TextField
                         id="ycid"
                         label="yukicoder ID"
-                        className={styles.textField}
                         margin="normal"
                         onChange = {this.handleChange}
                         name = 'ycuser'
@@ -87,7 +85,6 @@ export default class UserNames extends React.Component{
                         <Button
                             variant="outlined"
                             color="primary"
-                            className={styles.button}
                             onClick = {this.handleClick}
                         >
                            Refresh

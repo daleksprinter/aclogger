@@ -7,19 +7,27 @@ import {Paper} from '@mui/material';
 import {Tooltip as ReactTooltip} from 'react-tooltip';
 
 import './HeatMap.css';
+import {Submit} from "../../modules/submit";
 
-export default class Hoge extends Component {
+interface AppProps{
+    data: Submit[]
+}
+interface AppState{}
 
-    dataToValues(data){
-        let cntmap = {}
+interface CountMap{
+    [index: string]: number
+}
+export default class Hoge extends Component<AppProps, AppState> {
+    dataToValues(data: Submit[]){
+        let m: CountMap = {};
         for(const sub of data) {
-            const date = sub.getDateString()
-            const cnt = cntmap[date] ? cntmap[date] + 1 : 1
-            cntmap[date] = cnt
+            const d = sub.getDateString()
+            const cnt = m[d] ? m[d] + 1 : 1
+            m[d] = cnt
         }
         let ret = []
-        for(const date in cntmap) {
-            const val = {date: date, count: cntmap[date]}
+        for(const date in m) {
+            const val = {date: date, count: m[date]}
             ret.push(val)
         }
         return ret
@@ -31,13 +39,13 @@ export default class Hoge extends Component {
           startDate={new Date('2022-01-01')}
           endDate={new Date()}
           values={this.dataToValues(this.props.data)}
-          classForValue={value => {
+          classForValue={(value: any) => {
             if (!value) {
               return 'color-empty';
             }
             return `color-github-${Math.min(4, value.count)}`;
           }}
-          tooltipDataAttrs={value => {
+          tooltipDataAttrs={(value: any) => {
             return {
               'data-tip': `${value.date} : ${
                 value.count
