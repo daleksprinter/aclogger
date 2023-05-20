@@ -4,7 +4,7 @@ import SubmissionCounts from '../SubmissionCounts/SubmissionCounts';
 import UserNames from "../UserNames/UserNames";
 import HeatMap from "../HeatMap/HeatMap";
 import Filter from "../Filter/Filter";
-import {Submissions, Submit} from "../../modules/submit";
+import {Submissions} from "../../modules/submit";
 import {Conditions, conditionsDTO} from "../../modules/condition";
 import {Clients} from "../../modules/client";
 

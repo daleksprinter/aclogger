@@ -1,5 +1,5 @@
 import {sitefactory} from "./site";
-import {Submissions, Submit} from "./submit";
+import {Submit} from "./submit";
 import {Status} from "./status"
 
 export class conditionsDTO {

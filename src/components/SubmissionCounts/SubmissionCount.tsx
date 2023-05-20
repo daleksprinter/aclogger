@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './SubmissionCount.css'
-import {Site} from "../../modules/site";
 
 interface AppProps{
     site: string

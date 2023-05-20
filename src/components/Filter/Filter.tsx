@@ -3,7 +3,6 @@ import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } 
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 import {statusfactory} from "../../modules/status";
-import {Status} from "../../modules/status";
 
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
@@ -17,11 +16,11 @@ interface AppState{
     to_date:string
     atcoder_lower_point: string,
     atcoder_upper_point: string,
-    atcoder_status: string,
+    atcoder_status: [],
     codeforces_lower_point: string,
     codeforces_upper_point: string,
-    codeforces_status: string,
-    aoj_status: string,
+    codeforces_status: [],
+    aoj_status: [],
     yukicoder_lower_point: string,
     yukicoder_upper_point: string,
 }
@@ -35,11 +34,11 @@ export default class Filter extends React.Component<AppProps, AppState>{
             to_date: "2025-01-01",
             atcoder_lower_point: '0',
             atcoder_upper_point: '10000',
-            atcoder_status: '',
+            atcoder_status: [],
             codeforces_lower_point: '0',
             codeforces_upper_point: '10000',
-            codeforces_status: '',
-            aoj_status: '',
+            codeforces_status: [],
+            aoj_status: [],
             yukicoder_lower_point: '0',
             yukicoder_upper_point: '10',
         }
