@@ -7,8 +7,8 @@ const RuntimeError = "RE"
 const CompileError = "CE"
 const InternalError = "IE"
 export class Status {
-    status: String
-    constructor(status: String) {
+    status:string
+    constructor(status: string) {
         this.status = status
     }
 

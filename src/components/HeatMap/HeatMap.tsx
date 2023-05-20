@@ -39,13 +39,13 @@ export default class Hoge extends Component<AppProps, AppState> {
           startDate={new Date('2022-01-01')}
           endDate={new Date()}
           values={this.dataToValues(this.props.data)}
-          classForValue={value => {
+          classForValue={(value: any) => {
             if (!value) {
               return 'color-empty';
             }
             return `color-github-${Math.min(4, value.count)}`;
           }}
-          tooltipDataAttrs={value => {
+          tooltipDataAttrs={(value: any) => {
             return {
               'data-tip': `${value.date} : ${
                 value.count

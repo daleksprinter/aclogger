@@ -3,6 +3,7 @@ import {Paper, TextField, Button} from "@mui/material";
 import './usernames.css'
 
 interface AppProps{
+   handleClick: any
 }
 interface AppState{
     cfuser: String

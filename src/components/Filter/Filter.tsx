@@ -10,6 +10,7 @@ const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
 interface AppProps{
+   update: any
 }
 interface AppState{
     from_date: string
@@ -44,7 +45,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
         }
     }
 
-    handleChange = (e: SelectChangeEvent) => {
+    handleChange = (e: any) => {
         switch(e.target.name){
             case "from_date" :
                 this.setState({from_date : e.target.value})
@@ -178,7 +179,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   input={<Input id="atcoder_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem value={s}>
+                    <MenuItem value={s.getStatus()}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -236,7 +237,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   input={<Input id="codeforces_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem value={s}>
+                    <MenuItem value={s.getStatus()}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}
@@ -256,7 +257,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   input={<Input id="aoj_status" />}
                 >
                   {Statuses.map((s) => (
-                    <MenuItem value={s}>
+                    <MenuItem value={s.getStatus()}>
                       {s.getStatus()}
                     </MenuItem>
                   ))}

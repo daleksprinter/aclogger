@@ -7,9 +7,9 @@ import {
   TableRow,
   Paper,
   TableFooter,
-  TablePagination,
   Box, IconButton
 } from '@mui/material';
+import {TablePagination} from "@mui/base";
 import { useTheme } from '@mui/material/styles';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -18,23 +18,23 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import './App.css';
 import {Submit} from "../../modules/submit";
 
-function TablePaginationActions(props) {
+function TablePaginationActions(props: any) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
-  const handleFirstPageButtonClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFirstPageButtonClick = (event: any) => {
     onPageChange(event, 0);
   };
 
-  const handleBackButtonClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBackButtonClick = (event: any) => {
     onPageChange(event, page - 1);
   };
 
-  const handleNextButtonClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNextButtonClick = (event: any) => {
     onPageChange(event, page + 1);
   };
 
-  const handleLastPageButtonClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLastPageButtonClick = (event: any) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
@@ -87,9 +87,9 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
       rowsperpage:5
     }
   }
-  handleChangePage = (event: React.ChangeEvent<HTMLInputElement>, newPage: number) => {
+  handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     this.setState({
-      page: newPage
+      page:page
     })
   };
 
@@ -141,15 +141,8 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
                 count={this.props.data.length}
                 rowsPerPage={this.state.rowsperpage}
                 page={this.state.page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                }}
                 onPageChange={this.handleChangePage}
                 onRowsPerPageChange={this.handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
               />
             </TableRow>
         </TableFooter>

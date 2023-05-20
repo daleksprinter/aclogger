@@ -230,7 +230,7 @@ export class Clients {
         this.yukicoderClient = new yukicoderClient(yukicoderUser)
     }
 
-    fetch(callback) {
+    fetch(callback: any) {
         return Promise.all([this.atcoderClient.getAllSubmissions(), this.codeforcesClient.getAllSubmissions(), this.aojClient.getAllSubmissions(), this.yukicoderClient.getAllSubmissions()])
             .then(res => {
                 const s = res.reduce((accum, subs) => accum.merge(subs), new Submissions(null))

@@ -2214,6 +2214,13 @@
   "resolved" "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.4.tgz"
   "version" "1.2.4"
 
+"@types/react-calendar-heatmap@^1.6.3":
+  "integrity" "sha512-C6hN9Nl0NBqeJEkivwwf/bvWNoPwpwGSNABwYl0yHD20rClSJqRgYoGPKDIn8QqoYHGJsTFJdFbBAZRPlJ/+qg=="
+  "resolved" "https://registry.npmjs.org/@types/react-calendar-heatmap/-/react-calendar-heatmap-1.6.3.tgz"
+  "version" "1.6.3"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-is@^16.7.1 || ^17.0.0":
   "integrity" "sha512-FLzd0K9pnaEvKz4D1vYxK9JmgQPiGk1lu23o1kqGsLeT0iPbRSF7b76+S5T9fD8aRa0B8bY7I/3DebEj+1ysBA=="
   "resolved" "https://registry.npmjs.org/@types/react-is/-/react-is-17.0.4.tgz"
