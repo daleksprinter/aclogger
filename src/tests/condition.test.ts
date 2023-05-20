@@ -10,7 +10,7 @@ import {statusfactory} from "../modules/status";
 
 test("submission date condition", () => {
     const s = new AtCoderSubmit(1683188344 * 1000, statusfactory.Accept(), null, "", null, ""); //2023-05-04
-    expect(new SubmissionDateCondition(0, 0).accept(s)).toBe(true)
+    expect(new SubmissionDateCondition(1683188343 * 1000, 1683188345 * 1000).accept(s)).toBe(true)
     expect(new SubmissionDateCondition(0, 0).accept(s)).toBe(false)
     expect(new SubmissionDateCondition(0, 0).accept(s)).toBe(false)
 })
@@ -48,7 +48,7 @@ test("yukicoder condition", () => {
 
 test("conditions", () => {
     let s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
-    let conddto = new conditionsDTO(0, 0, 0, 1000, [], 0, 1000, [statusfactory.Accept()], [], 1, 6, [])
+    let conddto = new conditionsDTO(1683188343 * 1000, 1683188345 * 1000, 0, 1000, [], 0, 1000, [statusfactory.Accept()], [], 1, 6, [])
     let conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(true)
 
