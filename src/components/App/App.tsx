@@ -6,9 +6,13 @@ import HeatMap from "../HeatMap/HeatMap";
 import Filter from "../Filter/Filter";
 import {Submissions} from "../../modules/submit";
 import {Conditions, conditionsDTO} from "../../modules/condition";
-import {Clients} from "../../modules/client";
 
 import './App.css';
+import {Clients} from "../../modules/client";
+import {AtCoderClient} from "../../modules/clientImplements/atcoderClient";
+import {CodeForcesClient} from "../../modules/clientImplements/codeforcesClient";
+import {AizuOnlineJudgeClient} from "../../modules/clientImplements/aojClient";
+import {yukicoderClient} from "../../modules/clientImplements/yukicoderClient";
 const App = () => {
     const [submiss, setSubmiss] = useState(new Submissions(null))
     const [view, setView] = useState(new Submissions(null))
@@ -19,7 +23,11 @@ const App = () => {
     }
 
     const handleClick = (acuser: String, cfuser: String, aojuser: String, ycuser: String) => {
-        const c = new Clients(acuser, cfuser, aojuser, ycuser)
+        const c = new Clients()
+        c.add(new AtCoderClient(acuser))
+        c.add(new CodeForcesClient(cfuser))
+        c.add(new AizuOnlineJudgeClient(aojuser))
+        c.add(new yukicoderClient(ycuser))
         c.fetch(setSubmissions)
     }
 
