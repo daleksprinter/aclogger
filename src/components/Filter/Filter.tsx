@@ -11,20 +11,6 @@ const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
 interface AppProps{
    update: any
 }
-interface AppState{
-    from_date: string
-    to_date:string
-    atcoder_lower_point: number,
-    atcoder_upper_point: number,
-    atcoder_status: string[],
-    codeforces_lower_point: number,
-    codeforces_upper_point: number,
-    codeforces_status: string[],
-    aoj_status: string[],
-    yukicoder_lower_point: number,
-    yukicoder_upper_point: number,
-}
-
 const Filter = (props: AppProps) => {
     const d = new Date()
     d.setFullYear(d.getFullYear() - 1)

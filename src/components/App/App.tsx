@@ -28,19 +28,18 @@ const App = () => {
          setView(new Submissions(filtered))
     }
 
-        return (
-            <div className = "app">
-                <div className="sidebar">
-                    <UserNames handleClick={handleClick}></UserNames>
-                    <Filter update = {update}></Filter>
-                </div>
-                <div className="content">
-                    <SubmissionCounts data = {view}></SubmissionCounts>
-                    <HeatMap data = {view.getAll()}></HeatMap>
-                    <SubmissionHistories data = {view.getAll()} />
-                </div>
-
+    return (
+        <div className = "app">
+            <div className="sidebar">
+                <UserNames handleClick={handleClick}></UserNames>
+                <Filter update = {update}></Filter>
             </div>
-        )
+            <div className="content">
+                <SubmissionCounts data = {view}></SubmissionCounts>
+                <HeatMap data = {view.getAll()}></HeatMap>
+                <SubmissionHistories data = {view.getAll()} />
+            </div>
+        </div>
+    )
 }
 export default App

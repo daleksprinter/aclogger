@@ -39,7 +39,7 @@ const Heatmap = (props: AppProps) => {
     return (
       <Paper className = "heatmap">
         <CalendarHeatmap
-            showOutOfRangeDays={true}
+          showOutOfRangeDays={true}
           startDate={lastYearDate()}
           endDate={new Date()}
           values={dataToValues(props.data)}
