@@ -2,9 +2,8 @@ import React from 'react';
 import {AppBar, Toolbar} from '@mui/material';
 import './NavBar.css';
 
-export default class Bar extends React.Component{
+const Bar = () => {
     
-    render(){
         return (
             <div>
                 <AppBar position="static" color="default">
@@ -15,5 +14,5 @@ export default class Bar extends React.Component{
                 </AppBar>
             </div>
       );
-    }
 }
+export default Bar

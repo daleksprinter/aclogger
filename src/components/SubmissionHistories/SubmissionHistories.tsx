@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   Table,
   TableBody,
@@ -79,31 +79,17 @@ interface AppState{
     page:number
     rowsperpage: number
 }
-export default class SubmissionHistories extends Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    this.state = {
-      page: 0,
-      rowsperpage:5
-    }
-  }
-  handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    this.setState({
-      page:page
-    })
+const SubmissionHistories = (props: AppProps) => {
+    const [page, setPage] = useState(0)
+    const [rowsperpage, setRowsperpage] = useState(5)
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+        setPage(page)
   };
 
-  handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      rowsperpage: parseInt(event.target.value, 10),
-      page: 0
-    })
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+     setPage(0)
+     setRowsperpage(parseInt(event.target.value, 10))
   };
-  render() {
-    var keys = Object.keys(this.props.data);
-    keys.sort();
-    keys.reverse();
-
     return (
       <Paper className = 'log'>
         <Table>
@@ -119,9 +105,9 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
           </TableHead>
 
           <TableBody>
-            {(this.state.rowsperpage > 0
-            ? this.props.data.slice(this.state.page * this.state.rowsperpage, this.state.page * this.state.rowsperpage + this.state.rowsperpage)
-            : this.props.data
+            {(rowsperpage > 0
+            ? props.data.slice(page * rowsperpage, page * rowsperpage + rowsperpage)
+            : props.data
           ).map((s) => (
               <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(s.url, "_blank")}>
                 <TableCell align="left">{s.getDateString()}</TableCell>
@@ -138,11 +124,11 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                 colSpan={3}
-                count={this.props.data.length}
-                rowsPerPage={this.state.rowsperpage}
-                page={this.state.page}
-                onPageChange={this.handleChangePage}
-                onRowsPerPageChange={this.handleChangeRowsPerPage}
+                count={props.data.length}
+                rowsPerPage={rowsperpage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
               />
             </TableRow>
@@ -150,7 +136,5 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
         </Table>
       </Paper>
     );
-  }
 }
-
-
+export default SubmissionHistories;

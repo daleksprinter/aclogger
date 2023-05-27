@@ -1,58 +1,46 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Paper, TextField, Button} from "@mui/material";
 import './usernames.css'
 
 interface AppProps{
    handleClick: any
 }
-interface AppState{
-    cfuser: String
-    acuser: String
-    aojuser: String
-    ycuser: String
-}
-export default class UserNames extends React.Component<AppProps, AppState>{
+const UserNames = (props: AppProps) => {
 
-    constructor(props: AppProps){
-        super(props);
-        this.state = {
-            cfuser : "",
-            acuser : "",
-            aojuser : "",
-            ycuser : "",
-        }
-    }
+    const [cfuser, setCfuser] = useState("")
+    const [acuser, setAcuser] = useState("")
+    const [aojuser, setAojuser] = useState("")
+    const [ycuser, setYcuser] = useState("")
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch(e.target.name){
             case "cfuser" :
-                this.setState({cfuser : e.target.value})
+                setCfuser(e.target.value)
                 break
             case "acuser" :
-                this.setState({acuser : e.target.value})
+                setAcuser(e.target.value)
                 break
             case "aojuser" :
-                this.setState({aojuser : e.target.value})
+                setAojuser(e.target.value)
                 break
             case "ycuser" :
-                this.setState({ycuser : e.target.value})
+                setYcuser(e.target.value)
                 break
             default:
                 break
         }
     }
 
-    handleClick = () => {
-        this.props.handleClick(this.state.acuser, this.state.cfuser, this.state.aojuser, this.state.ycuser)
+    const handleClick = () => {
+        props.handleClick(acuser, cfuser, aojuser, ycuser)
     }
-    render(){
         return (
              <Paper className = 'inputbar'>
                     <TextField
                         id="cfid"
                         label="Codeforces ID"
                         margin="normal"
-                        onChange = {this.handleChange}
+                        onChange = {handleChange}
                         name = 'cfuser'
                     />
                     <div></div>
@@ -60,7 +48,7 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                         id="acid"
                         label="AtCoder ID"
                         margin="normal"
-                        onChange = {this.handleChange}
+                        onChange = {handleChange}
                         name = 'acuser'
                     />
                     <div></div>
@@ -68,7 +56,7 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                         id="aojid"
                         label="Aizu Online Judge ID"
                         margin="normal"
-                        onChange = {this.handleChange}
+                        onChange = {handleChange}
                         name = 'aojuser'
                     />
                     <div></div>
@@ -76,7 +64,7 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                         id="ycid"
                         label="yukicoder ID"
                         margin="normal"
-                        onChange = {this.handleChange}
+                        onChange = {handleChange}
                         name = 'ycuser'
                     />
                     <div></div>
@@ -85,12 +73,13 @@ export default class UserNames extends React.Component<AppProps, AppState>{
                         <Button
                             variant="outlined"
                             color="primary"
-                            onClick = {this.handleClick}
+                            onClick = {handleClick}
                         >
                            Refresh
                         </Button>
                     </div>
                 </Paper>
         );
-    }
 }
+
+export default UserNames;
