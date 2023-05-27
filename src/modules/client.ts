@@ -15,14 +15,13 @@ export class Clients {
     this.clients.push(c)
   }
 
-  fetch(callback: any) {
+  fetch() {
     return Promise.all(this.clients.map(c => c.getAllSubmissions()))
       .then((res) => {
-        const s = res.reduce(
+        return res.reduce(
           (accum, subs) => accum.merge(subs),
           new Submissions(null)
         );
-        callback(s);
       });
   }
 }

@@ -27,7 +27,7 @@ const App = () => {
         c.add(new CodeForcesClient(cfuser))
         c.add(new AizuOnlineJudgeClient(aojuser))
         c.add(new yukicoderClient(ycuser))
-        c.fetch(setSubmissions)
+        c.fetch().then(subs => setSubmissions(subs))
     }
 
     const update = (conddto: conditionsDTO) => {
