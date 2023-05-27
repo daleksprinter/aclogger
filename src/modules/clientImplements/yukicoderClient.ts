@@ -66,7 +66,7 @@ export class yukicoderClient implements Client {
     "Date": "2018-09-02T00:56:10+09:00"
   }
 ]
- */
+*/
 
 class yukicoderResponseParser {
   private resToSub(res: any) {
