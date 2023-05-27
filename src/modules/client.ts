@@ -110,11 +110,7 @@ export class CodeForcesClient extends BaseClient {
     const contestid = res["problem"]["contestId"];
     const title = res["problem"]["index"] + ". " + res["problem"]["name"];
     const point = res["problem"]["rating"];
-    const url =
-      "https://codeforces.com/contest/" +
-      res["problem"]["contestId"] +
-      "/submission/" +
-      res["id"];
+    const url = `https://codeforces.com/contest/${res["problem"]["contestId"]}/submission/${res["id"]}`;
     const sub = new CodeforcesSubmit(
       subtime,
       result,
