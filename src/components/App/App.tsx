@@ -6,7 +6,6 @@ import HeatMap from "../HeatMap/HeatMap";
 import Filter from "../Filter/Filter";
 import {Submissions} from "../../modules/submit";
 import {Conditions, conditionsDTO} from "../../modules/condition";
-
 import {Clients} from "../../modules/client";
 import {AtCoderClient} from "../../modules/clientImplements/atcoderClient";
 import {CodeForcesClient} from "../../modules/clientImplements/codeforcesClient";

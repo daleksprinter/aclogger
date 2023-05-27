@@ -3,6 +3,7 @@ import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } 
 import {conditionsDTO} from "../../modules/condition";
 import {Status, statusfactory} from "../../modules/status";
 import {getdate} from "../../modules/utils"
+
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
