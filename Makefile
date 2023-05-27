@@ -10,3 +10,6 @@ test:
 clean:
 	rm -rf node_modules
 	rm package-lock.json
+
+lint:
+	npm run lint
