@@ -5,9 +5,12 @@ import { AOJSubmit, Submissions } from "../submit";
 export class AizuOnlineJudgeClient implements Client {
   user: String;
   url: string;
+  parser:aojResponseParser;
   constructor(user: String) {
     this.user = user;
+    // @see http://developers.u-aizu.ac.jp/api?key=judgeapi%2Fsubmission_records%2Fusers%2F%7Buser_id%7D%3Fpage%3D%7Bpage%7D%26size%3D%7Bsize%7D_GET
     this.url = `https://judgeapi.u-aizu.ac.jp/submission_records/users/${this.user}?page=0&size=10000`;
+    this.parser = new aojResponseParser()
   }
   fetch() {
     if (this.user !== "" && this.user !== undefined) {
@@ -21,12 +24,70 @@ export class AizuOnlineJudgeClient implements Client {
 
   getAllSubmissions() {
     return this.fetch().then((json) => {
-      const subs = this.toSubmissions(json);
+      const subs = this.parser.toSubmissions(json);
       return Promise.resolve(subs);
     });
   }
+}
 
-  parseResult = (res: number) => {
+/* Response Sample
+[
+  {
+    "judgeId": 3457091,
+    "judgeType": 1,
+    "userId": "daleksprinter",
+    "problemId": "GRL_6_A",
+    "submissionDate": 1554323123921,
+    "language": "C++14",
+    "status": 4,
+    "cpuTime": 2,
+    "memory": 3244,
+    "codeSize": 3276,
+    "accuracy": "40/40",
+    "judgeDate": 1554323125391,
+    "score": 100,
+    "problemTitle": null,
+    "token": null
+  },
+  {
+    "judgeId": 3420430,
+    "judgeType": 1,
+    "userId": "daleksprinter",
+    "problemId": "0598",
+    "submissionDate": 1552207207112,
+    "language": "C++14",
+    "status": 4,
+    "cpuTime": 5,
+    "memory": 4220,
+    "codeSize": 4681,
+    "accuracy": "53/53",
+    "judgeDate": 1552207209275,
+    "score": 0,
+    "problemTitle": null,
+    "token": null
+  },
+  {
+    "judgeId": 3420427,
+    "judgeType": 1,
+    "userId": "daleksprinter",
+    "problemId": "0598",
+    "submissionDate": 1552206962165,
+    "language": "C++14",
+    "status": 1,
+    "cpuTime": 0,
+    "memory": 3256,
+    "codeSize": 4681,
+    "accuracy": "5/53",
+    "judgeDate": 1552206963114,
+    "score": 0,
+    "problemTitle": null,
+    "token": null
+  }
+]
+*/
+
+class aojResponseParser {
+  private parseResult = (res: number) => {
     if (res === 4) return statusfactory.Accept();
     else if (res === 1) return statusfactory.WrongAnswer();
     else if (res === 7) return statusfactory.RuntimeError();
@@ -35,7 +96,7 @@ export class AizuOnlineJudgeClient implements Client {
     else if (res === 3) return statusfactory.MemoryLimitEceeded();
     else return statusfactory.Null();
   };
-  resToSub(res: any) {
+  private resToSub(res: any) {
     const subtime = res["submissionDate"];
     const result = this.parseResult(res["status"]);
     const contestid = null;
