@@ -43,39 +43,40 @@ const Filter = (props: AppProps) => {
     const [yukicoder_upper_point,setYup]  = useState(6)
 
     const handleChange = (e: any) => {
+        const val = e.target.value
         switch(e.target.name){
             case "from_date" :
-                setFromdate(e.target.value)
+                setFromdate(val)
                 break
             case "to_date" :
-                setTodate(e.target.value)
+                setTodate(val)
                 break
             case "atocder_lower_point" :
-                setAlp(e.target.value)
+                setAlp(val)
                 break
             case "atcoder_upper_point" :
-                setAup(e.target.value)
+                setAup(val)
                 break
             case "atcoder_status" :
-                setAs(e.target.value)
+                setAs(val)
                 break
             case "codeforces_lower_point" :
-                setClp(e.tareget.value)
+                setClp(val)
                 break
             case "codeforces_upper_point" :
-                setCup(e.target.value)
+                setCup(val)
                 break
             case "codeforces_status" :
-                setCs(e.terget.value)
+                setCs(val)
                 break
             case "aoj_status" :
-                setAojs(e.target.value)
+                setAojs(val)
                 break
             case "yukicoder_lower_point" :
-                setYlp(e.terget.value)
+                setYlp(val)
                 break
             case "yukicoder_upper_point" :
-                setYup(e.target.value)
+                setYup(val)
                 break
             default:
                 break
