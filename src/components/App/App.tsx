@@ -12,6 +12,7 @@ import './App.css';
 interface AppProps{}
 interface AppState{
     submiss: Submissions
+    view: Submissions
 }
 export default class App extends Component<AppProps, AppState>{
 
@@ -19,12 +20,14 @@ export default class App extends Component<AppProps, AppState>{
         super(props);
         this.state = {
             submiss: new Submissions(null),
+            view: new Submissions(null)
         }
     }
 
     setSubmissions = (submiss: Submissions) => {
         this.setState({
-            submiss:  submiss
+            submiss:  submiss,
+            view: submiss
         })
     }
 
@@ -36,7 +39,7 @@ export default class App extends Component<AppProps, AppState>{
     update = (conddto: conditionsDTO) => {
          const filtered =  this.state.submiss.filter(new Conditions(conddto))
          this.setState({
-            submiss: new Submissions(filtered)
+             view: new Submissions(filtered)
          })
     }
 
@@ -48,9 +51,9 @@ export default class App extends Component<AppProps, AppState>{
                     <Filter update = {this.update}></Filter>
                 </div>
                 <div className="content">
-                    <SubmissionCounts data = {this.state.submiss}></SubmissionCounts>
-                    <HeatMap data = {this.state.submiss.getAll()}></HeatMap>
-                    <SubmissionHistories data = {this.state.submiss.getAll()} />
+                    <SubmissionCounts data = {this.state.view}></SubmissionCounts>
+                    <HeatMap data = {this.state.view.getAll()}></HeatMap>
+                    <SubmissionHistories data = {this.state.view.getAll()} />
                 </div>
 
             </div>
