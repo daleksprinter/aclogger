@@ -14,7 +14,7 @@ interface AppProps{
 interface AppState{
     from_date: string
     to_date:string
-    atcoder_lower_point: string,
+    atcoder_lower_point: number,
     atcoder_upper_point: string,
     atcoder_status: [],
     codeforces_lower_point: string,
@@ -32,7 +32,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
         this.state = {
             from_date: "2017-01-01",
             to_date: "2025-01-01",
-            atcoder_lower_point: '0',
+            atcoder_lower_point: 0,
             atcoder_upper_point: '10000',
             atcoder_status: [],
             codeforces_lower_point: '0',
@@ -102,6 +102,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
            this.state.yukicoder_status
            */
        )
+        console.log(this.state)
         this.props.update(conddto)
     }
     render(){

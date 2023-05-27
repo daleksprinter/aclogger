@@ -4,14 +4,14 @@ import {Status} from "./status"
 import {Conditions} from "./condition";
 
 export abstract class Submit {
-    t: number
+    timestamp: number
     result: Status
     contest: String | null
     title: String
     point: number | null
     url:string
-    constructor(t: number, result: Status, contest: String | null, title: String, point: number | null, url: string) {
-        this.t = t
+    constructor(timestamp: number, result: Status, contest: String | null, title: String, point: number | null, url: string) {
+        this.timestamp = timestamp
         this.result = result
         this.contest  = contest
         this.title = title
@@ -27,11 +27,11 @@ export abstract class Submit {
     }
 
     getDateString() {
-        return getdate(this.t)
+        return getdate(this.timestamp)
     }
 
     getDate(){
-        return new Date(this.t)
+        return new Date(this.timestamp)
     }
 
     abstract getSite(): Site
