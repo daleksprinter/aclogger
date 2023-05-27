@@ -14,7 +14,6 @@ export class conditionsDTO {
     aoj_status: Status[]
     yukicoder_lower_point:number
     yukiconder_upper_point:number
-    yukicoder_status: Status[]
 
     constructor(from_date: number,
                 to_date: number,
@@ -27,7 +26,6 @@ export class conditionsDTO {
                 aoj_status: Status[],
                 yukicoder_lower_point: number,
                 yukiconder_upper_point: number,
-                yukicoder_status: Status[],
     ) {
                 this.from_date = from_date
                 this.to_date = to_date
@@ -40,7 +38,6 @@ export class conditionsDTO {
                 this.aoj_status = aoj_status
                 this.yukicoder_lower_point = yukicoder_lower_point
                 this.yukiconder_upper_point = yukiconder_upper_point
-                this.yukicoder_status = yukicoder_status
     }
 }
 
@@ -52,12 +49,12 @@ export class Conditions {
     ycond: Condition
     constructor(conddto: conditionsDTO) {
         this.baseConditions = [
-            new SubmissionDateCondition(Number(conddto.from_date), Number(conddto.to_date)),
+            new SubmissionDateCondition(conddto.from_date, conddto.to_date),
         ]
         this.accond = new AtCoderCondition(conddto.atcoder_lower_point, conddto.atcoder_upper_point, conddto.atcoder_status)
         this.cfcond = new CodeforcesCondition(conddto.codeforces_lower_point, conddto.codeforces_upper_point, conddto.codeforces_status)
         this.aojcond = new AizuOnlineJudgeCondition(conddto.aoj_status)
-        this.ycond = new yukiconderCondition(conddto.yukicoder_lower_point, conddto.yukiconder_upper_point, conddto.yukicoder_status)
+        this.ycond = new yukiconderCondition(conddto.yukicoder_lower_point, conddto.yukiconder_upper_point)
     }
 
     accept(submission: Submit){
@@ -160,13 +157,11 @@ export class AizuOnlineJudgeCondition extends Condition {
     }
 }
 export class yukiconderCondition extends Condition {
-    statuses: Status[]
     yukicoder_lower_point:number
     yukicoder_upper_point:number
 
-    constructor(lower: number, upper: number, statuses: Status[]) {
+    constructor(lower: number, upper: number) {
         super();
-        this.statuses = statuses;
         this.yukicoder_lower_point = lower;
         this.yukicoder_upper_point = upper;
     }

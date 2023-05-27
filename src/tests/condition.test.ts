@@ -41,25 +41,25 @@ test("aoj condition", () => {
 
 test("yukicoder condition", () => {
     const s = new yukicoderSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 3, ""); //2023-05-04
-    expect(new yukiconderCondition(1, 6, []).accept(s)).toBe(true)
-    expect(new yukiconderCondition(1, 2, []).accept(s)).toBe(false)
-    expect(new yukiconderCondition(5, 6, []).accept(s)).toBe(false)
+    expect(new yukiconderCondition(1, 6).accept(s)).toBe(true)
+    expect(new yukiconderCondition(1, 2).accept(s)).toBe(false)
+    expect(new yukiconderCondition(5, 6).accept(s)).toBe(false)
 })
 
 test("conditions", () => {
     let s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
-    let conddto = new conditionsDTO(1683188343 * 1000, 1683188345 * 1000, 0, 1000, [], 0, 1000, [statusfactory.Accept()], [], 1, 6, [])
+    let conddto = new conditionsDTO(1683188343 * 1000, 1683188345 * 1000, 0, 1000, [], 0, 1000, [statusfactory.Accept()], [], 1, 6)
     let conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(true)
 
 
     s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
-    conddto = new conditionsDTO(0, 0, 0, 0, [], 0, 1000, [statusfactory.Accept()], [], 1, 6, [])
+    conddto = new conditionsDTO(0, 0, 0, 0, [], 0, 1000, [statusfactory.Accept()], [], 1, 6)
     conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(false)
 
     s = new CodeforcesSubmit(1683188344 * 1000, statusfactory.Accept(), "", "", 500, ""); //2023-05-04
-    conddto = new conditionsDTO(0, 0, 0, 1000, [], 600, 1000, [statusfactory.Accept()], [], 1, 6, [])
+    conddto = new conditionsDTO(0, 0, 0, 1000, [], 600, 1000, [statusfactory.Accept()], [], 1, 6)
     conds = new Conditions(conddto)
     expect(conds.accept(s)).toBe(false)
 })

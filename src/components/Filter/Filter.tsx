@@ -2,7 +2,7 @@ import React from 'react';
 import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
-import {statusfactory} from "../../modules/status";
+import {Status, statusfactory} from "../../modules/status";
 
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
@@ -15,14 +15,14 @@ interface AppState{
     from_date: string
     to_date:string
     atcoder_lower_point: number,
-    atcoder_upper_point: string,
-    atcoder_status: [],
-    codeforces_lower_point: string,
-    codeforces_upper_point: string,
-    codeforces_status: [],
-    aoj_status: [],
-    yukicoder_lower_point: string,
-    yukicoder_upper_point: string,
+    atcoder_upper_point: number,
+    atcoder_status: string[],
+    codeforces_lower_point: number,
+    codeforces_upper_point: number,
+    codeforces_status: string[],
+    aoj_status: string[],
+    yukicoder_lower_point: number,
+    yukicoder_upper_point: number,
 }
 
 export default class Filter extends React.Component<AppProps, AppState>{
@@ -33,14 +33,14 @@ export default class Filter extends React.Component<AppProps, AppState>{
             from_date: "2017-01-01",
             to_date: "2025-01-01",
             atcoder_lower_point: 0,
-            atcoder_upper_point: '10000',
-            atcoder_status: [],
-            codeforces_lower_point: '0',
-            codeforces_upper_point: '10000',
-            codeforces_status: [],
-            aoj_status: [],
-            yukicoder_lower_point: '0',
-            yukicoder_upper_point: '10',
+            atcoder_upper_point: 10000,
+            atcoder_status: ["AC"],
+            codeforces_lower_point: 0,
+            codeforces_upper_point: 10000,
+            codeforces_status: ["AC"],
+            aoj_status: ["AC"],
+            yukicoder_lower_point: 0,
+            yukicoder_upper_point: 10,
         }
     }
 
@@ -85,24 +85,32 @@ export default class Filter extends React.Component<AppProps, AppState>{
     }
 
     handleClick = () => {
-       const conddto = new conditionsDTO(
-          0, 0, 0, 0, [] , 0, 0, [], [], 0, 0, []
-          /*
-           this.state.from_date,
-           this.state.to_date,
-           this.state.atcoder_lower_point,
-           this.state.atcoder_upper_point,
-           this.state.atcoder_status,
-           this.state.codeforces_lower_point,
-           this.state.codeforces_upper_point,
-           this.state.codeforces_status,
-           this.state.aoj_status,
-           this.state.yukicoder_lower_point,
-           this.state.yukicoder_upper_point,
-           this.state.yukicoder_status
-           */
-       )
-        console.log(this.state)
+        const from_date = new Date(this.state.from_date).getTime()
+        const to_date = new Date(this.state.to_date).getTime()
+        const atcoder_lower_point = this.state.atcoder_lower_point
+        const atcoder_upper_point = this.state.atcoder_upper_point
+        const atcoder_status = this.state.atcoder_status.map(s => new Status(s))
+        const codeforces_lower_point = this.state.codeforces_lower_point
+        const codeforces_upper_point= this.state.codeforces_upper_point
+        const codeforces_status= this.state.codeforces_status.map((s => new Status(s)))
+        const aoj_status = this.state.aoj_status.map(s=> new Status(s))
+        const yukicoder_lower_point = this.state.yukicoder_lower_point
+        const yukicoder_upper_point= this.state.yukicoder_upper_point
+
+        const conddto = new conditionsDTO(
+            from_date,
+            to_date,
+            atcoder_lower_point,
+            atcoder_upper_point,
+            atcoder_status,
+            codeforces_lower_point,
+            codeforces_upper_point,
+            codeforces_status,
+            aoj_status,
+            yukicoder_lower_point,
+            yukicoder_upper_point
+        )
+        console.log(conddto)
         this.props.update(conddto)
     }
     render(){
