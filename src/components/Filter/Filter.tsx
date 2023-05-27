@@ -3,7 +3,7 @@ import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } 
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
 import {Status, statusfactory} from "../../modules/status";
-
+import {getdate} from "../../modules/utils"
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
@@ -29,9 +29,12 @@ export default class Filter extends React.Component<AppProps, AppState>{
 
     constructor(props: AppProps) {
         super(props);
+        const d = new Date()
+        d.setFullYear(d.getFullYear() - 1)
+        const fd = getdate(d.getTime())
         this.state = {
-            from_date: "2017-01-01",
-            to_date: "2025-01-01",
+            from_date: fd,
+            to_date: getdate(new Date().getTime()),
             atcoder_lower_point: 0,
             atcoder_upper_point: 10000,
             atcoder_status: ["AC"],
@@ -114,13 +117,14 @@ export default class Filter extends React.Component<AppProps, AppState>{
         this.props.update(conddto)
     }
     render(){
+
         return (
             <Paper className="filter">
                 <TextField
                     id="from_date"
                     label="From Date"
                     type="date"
-                    defaultValue="2017-05-24"
+                    defaultValue={this.state.from_date}
                     margin="normal"
                     onChange = {this.handleChange}
                     name = 'from_date'
@@ -129,7 +133,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                     id="to_date"
                     label="To Date"
                     type="date"
-                    defaultValue="2023-05-24"
+                    defaultValue={this.state.to_date}
                     margin="normal"
                     onChange = {this.handleChange}
                     name = 'to_date'
