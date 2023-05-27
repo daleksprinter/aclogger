@@ -5,9 +5,12 @@ import { CodeforcesSubmit, Submissions } from "../submit";
 export class CodeForcesClient implements Client {
   user: String;
   url: string;
+  parser: codeforcesResponseParser;
   constructor(user: String) {
     this.user = user;
+    // @see https://codeforces.com/apiHelp/methods#user.status
     this.url = `https://codeforces.com/api/user.status?handle=${this.user}&from=1&count=1000`;
+    this.parser = new codeforcesResponseParser();
   }
 
   fetch() {
@@ -22,12 +25,126 @@ export class CodeForcesClient implements Client {
 
   getAllSubmissions() {
     return this.fetch().then((json) => {
-      const subs = this.toSubmissions(json["result"]);
+      const subs = this.parser.toSubmissions(json["result"]);
       return Promise.resolve(subs);
     });
   }
 
-  parseResult = (res: string) => {
+
+}
+
+/* Response Sample
+{
+  "status": "OK",
+  "result": [
+    {
+      "id": 53189999,
+      "contestId": 1155,
+      "creationTimeSeconds": 1556022214,
+      "relativeTimeSeconds": 2147483647,
+      "problem": {
+        "contestId": 1155,
+        "index": "C",
+        "name": "Alarm Clocks Everywhere",
+        "type": "PROGRAMMING",
+        "rating": 1300,
+        "tags": [
+          "math",
+          "number theory"
+        ]
+      },
+      "author": {
+        "contestId": 1155,
+        "members": [
+          {
+            "handle": "b1015120"
+          }
+        ],
+        "participantType": "PRACTICE",
+        "ghost": false,
+        "startTimeSeconds": 1555943700
+      },
+      "programmingLanguage": "GNU C++17",
+      "verdict": "WRONG_ANSWER",
+      "testset": "TESTS",
+      "passedTestCount": 0,
+      "timeConsumedMillis": 0,
+      "memoryConsumedBytes": 0
+    },
+    {
+      "id": 53189920,
+      "contestId": 1155,
+      "creationTimeSeconds": 1556022097,
+      "relativeTimeSeconds": 2147483647,
+      "problem": {
+        "contestId": 1155,
+        "index": "C",
+        "name": "Alarm Clocks Everywhere",
+        "type": "PROGRAMMING",
+        "rating": 1300,
+        "tags": [
+          "math",
+          "number theory"
+        ]
+      },
+      "author": {
+        "contestId": 1155,
+        "members": [
+          {
+            "handle": "b1015120"
+          }
+        ],
+        "participantType": "PRACTICE",
+        "ghost": false,
+        "startTimeSeconds": 1555943700
+      },
+      "programmingLanguage": "GNU C++17",
+      "verdict": "WRONG_ANSWER",
+      "testset": "TESTS",
+      "passedTestCount": 0,
+      "timeConsumedMillis": 15,
+      "memoryConsumedBytes": 0
+    },
+    {
+      "id": 53189873,
+      "contestId": 1155,
+      "creationTimeSeconds": 1556022023,
+      "relativeTimeSeconds": 2147483647,
+      "problem": {
+        "contestId": 1155,
+        "index": "C",
+        "name": "Alarm Clocks Everywhere",
+        "type": "PROGRAMMING",
+        "rating": 1300,
+        "tags": [
+          "math",
+          "number theory"
+        ]
+      },
+      "author": {
+        "contestId": 1155,
+        "members": [
+          {
+            "handle": "b1015120"
+          }
+        ],
+        "participantType": "PRACTICE",
+        "ghost": false,
+        "startTimeSeconds": 1555943700
+      },
+      "programmingLanguage": "GNU C++14",
+      "verdict": "WRONG_ANSWER",
+      "testset": "TESTS",
+      "passedTestCount": 0,
+      "timeConsumedMillis": 15,
+      "memoryConsumedBytes": 0
+    }
+  ]
+}
+*/
+
+class codeforcesResponseParser {
+  private parseResult = (res: string) => {
     if (res === "OK") return statusfactory.Accept();
     else if (res === "WRONG_ANSWER") return statusfactory.WrongAnswer();
     else if (res === "RUNTIME_ERROR") return statusfactory.RuntimeError();
@@ -39,7 +156,7 @@ export class CodeForcesClient implements Client {
     else return statusfactory.Null();
   };
 
-  resToSub(res: any) {
+  private resToSub(res: any) {
     const subtime = res["creationTimeSeconds"] * 1000;
     const result = this.parseResult(res["verdict"]);
     const contestid = res["problem"]["contestId"];
@@ -64,4 +181,5 @@ export class CodeForcesClient implements Client {
     }
     return subs;
   }
+
 }
