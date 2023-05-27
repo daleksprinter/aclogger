@@ -5,12 +5,12 @@ import { AOJSubmit, Submissions } from "../submit";
 export class AizuOnlineJudgeClient implements Client {
   user: String;
   url: string;
-  parser:aojResponseParser;
+  parser: aojResponseParser;
   constructor(user: String) {
     this.user = user;
     // @see http://developers.u-aizu.ac.jp/api?key=judgeapi%2Fsubmission_records%2Fusers%2F%7Buser_id%7D%3Fpage%3D%7Bpage%7D%26size%3D%7Bsize%7D_GET
     this.url = `https://judgeapi.u-aizu.ac.jp/submission_records/users/${this.user}?page=0&size=10000`;
-    this.parser = new aojResponseParser()
+    this.parser = new aojResponseParser();
   }
   fetch() {
     if (this.user !== "" && this.user !== undefined) {

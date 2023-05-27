@@ -71,7 +71,7 @@ export class AtCoderClient implements Client {
 ]
 */
 
-class atcoderResponseParser{
+class atcoderResponseParser {
   private parseResult = (res: string) => {
     if (res === "AC") return statusfactory.Accept();
     else if (res === "WA") return statusfactory.WrongAnswer();

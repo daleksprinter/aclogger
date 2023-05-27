@@ -29,8 +29,6 @@ export class CodeForcesClient implements Client {
       return Promise.resolve(subs);
     });
   }
-
-
 }
 
 /* Response Sample
@@ -181,5 +179,4 @@ class codeforcesResponseParser {
     }
     return subs;
   }
-
 }

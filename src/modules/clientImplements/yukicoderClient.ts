@@ -94,5 +94,4 @@ class yukicoderResponseParser {
     }
     return subs;
   }
-
 }
