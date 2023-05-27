@@ -1,5 +1,5 @@
-import {Submit} from "../submit";
-import {Condition} from "../condition";
+import { Submit } from "../submit";
+import { Condition } from "../condition";
 
 export class SubmissionDateCondition implements Condition {
   submit_from: any;

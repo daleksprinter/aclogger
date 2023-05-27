@@ -1,5 +1,5 @@
-import {Condition} from "../condition";
-import {Submit} from "../submit";
+import { Condition } from "../condition";
+import { Submit } from "../submit";
 
 export class yukiconderCondition implements Condition {
   yukicoder_lower_point: number;

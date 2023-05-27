@@ -1,6 +1,6 @@
-import {Client} from "../client";
-import {statusfactory} from "../status";
-import {CodeforcesSubmit, Submissions} from "../submit";
+import { Client } from "../client";
+import { statusfactory } from "../status";
+import { CodeforcesSubmit, Submissions } from "../submit";
 
 export class CodeForcesClient implements Client {
   user: String;

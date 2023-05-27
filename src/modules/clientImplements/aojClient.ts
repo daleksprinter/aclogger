@@ -1,6 +1,6 @@
-import {Client} from "../client";
-import {statusfactory} from "../status";
-import {AOJSubmit, Submissions} from "../submit";
+import { Client } from "../client";
+import { statusfactory } from "../status";
+import { AOJSubmit, Submissions } from "../submit";
 
 export class AizuOnlineJudgeClient implements Client {
   user: String;

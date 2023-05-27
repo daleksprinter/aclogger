@@ -1,11 +1,11 @@
 import { sitefactory } from "./site";
 import { Submit } from "./submit";
 import { Status } from "./status";
-import {SubmissionDateCondition} from "./conditionImplements/submissionDateCondition";
-import {AtCoderCondition} from "./conditionImplements/atcoderCondition";
-import {CodeforcesCondition} from "./conditionImplements/codeforcesCondition";
-import {AizuOnlineJudgeCondition} from "./conditionImplements/aojCondition";
-import {yukiconderCondition} from "./conditionImplements/yukicoderCondition";
+import { SubmissionDateCondition } from "./conditionImplements/submissionDateCondition";
+import { AtCoderCondition } from "./conditionImplements/atcoderCondition";
+import { CodeforcesCondition } from "./conditionImplements/codeforcesCondition";
+import { AizuOnlineJudgeCondition } from "./conditionImplements/aojCondition";
+import { yukiconderCondition } from "./conditionImplements/yukicoderCondition";
 
 export class conditionsDTO {
   from_date: number;
@@ -90,7 +90,5 @@ export class Conditions {
 }
 
 export interface Condition {
-   accept(sub: Submit): boolean;
+  accept(sub: Submit): boolean;
 }
-
-

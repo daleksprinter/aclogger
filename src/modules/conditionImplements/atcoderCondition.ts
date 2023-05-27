@@ -1,6 +1,6 @@
-import {Submit} from "../submit";
-import {Status} from "../status";
-import {Condition} from "../condition";
+import { Submit } from "../submit";
+import { Status } from "../status";
+import { Condition } from "../condition";
 
 export class AtCoderCondition implements Condition {
   statuses: Status[];

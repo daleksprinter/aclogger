@@ -1,27 +1,26 @@
-import {
-  Submissions,
-} from "./submit";
+import { Submissions } from "./submit";
 
 export interface Client {
-  getAllSubmissions(): Promise<Submissions>
+  getAllSubmissions(): Promise<Submissions>;
 }
 export class Clients {
-  clients : Client[]
+  clients: Client[];
   constructor() {
     this.clients = [];
   }
 
   add(c: Client) {
-    this.clients.push(c)
+    this.clients.push(c);
   }
 
   fetch() {
-    return Promise.all(this.clients.map(c => c.getAllSubmissions()))
-      .then((res) => {
+    return Promise.all(this.clients.map((c) => c.getAllSubmissions())).then(
+      (res) => {
         return res.reduce(
           (accum, subs) => accum.merge(subs),
           new Submissions(null)
         );
-      });
+      }
+    );
   }
 }

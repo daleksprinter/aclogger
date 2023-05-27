@@ -1,8 +1,6 @@
-import {statusfactory} from "../status";
-import {AtCoderSubmit, Submissions} from "../submit";
-
-interface Client {
-}
+import { statusfactory } from "../status";
+import { AtCoderSubmit, Submissions } from "../submit";
+import { Client } from "../client";
 
 export class AtCoderClient implements Client {
   user: String;

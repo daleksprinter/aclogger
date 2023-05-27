@@ -1,7 +1,4 @@
-import {
-  Conditions,
-  conditionsDTO,
-} from "../modules/condition";
+import { Conditions, conditionsDTO } from "../modules/condition";
 import {
   AtCoderSubmit,
   AOJSubmit,
@@ -9,11 +6,11 @@ import {
   yukicoderSubmit,
 } from "../modules/submit";
 import { statusfactory } from "../modules/status";
-import {SubmissionDateCondition} from "../modules/conditionImplements/submissionDateCondition";
-import {AtCoderCondition} from "../modules/conditionImplements/atcoderCondition";
-import {CodeforcesCondition} from "../modules/conditionImplements/codeforcesCondition";
-import {AizuOnlineJudgeCondition} from "../modules/conditionImplements/aojCondition";
-import {yukiconderCondition} from "../modules/conditionImplements/yukicoderCondition";
+import { SubmissionDateCondition } from "../modules/conditionImplements/submissionDateCondition";
+import { AtCoderCondition } from "../modules/conditionImplements/atcoderCondition";
+import { CodeforcesCondition } from "../modules/conditionImplements/codeforcesCondition";
+import { AizuOnlineJudgeCondition } from "../modules/conditionImplements/aojCondition";
+import { yukiconderCondition } from "../modules/conditionImplements/yukicoderCondition";
 
 test("submission date condition", () => {
   const s = new AtCoderSubmit(

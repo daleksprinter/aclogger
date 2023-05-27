@@ -1,6 +1,6 @@
-import {Condition} from "../condition";
-import {Status} from "../status";
-import {Submit} from "../submit";
+import { Condition } from "../condition";
+import { Status } from "../status";
+import { Submit } from "../submit";
 
 export class CodeforcesCondition implements Condition {
   statuses: Status[];

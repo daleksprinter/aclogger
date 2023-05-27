@@ -1,8 +1,6 @@
-import {statusfactory} from "../status";
-import {Submissions, yukicoderSubmit} from "../submit";
-
-interface Client {
-}
+import { statusfactory } from "../status";
+import { Submissions, yukicoderSubmit } from "../submit";
+import { Client } from "../client";
 
 export class yukicoderClient implements Client {
   user: String;
