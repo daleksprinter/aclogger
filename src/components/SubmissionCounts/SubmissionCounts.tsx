@@ -12,7 +12,7 @@ export default class SubmissionCounts extends Component<AppProps, AppState>{
 
     render(){
         return(
-            <Paper className = 'userdata'>
+            <Paper style={{textAlign:'center', position:'relative', marginBottom:'1%'}}>
                 <SubmissionCount site = {"AtCoder"} count = {this.props.data.count(sitefactory.AtCoder())} />
                 <SubmissionCount site = {"Codeforces"} count = {this.props.data.count(sitefactory.Codeforces())} />
                 <SubmissionCount site = {"AOJ"} count = {this.props.data.count(sitefactory.AOJ())} />

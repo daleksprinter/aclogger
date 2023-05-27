@@ -7,7 +7,6 @@ import Filter from "../Filter/Filter";
 import {Submissions} from "../../modules/submit";
 import {Conditions, conditionsDTO} from "../../modules/condition";
 
-import './App.css';
 import {Clients} from "../../modules/client";
 import {AtCoderClient} from "../../modules/clientImplements/atcoderClient";
 import {CodeForcesClient} from "../../modules/clientImplements/codeforcesClient";
@@ -37,12 +36,12 @@ const App = () => {
     }
 
     return (
-        <div className = "app">
-            <div className="sidebar">
+        <div style={{display:'flex', margin:'1px'}}>
+            <div style={{marginRight:'1%', width:'20%'}}>
                 <UserNames handleClick={handleClick}></UserNames>
                 <Filter update = {update}></Filter>
             </div>
-            <div className="content">
+            <div style={{width:'100%'}}>
                 <SubmissionCounts data = {view}></SubmissionCounts>
                 <HeatMap data = {view.getAll()}></HeatMap>
                 <SubmissionHistories data = {view.getAll()} />

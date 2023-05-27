@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Paper, TextField, Button} from "@mui/material";
-import './usernames.css'
 
 interface AppProps{
    handleClick: any
@@ -35,7 +34,7 @@ const UserNames = (props: AppProps) => {
         props.handleClick(acuser, cfuser, aojuser, ycuser)
     }
         return (
-             <Paper className = 'inputbar'>
+             <Paper style={{textAlign:'center', padding:'2%', marginBottom:'5%'}}>
                     <TextField
                         id="cfid"
                         label="Codeforces ID"
