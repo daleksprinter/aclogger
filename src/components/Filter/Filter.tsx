@@ -85,222 +85,222 @@ const Filter = (props: AppProps) => {
         )
         props.update(conddto)
     }
-        return (
-            <Paper className="filter">
-                <TextField
-                    id="from_date"
-                    label="From Date"
-                    type="date"
-                    defaultValue={from_date}
-                    margin="normal"
-                    onChange = {handleChange}
-                    name = 'from_date'
-                />
-                <TextField
-                    id="to_date"
-                    label="To Date"
-                    type="date"
-                    defaultValue={to_date}
-                    margin="normal"
-                    onChange = {handleChange}
-                    name = 'to_date'
-                />
+    return (
+        <Paper className="filter">
+            <TextField
+                id="from_date"
+                label="From Date"
+                type="date"
+                defaultValue={from_date}
+                margin="normal"
+                onChange = {handleChange}
+                name = 'from_date'
+            />
+            <TextField
+                id="to_date"
+                label="To Date"
+                type="date"
+                defaultValue={to_date}
+                margin="normal"
+                onChange = {handleChange}
+                name = 'to_date'
+            />
 
-                <h3>AtCoder</h3>
+            <h3>AtCoder</h3>
 
-                <span>Point : </span>
-                <Select
-                    value={atcoder_lower_point}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'atocder_lower_point',
-                      id: 'atocder_lower_point',
-                    }}
-                  >
-                    <MenuItem value={0}>
-                      <em></em>
-                    </MenuItem>
-                    {AtCoderProblemPoints.map(p => {
-                        return (
-                            <MenuItem value={p}>{p}</MenuItem>
-                        )
-                    })}
-                </Select>
-                <span> ~ </span>
+            <span>Point : </span>
+            <Select
+                value={atcoder_lower_point}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'atocder_lower_point',
+                  id: 'atocder_lower_point',
+                }}
+              >
+                <MenuItem value={0}>
+                  <em></em>
+                </MenuItem>
+                {AtCoderProblemPoints.map(p => {
+                    return (
+                        <MenuItem value={p}>{p}</MenuItem>
+                    )
+                })}
+            </Select>
+            <span> ~ </span>
 
-                <Select
-                    value={atcoder_upper_point}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'atcoder_upper_point',
-                      id: 'atcoder_upper_point',
-                    }}
-                  >
-                    <MenuItem value={0}>
-                      <em></em>
-                    </MenuItem>
-                    {AtCoderProblemPoints.map(p => {
-                        return (
-                            <MenuItem value={p}>{p}</MenuItem>
-                        )
-                    })}
-                </Select>
+            <Select
+                value={atcoder_upper_point}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'atcoder_upper_point',
+                  id: 'atcoder_upper_point',
+                }}
+              >
+                <MenuItem value={0}>
+                  <em></em>
+                </MenuItem>
+                {AtCoderProblemPoints.map(p => {
+                    return (
+                        <MenuItem value={p}>{p}</MenuItem>
+                    )
+                })}
+            </Select>
 
-                <div></div>
-                <span>Status : </span>
-                <Select
-                  labelId="atcoder_status"
-                  id="atcoder_status"
-                  name="atcoder_status"
-                  multiple
-                  value={atcoder_status}
-                  onChange={handleChange}
-                  input={<Input id="atcoder_status" />}
-                >
-                  {Statuses.map((s) => (
-                    <MenuItem value={s.getStatus()}>
-                      {s.getStatus()}
-                    </MenuItem>
-                  ))}
-                </Select>
+            <div></div>
+            <span>Status : </span>
+            <Select
+              labelId="atcoder_status"
+              id="atcoder_status"
+              name="atcoder_status"
+              multiple
+              value={atcoder_status}
+              onChange={handleChange}
+              input={<Input id="atcoder_status" />}
+            >
+              {Statuses.map((s) => (
+                <MenuItem value={s.getStatus()}>
+                  {s.getStatus()}
+                </MenuItem>
+              ))}
+            </Select>
 
-                <h3>CodeForces</h3>
+            <h3>CodeForces</h3>
 
-                <span>Point : </span>
-                <Select
-                    value={codeforces_lower_point}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'codeforces_lower_point',
-                      id: 'codeforces_lower_point',
-                    }}
-                  >
-                    <MenuItem value={0}>
-                      <em></em>
-                    </MenuItem>
-                    {CodeforcesProblemPoints.map(p => {
-                        return (
-                            <MenuItem value={p}>{p}</MenuItem>
-                        )
-                    })}
-                </Select>
-                <span> ~ </span>
+            <span>Point : </span>
+            <Select
+                value={codeforces_lower_point}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'codeforces_lower_point',
+                  id: 'codeforces_lower_point',
+                }}
+              >
+                <MenuItem value={0}>
+                  <em></em>
+                </MenuItem>
+                {CodeforcesProblemPoints.map(p => {
+                    return (
+                        <MenuItem value={p}>{p}</MenuItem>
+                    )
+                })}
+            </Select>
+            <span> ~ </span>
 
-                <Select
-                    value={codeforces_upper_point}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'codeforces_upper_point',
-                      id: 'codeforces_upper_point',
-                    }}
-                  >
-                     <MenuItem value={0}>
-                      <em></em>
-                    </MenuItem>
-                    {CodeforcesProblemPoints.map(p => {
-                        return (
-                            <MenuItem value={p}>{p}</MenuItem>
-                        )
-                    })}
-                </Select>
+            <Select
+                value={codeforces_upper_point}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'codeforces_upper_point',
+                  id: 'codeforces_upper_point',
+                }}
+              >
+                 <MenuItem value={0}>
+                  <em></em>
+                </MenuItem>
+                {CodeforcesProblemPoints.map(p => {
+                    return (
+                        <MenuItem value={p}>{p}</MenuItem>
+                    )
+                })}
+            </Select>
 
-                <div></div>
-                <span>Status : </span>
-                <Select
-                  labelId="codeforces_status"
-                  id="codeforces_status"
-                  name="codeforces_status"
-                  multiple
-                  value={codeforces_status}
-                  onChange={handleChange}
-                  input={<Input id="codeforces_status" />}
-                >
-                  {Statuses.map((s) => (
-                    <MenuItem value={s.getStatus()}>
-                      {s.getStatus()}
-                    </MenuItem>
-                  ))}
-                </Select>
-
-
-                <div></div>
-                <h3>AOJ</h3>
-                <span>Status : </span>
-                <Select
-                  labelId="aoj_status"
-                  id="aoj_status"
-                  name="aoj_status"
-                  multiple
-                  value={aoj_status}
-                  onChange={handleChange}
-                  input={<Input id="aoj_status" />}
-                >
-                  {Statuses.map((s) => (
-                    <MenuItem value={s.getStatus()}>
-                      {s.getStatus()}
-                    </MenuItem>
-                  ))}
-                </Select>
+            <div></div>
+            <span>Status : </span>
+            <Select
+              labelId="codeforces_status"
+              id="codeforces_status"
+              name="codeforces_status"
+              multiple
+              value={codeforces_status}
+              onChange={handleChange}
+              input={<Input id="codeforces_status" />}
+            >
+              {Statuses.map((s) => (
+                <MenuItem value={s.getStatus()}>
+                  {s.getStatus()}
+                </MenuItem>
+              ))}
+            </Select>
 
 
-                <div></div>
-                <h3>yukicoder</h3>
+            <div></div>
+            <h3>AOJ</h3>
+            <span>Status : </span>
+            <Select
+              labelId="aoj_status"
+              id="aoj_status"
+              name="aoj_status"
+              multiple
+              value={aoj_status}
+              onChange={handleChange}
+              input={<Input id="aoj_status" />}
+            >
+              {Statuses.map((s) => (
+                <MenuItem value={s.getStatus()}>
+                  {s.getStatus()}
+                </MenuItem>
+              ))}
+            </Select>
 
-                <span>Level : </span>
-                <Select
-                    value={yukicoder_lower_point}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'yukicoder_lower_point',
-                      id: 'yukicoder_lower_point',
-                    }}
-                  >
-                    <MenuItem value={0}>
-                      <em></em>
-                    </MenuItem>
-                    {yukicoderProblemPoints.map(p => {
-                        return (
-                            <MenuItem value={p}>{p}</MenuItem>
-                        )
-                    })}
-                </Select>
-                <span> ~ </span>
-                <Select
-                    value={yukicoder_upper_point}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'yukicoder_upper_point',
-                      id: 'yukicoder_upper_point',
-                    }}
-                  >
 
-                    <MenuItem value={0}>
-                      <em></em>
-                    </MenuItem>
-                    {yukicoderProblemPoints.map(p => {
-                        return (
-                            <MenuItem value={p}>{p}</MenuItem>
-                        )
-                    })}
-                </Select>
+            <div></div>
+            <h3>yukicoder</h3>
 
-                <div></div>
-                <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick = {handleClick}
-                >
-                      Filter
-                </Button>
+            <span>Level : </span>
+            <Select
+                value={yukicoder_lower_point}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'yukicoder_lower_point',
+                  id: 'yukicoder_lower_point',
+                }}
+              >
+                <MenuItem value={0}>
+                  <em></em>
+                </MenuItem>
+                {yukicoderProblemPoints.map(p => {
+                    return (
+                        <MenuItem value={p}>{p}</MenuItem>
+                    )
+                })}
+            </Select>
+            <span> ~ </span>
+            <Select
+                value={yukicoder_upper_point}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'yukicoder_upper_point',
+                  id: 'yukicoder_upper_point',
+                }}
+              >
 
-                  <Button
-                        variant="outlined"
-                        color="primary"
-                >
-                     Reset
-                </Button>
+                <MenuItem value={0}>
+                  <em></em>
+                </MenuItem>
+                {yukicoderProblemPoints.map(p => {
+                    return (
+                        <MenuItem value={p}>{p}</MenuItem>
+                    )
+                })}
+            </Select>
 
-            </Paper>
-      );
+            <div></div>
+            <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick = {handleClick}
+            >
+                  Filter
+            </Button>
+
+              <Button
+                    variant="outlined"
+                    color="primary"
+            >
+                 Reset
+            </Button>
+
+        </Paper>
+    );
 }
 export default Filter
