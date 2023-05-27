@@ -12,13 +12,12 @@ import {Submit} from "../../modules/submit";
 interface AppProps{
     data: Submit[]
 }
-interface AppState{}
 
 interface CountMap{
     [index: string]: number
 }
-export default class Hoge extends Component<AppProps, AppState> {
-    dataToValues(data: Submit[]){
+const Heatmap = (props: AppProps) => {
+    const dataToValues = (data: Submit[]) => {
         let m: CountMap = {};
         for(const sub of data) {
             const d = sub.getDateString()
@@ -32,16 +31,18 @@ export default class Hoge extends Component<AppProps, AppState> {
         }
         return ret
     }
-  render() {
-      const s = new Date()
-      s.setFullYear(s.getFullYear() - 1)
+   const lastYearDate = () => {
+       const s = new Date()
+       s.setFullYear(s.getFullYear() - 1)
+       return s
+   }
     return (
       <Paper className = "heatmap">
         <CalendarHeatmap
             showOutOfRangeDays={true}
-          startDate={s}
+          startDate={lastYearDate()}
           endDate={new Date()}
-          values={this.dataToValues(this.props.data)}
+          values={dataToValues(props.data)}
           classForValue={(value: any) => {
             if (!value) {
               return 'color-empty';
@@ -59,7 +60,6 @@ export default class Hoge extends Component<AppProps, AppState> {
         <ReactTooltip />
       </Paper>
     );
-  }
 }
 
-
+export default Heatmap

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
 import '../Filter/Filter.css'
@@ -25,117 +25,97 @@ interface AppState{
     yukicoder_upper_point: number,
 }
 
-export default class Filter extends React.Component<AppProps, AppState>{
+const Filter = (props: AppProps) => {
+    const d = new Date()
+    d.setFullYear(d.getFullYear() - 1)
+    const fd = getdate(d.getTime())
 
-    constructor(props: AppProps) {
-        super(props);
-        const d = new Date()
-        d.setFullYear(d.getFullYear() - 1)
-        const fd = getdate(d.getTime())
-        this.state = {
-            from_date: fd,
-            to_date: getdate(new Date().getTime()),
-            atcoder_lower_point: 0,
-            atcoder_upper_point: 3000,
-            atcoder_status: ["AC"],
-            codeforces_lower_point: 0,
-            codeforces_upper_point: 3000,
-            codeforces_status: ["AC"],
-            aoj_status: ["AC"],
-            yukicoder_lower_point: 0,
-            yukicoder_upper_point: 6,
-        }
-    }
+    const [from_date, setFromdate] = useState(fd)
+    const [to_date, setTodate] = useState(getdate(new Date().getTime()))
+    const [atcoder_lower_point, setAlp]  = useState(0)
+    const [atcoder_upper_point, setAup]  = useState(2000)
+    const [atcoder_status, setAs]  = useState(["AC"])
+    const [codeforces_lower_point, setClp]  = useState(0)
+    const [codeforces_upper_point, setCup]  = useState(3000)
+    const [codeforces_status,setCs]  = useState(["AC"])
+    const [aoj_status,setAojs]  = useState(["AC"])
+    const [yukicoder_lower_point, setYlp]  = useState(0)
+    const [yukicoder_upper_point,setYup]  = useState(6)
 
-    handleChange = (e: any) => {
+    const handleChange = (e: any) => {
         switch(e.target.name){
             case "from_date" :
-                this.setState({from_date : e.target.value})
+                setFromdate(e.target.value)
                 break
             case "to_date" :
-                this.setState({to_date : e.target.value})
+                setTodate(e.target.value)
                 break
             case "atocder_lower_point" :
-                this.setState({atcoder_lower_point : e.target.value})
+                setAlp(e.target.value)
                 break
             case "atcoder_upper_point" :
-                this.setState({atcoder_upper_point : e.target.value})
+                setAup(e.target.value)
                 break
             case "atcoder_status" :
-                this.setState({atcoder_status : e.target.value})
+                setAs(e.target.value)
                 break
             case "codeforces_lower_point" :
-                this.setState({codeforces_lower_point : e.target.value})
+                setClp(e.tareget.value)
                 break
             case "codeforces_upper_point" :
-                this.setState({codeforces_upper_point : e.target.value})
+                setCup(e.target.value)
                 break
             case "codeforces_status" :
-                this.setState({codeforces_status : e.target.value})
+                setCs(e.terget.value)
                 break
             case "aoj_status" :
-                this.setState({aoj_status : e.target.value})
+                setAojs(e.target.value)
                 break
             case "yukicoder_lower_point" :
-                this.setState({yukicoder_lower_point : e.target.value})
+                setYlp(e.terget.value)
                 break
             case "yukicoder_upper_point" :
-                this.setState({yukicoder_upper_point : e.target.value})
+                setYup(e.target.value)
                 break
             default:
                 break
         }
     }
 
-    handleClick = () => {
-        const from_date = new Date(this.state.from_date).getTime()
-        const to_date = new Date(this.state.to_date).getTime()
-        const atcoder_lower_point = this.state.atcoder_lower_point
-        const atcoder_upper_point = this.state.atcoder_upper_point
-        const atcoder_status = this.state.atcoder_status.map(s => new Status(s))
-        const codeforces_lower_point = this.state.codeforces_lower_point
-        const codeforces_upper_point= this.state.codeforces_upper_point
-        const codeforces_status= this.state.codeforces_status.map((s => new Status(s)))
-        const aoj_status = this.state.aoj_status.map(s=> new Status(s))
-        const yukicoder_lower_point = this.state.yukicoder_lower_point
-        const yukicoder_upper_point= this.state.yukicoder_upper_point
-
+    const handleClick = () => {
         const conddto = new conditionsDTO(
-            from_date,
-            to_date,
+            new Date(from_date).getTime(),
+            new Date(to_date).getTime(),
             atcoder_lower_point,
             atcoder_upper_point,
-            atcoder_status,
+            atcoder_status.map(s => new Status(s)),
             codeforces_lower_point,
             codeforces_upper_point,
-            codeforces_status,
-            aoj_status,
+            codeforces_status.map((s => new Status(s))),
+            aoj_status.map(s=> new Status(s)),
             yukicoder_lower_point,
             yukicoder_upper_point
         )
-        console.log(conddto)
-        this.props.update(conddto)
+        props.update(conddto)
     }
-    render(){
-
         return (
             <Paper className="filter">
                 <TextField
                     id="from_date"
                     label="From Date"
                     type="date"
-                    defaultValue={this.state.from_date}
+                    defaultValue={from_date}
                     margin="normal"
-                    onChange = {this.handleChange}
+                    onChange = {handleChange}
                     name = 'from_date'
                 />
                 <TextField
                     id="to_date"
                     label="To Date"
                     type="date"
-                    defaultValue={this.state.to_date}
+                    defaultValue={to_date}
                     margin="normal"
-                    onChange = {this.handleChange}
+                    onChange = {handleChange}
                     name = 'to_date'
                 />
 
@@ -143,8 +123,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
 
                 <span>Point : </span>
                 <Select
-                    value={this.state.atcoder_lower_point}
-                    onChange={this.handleChange}
+                    value={atcoder_lower_point}
+                    onChange={handleChange}
                     inputProps={{
                       name: 'atocder_lower_point',
                       id: 'atocder_lower_point',
@@ -162,8 +142,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
                 <span> ~ </span>
 
                 <Select
-                    value={this.state.atcoder_upper_point}
-                    onChange={this.handleChange}
+                    value={atcoder_upper_point}
+                    onChange={handleChange}
                     inputProps={{
                       name: 'atcoder_upper_point',
                       id: 'atcoder_upper_point',
@@ -186,8 +166,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   id="atcoder_status"
                   name="atcoder_status"
                   multiple
-                  value={this.state.atcoder_status}
-                  onChange={this.handleChange}
+                  value={atcoder_status}
+                  onChange={handleChange}
                   input={<Input id="atcoder_status" />}
                 >
                   {Statuses.map((s) => (
@@ -201,8 +181,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
 
                 <span>Point : </span>
                 <Select
-                    value={this.state.codeforces_lower_point}
-                    onChange={this.handleChange}
+                    value={codeforces_lower_point}
+                    onChange={handleChange}
                     inputProps={{
                       name: 'codeforces_lower_point',
                       id: 'codeforces_lower_point',
@@ -220,8 +200,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
                 <span> ~ </span>
 
                 <Select
-                    value={this.state.codeforces_upper_point}
-                    onChange={this.handleChange}
+                    value={codeforces_upper_point}
+                    onChange={handleChange}
                     inputProps={{
                       name: 'codeforces_upper_point',
                       id: 'codeforces_upper_point',
@@ -244,8 +224,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   id="codeforces_status"
                   name="codeforces_status"
                   multiple
-                  value={this.state.codeforces_status}
-                  onChange={this.handleChange}
+                  value={codeforces_status}
+                  onChange={handleChange}
                   input={<Input id="codeforces_status" />}
                 >
                   {Statuses.map((s) => (
@@ -264,8 +244,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
                   id="aoj_status"
                   name="aoj_status"
                   multiple
-                  value={this.state.aoj_status}
-                  onChange={this.handleChange}
+                  value={aoj_status}
+                  onChange={handleChange}
                   input={<Input id="aoj_status" />}
                 >
                   {Statuses.map((s) => (
@@ -281,8 +261,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
 
                 <span>Level : </span>
                 <Select
-                    value={this.state.yukicoder_lower_point}
-                    onChange={this.handleChange}
+                    value={yukicoder_lower_point}
+                    onChange={handleChange}
                     inputProps={{
                       name: 'yukicoder_lower_point',
                       id: 'yukicoder_lower_point',
@@ -299,8 +279,8 @@ export default class Filter extends React.Component<AppProps, AppState>{
                 </Select>
                 <span> ~ </span>
                 <Select
-                    value={this.state.yukicoder_upper_point}
-                    onChange={this.handleChange}
+                    value={yukicoder_upper_point}
+                    onChange={handleChange}
                     inputProps={{
                       name: 'yukicoder_upper_point',
                       id: 'yukicoder_upper_point',
@@ -321,7 +301,7 @@ export default class Filter extends React.Component<AppProps, AppState>{
                 <Button
                         variant="outlined"
                         color="primary"
-                        onClick = {this.handleClick}
+                        onClick = {handleClick}
                 >
                       Filter
                 </Button>
@@ -335,5 +315,5 @@ export default class Filter extends React.Component<AppProps, AppState>{
 
             </Paper>
       );
-    }
 }
+export default Filter
