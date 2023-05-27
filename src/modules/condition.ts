@@ -1,4 +1,3 @@
-import { sitefactory } from "./site";
 import { Submit } from "./submit";
 import { Status } from "./status";
 import {SubmissionDateCondition} from "./conditionImplements/submissionDateCondition";
@@ -48,44 +47,36 @@ export class conditionsDTO {
 }
 
 export class Conditions {
-  baseConditions: Condition[];
-  accond: Condition;
-  cfcond: Condition;
-  aojcond: Condition;
-  ycond: Condition;
+  conds: Condition[]
   constructor(conddto: conditionsDTO) {
-    this.baseConditions = [
-      new SubmissionDateCondition(conddto.from_date, conddto.to_date),
-    ];
-    this.accond = new AtCoderCondition(
+    this.conds = []
+    this.add(new SubmissionDateCondition(conddto.from_date, conddto.to_date))
+    this.add(new AtCoderCondition(
       conddto.atcoder_lower_point,
       conddto.atcoder_upper_point,
       conddto.atcoder_status
-    );
-    this.cfcond = new CodeforcesCondition(
+    ))
+    this.add(new CodeforcesCondition(
       conddto.codeforces_lower_point,
       conddto.codeforces_upper_point,
       conddto.codeforces_status
-    );
-    this.aojcond = new AizuOnlineJudgeCondition(conddto.aoj_status);
-    this.ycond = new yukiconderCondition(
+    ))
+    this.add(new AizuOnlineJudgeCondition(conddto.aoj_status))
+    this.add(new yukiconderCondition(
       conddto.yukicoder_lower_point,
       conddto.yukiconder_upper_point
-    );
+    ))
+  }
+
+  add(c: Condition){
+    this.conds.push(c)
+
   }
 
   accept(submission: Submit) {
-    for (const c of this.baseConditions)
+    for (const c of this.conds)
       if (!c.accept(submission)) return false;
-    if (submission.getSite().isSame(sitefactory.AtCoder()))
-      return this.accond.accept(submission);
-    if (submission.getSite().isSame(sitefactory.Codeforces()))
-      return this.cfcond.accept(submission);
-    if (submission.getSite().isSame(sitefactory.AOJ()))
-      return this.aojcond.accept(submission);
-    if (submission.getSite().isSame(sitefactory.yukicoder()))
-      return this.ycond.accept(submission);
-    return false;
+    return true
   }
 }
 
