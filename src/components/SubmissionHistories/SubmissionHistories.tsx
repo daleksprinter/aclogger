@@ -95,7 +95,7 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
 
   handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      rowsperpage: parseInt(event.target.value, 30),
+      rowsperpage: parseInt(event.target.value, 10),
       page: 0
     })
   };

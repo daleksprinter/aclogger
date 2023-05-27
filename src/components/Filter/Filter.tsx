@@ -36,14 +36,14 @@ export default class Filter extends React.Component<AppProps, AppState>{
             from_date: fd,
             to_date: getdate(new Date().getTime()),
             atcoder_lower_point: 0,
-            atcoder_upper_point: 10000,
+            atcoder_upper_point: 3000,
             atcoder_status: ["AC"],
             codeforces_lower_point: 0,
-            codeforces_upper_point: 10000,
+            codeforces_upper_point: 3000,
             codeforces_status: ["AC"],
             aoj_status: ["AC"],
             yukicoder_lower_point: 0,
-            yukicoder_upper_point: 10,
+            yukicoder_upper_point: 6,
         }
     }
 
