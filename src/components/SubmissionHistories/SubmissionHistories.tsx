@@ -15,7 +15,6 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import './App.css';
 import {Submit} from "../../modules/submit";
 
 function TablePaginationActions(props: any) {
@@ -91,7 +90,7 @@ const SubmissionHistories = (props: AppProps) => {
      setRowsperpage(parseInt(event.target.value, 10))
   };
     return (
-      <Paper className = 'log'>
+      <Paper style={{position:"relative", padding:'1%'}}>
         <Table>
           <TableHead>
             <TableRow>
@@ -109,7 +108,7 @@ const SubmissionHistories = (props: AppProps) => {
             ? props.data.slice(page * rowsperpage, page * rowsperpage + rowsperpage)
             : props.data
           ).map((s) => (
-              <TableRow className = "subdet" key = 'hoge' onClick = {() => window.open(s.url, "_blank")}>
+              <TableRow key = 'hoge' onClick = {() => window.open(s.url, "_blank")}>
                 <TableCell align="left">{s.getDateString()}</TableCell>
                 <TableCell align="center" >{s.getSite().getStr()}</TableCell>
                 <TableCell align="center">{s.contest}</TableCell>

@@ -6,7 +6,6 @@ import 'react-calendar-heatmap/dist/styles.css';
 import {Paper} from '@mui/material';
 import {Tooltip as ReactTooltip} from 'react-tooltip';
 
-import './HeatMap.css';
 import {Submit} from "../../modules/submit";
 
 interface AppProps{
@@ -37,7 +36,7 @@ const Heatmap = (props: AppProps) => {
        return s
    }
     return (
-      <Paper className = "heatmap">
+      <Paper style={{padding:'1%', marginBottom:'1%'}}>
         <CalendarHeatmap
           showOutOfRangeDays={true}
           startDate={lastYearDate()}

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
-import '../Filter/Filter.css'
 import {Status, statusfactory} from "../../modules/status";
 import {getdate} from "../../modules/utils"
 const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
@@ -86,7 +85,7 @@ const Filter = (props: AppProps) => {
         props.update(conddto)
     }
     return (
-        <Paper className="filter">
+        <Paper style={{position:'relative', padding:'10px'}}>
             <TextField
                 id="from_date"
                 label="From Date"
