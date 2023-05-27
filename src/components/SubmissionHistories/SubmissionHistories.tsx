@@ -9,7 +9,7 @@ import {
   TableFooter,
   Box, IconButton
 } from '@mui/material';
-import {TablePagination} from "@mui/base";
+import {TablePagination} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -143,6 +143,7 @@ export default class SubmissionHistories extends Component<AppProps, AppState> {
                 page={this.state.page}
                 onPageChange={this.handleChangePage}
                 onRowsPerPageChange={this.handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
               />
             </TableRow>
         </TableFooter>
