@@ -33,10 +33,13 @@ export default class Hoge extends Component<AppProps, AppState> {
         return ret
     }
   render() {
+      const s = new Date()
+      s.setFullYear(s.getFullYear() - 1)
     return (
       <Paper className = "heatmap">
         <CalendarHeatmap
-          startDate={new Date('2022-01-01')}
+            showOutOfRangeDays={true}
+          startDate={s}
           endDate={new Date()}
           values={this.dataToValues(this.props.data)}
           classForValue={(value: any) => {
