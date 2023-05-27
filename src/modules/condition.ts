@@ -1,6 +1,11 @@
 import { sitefactory } from "./site";
 import { Submit } from "./submit";
 import { Status } from "./status";
+import {SubmissionDateCondition} from "./conditionImplements/submissionDateCondition";
+import {AtCoderCondition} from "./conditionImplements/atcoderCondition";
+import {CodeforcesCondition} from "./conditionImplements/codeforcesCondition";
+import {AizuOnlineJudgeCondition} from "./conditionImplements/aojCondition";
+import {yukiconderCondition} from "./conditionImplements/yukicoderCondition";
 
 export class conditionsDTO {
   from_date: number;
@@ -84,120 +89,8 @@ export class Conditions {
   }
 }
 
-abstract class Condition {
-  abstract accept(sub: Submit): boolean;
+export interface Condition {
+   accept(sub: Submit): boolean;
 }
 
-export class SubmissionDateCondition extends Condition {
-  submit_from: any;
-  submit_to: any;
-  constructor(from: number, to: number) {
-    super();
-    if (!this.isvalid(from, to)) throw Error("date condition is not invalid");
-    this.submit_from = new Date(from);
-    this.submit_to = new Date(to);
-  }
 
-  isvalid(from: number, to: number) {
-    // TODO implement
-    return true;
-  }
-  accept(sub: Submit) {
-    return (
-      this.submit_from.getTime() < sub.getDate().getTime() &&
-      sub.getDate().getTime() <= this.submit_to.getTime()
-    );
-  }
-}
-
-export class AtCoderCondition extends Condition {
-  statuses: Status[];
-  atcoder_lower_point: number;
-  atcoder_upper_point: number;
-  constructor(lower: number, upper: number, statuses: Status[]) {
-    super();
-    this.statuses = statuses;
-    this.atcoder_lower_point = lower;
-    this.atcoder_upper_point = upper;
-  }
-
-  acceptStatus(s: Submit) {
-    return this.statuses
-      .map((s) => s.getStatus())
-      .includes(s.getResult().getStatus());
-  }
-
-  acceptPoint(s: Submit) {
-    const p = s.getPoint();
-    if (p === null) return false;
-    return this.atcoder_lower_point <= p && p <= this.atcoder_upper_point;
-  }
-
-  accept(s: Submit) {
-    return this.acceptPoint(s) && this.acceptStatus(s);
-  }
-}
-
-export class CodeforcesCondition extends Condition {
-  statuses: Status[];
-  codeforces_lower_point: number;
-  codeforces_upper_point: number;
-
-  constructor(lower: number, upper: number, statuses: Status[]) {
-    super();
-    this.statuses = statuses;
-    this.codeforces_lower_point = lower;
-    this.codeforces_upper_point = upper;
-  }
-  acceptStatus(s: Submit) {
-    return this.statuses
-      .map((s) => s.getStatus())
-      .includes(s.getResult().getStatus());
-  }
-  acceptPoint(s: Submit): boolean {
-    const p = s.getPoint();
-    if (p === null) return false;
-    return this.codeforces_lower_point <= p && p <= this.codeforces_upper_point;
-  }
-
-  accept(s: Submit) {
-    return this.acceptPoint(s) && this.acceptStatus(s);
-  }
-}
-export class AizuOnlineJudgeCondition extends Condition {
-  statuses: Status[];
-  constructor(statuses: Status[]) {
-    super();
-    this.statuses = statuses;
-  }
-
-  acceptStatus(s: Submit) {
-    return this.statuses
-      .map((s) => s.getStatus())
-      .includes(s.getResult().getStatus());
-  }
-
-  accept(s: Submit) {
-    return this.acceptStatus(s);
-  }
-}
-export class yukiconderCondition extends Condition {
-  yukicoder_lower_point: number;
-  yukicoder_upper_point: number;
-
-  constructor(lower: number, upper: number) {
-    super();
-    this.yukicoder_lower_point = lower;
-    this.yukicoder_upper_point = upper;
-  }
-
-  acceptPoint(s: Submit): boolean {
-    const p = s.getPoint();
-    if (p === null) return false;
-    return this.yukicoder_lower_point <= p && p <= this.yukicoder_upper_point;
-  }
-
-  accept(s: Submit) {
-    return this.acceptPoint(s);
-  }
-}
