@@ -5,11 +5,14 @@ import { Client } from "../client";
 export class AtCoderClient implements Client {
   user: String;
   url: string;
+  parser: atcoderResponseParser;
   constructor(user: String) {
     this.user = user;
+    // @see https://github.com/kenkoooo/AtCoderProblems/blob/master/doc/api.md#deprecated-user-submissions
     this.url = `https://kenkoooo.com/atcoder/atcoder-api/results?user=${user}`;
+    this.parser = new atcoderResponseParser();
   }
-  fetch() {
+  private fetch() {
     if (this.user !== "" && this.user !== undefined) {
       return fetch(this.url).then((res) => {
         return res.json();
@@ -21,12 +24,55 @@ export class AtCoderClient implements Client {
 
   getAllSubmissions() {
     return this.fetch().then((json) => {
-      const subs = this.toSubmissions(json);
+      const subs = this.parser.toSubmissions(json);
       return Promise.resolve(subs);
     });
   }
+}
 
-  parseResult = (res: string) => {
+/* Response Sample
+[
+  {
+    "id": 4000770,
+    "epoch_second": 1547381417,
+    "problem_id": "keyence2019_b",
+    "contest_id": "keyence2019",
+    "user_id": "daleksprinter",
+    "language": "C++14 (GCC 5.4.1)",
+    "point": 0,
+    "length": 2373,
+    "result": "WA",
+    "execution_time": 2
+  },
+  {
+    "id": 2754160,
+    "epoch_second": 1530203077,
+    "problem_id": "abc064_b",
+    "contest_id": "abc064",
+    "user_id": "daleksprinter",
+    "language": "Python2 (2.7.6)",
+    "point": 200,
+    "length": 79,
+    "result": "AC",
+    "execution_time": 10
+  },
+  {
+    "id": 3015581,
+    "epoch_second": 1534403523,
+    "problem_id": "agc003_b",
+    "contest_id": "agc003",
+    "user_id": "daleksprinter",
+    "language": "Python2 (2.7.6)",
+    "point": 400,
+    "length": 229,
+    "result": "AC",
+    "execution_time": 754
+  }
+]
+*/
+
+class atcoderResponseParser {
+  private parseResult = (res: string) => {
     if (res === "AC") return statusfactory.Accept();
     else if (res === "WA") return statusfactory.WrongAnswer();
     else if (res === "RE") return statusfactory.RuntimeError();
@@ -38,7 +84,7 @@ export class AtCoderClient implements Client {
     else return statusfactory.Null();
   };
 
-  resToSub(res: any) {
+  private resToSub(res: any) {
     const subtime = res["epoch_second"] * 1000;
     const result = this.parseResult(res["result"]);
     const contestid = res["contest_id"].toUpperCase();
