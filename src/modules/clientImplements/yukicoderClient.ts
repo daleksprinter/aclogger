@@ -12,7 +12,7 @@ export class yukicoderClient implements Client {
     this.url = `https://yukicoder.me/api/v1/solved/name/${this.user}`;
     this.parser = new yukicoderResponseParser();
   }
-  fetch() {
+  private fetch() {
     if (this.user !== "" && this.user !== undefined) {
       return fetch(this.url).then((res) => {
         return res.json();

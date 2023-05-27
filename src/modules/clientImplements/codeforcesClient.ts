@@ -13,7 +13,7 @@ export class CodeForcesClient implements Client {
     this.parser = new codeforcesResponseParser();
   }
 
-  fetch() {
+  private fetch() {
     if (this.user !== "" && this.user !== undefined) {
       return fetch(this.url).then((res) => {
         return res.json();

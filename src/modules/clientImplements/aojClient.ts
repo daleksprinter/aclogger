@@ -12,7 +12,7 @@ export class AizuOnlineJudgeClient implements Client {
     this.url = `https://judgeapi.u-aizu.ac.jp/submission_records/users/${this.user}?page=0&size=10000`;
     this.parser = new aojResponseParser();
   }
-  fetch() {
+  private fetch() {
     if (this.user !== "" && this.user !== undefined) {
       return fetch(this.url).then((res) => {
         return res.json();
