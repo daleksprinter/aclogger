@@ -16,18 +16,16 @@ const App = () => {
     const [submiss, setSubmiss] = useState(new Submissions(null))
     const [view, setView] = useState(new Submissions(null))
 
-    const setSubmissions = (submiss: Submissions) => {
-        setSubmiss(submiss)
-        setView(submiss)
-    }
-
     const handleClick = (acuser: String, cfuser: String, aojuser: String, ycuser: String) => {
         const c = new Clients()
         c.add(new AtCoderClient(acuser))
         c.add(new CodeForcesClient(cfuser))
         c.add(new AizuOnlineJudgeClient(aojuser))
         c.add(new yukicoderClient(ycuser))
-        c.fetch().then(subs => setSubmissions(subs))
+        c.fetch().then(subs => {
+            setSubmiss(subs)
+            setView(subs)
+        })
     }
 
     const update = (conddto: conditionsDTO) => {
