@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
-
-import {Paper} from '@mui/material';
 import {Tooltip as ReactTooltip} from 'react-tooltip';
-
+import {Paper} from '@mui/material';
 import {Submit} from "../../modules/submit";
 
 interface AppProps{

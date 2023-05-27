@@ -76,8 +76,8 @@ interface AppState{
     rowsperpage: number
 }
 const SubmissionHistories = (props: AppProps) => {
-    const [page, setPage] = useState(0)
-    const [rowsperpage, setRowsperpage] = useState(5)
+  const [page, setPage] = useState(0)
+  const [rowsperpage, setRowsperpage] = useState(5)
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
         setPage(page)
   };
@@ -99,12 +99,11 @@ const SubmissionHistories = (props: AppProps) => {
               <TableCell align="center">Result</TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody>
             {(rowsperpage > 0
             ? props.data.slice(page * rowsperpage, page * rowsperpage + rowsperpage)
             : props.data
-          ).map((s) => (
+            ).map((s) => (
               <TableRow key = 'hoge' onClick = {() => window.open(s.url, "_blank")}>
                 <TableCell align="left">{s.getDateString()}</TableCell>
                 <TableCell align="center" >{s.getSite().getStr()}</TableCell>
@@ -115,20 +114,20 @@ const SubmissionHistories = (props: AppProps) => {
               </TableRow>
             ))}
           </TableBody>
-            <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                colSpan={3}
-                count={props.data.length}
-                rowsPerPage={rowsperpage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-        </TableFooter>
+          <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={props.data.length}
+                  rowsPerPage={rowsperpage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+          </TableFooter>
         </Table>
       </Paper>
     );

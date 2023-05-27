@@ -35,12 +35,12 @@ const App = () => {
     return (
         <div style={{display:'flex', margin:'1px'}}>
             <div style={{marginRight:'1%', width:'20%'}}>
-                <UserNames handleClick={handleClick}></UserNames>
-                <Filter update = {update}></Filter>
+                <UserNames handleClick={handleClick} />
+                <Filter update = {update} />
             </div>
             <div style={{width:'100%'}}>
-                <SubmissionCounts data = {view}></SubmissionCounts>
-                <HeatMap data = {view.getAll()}></HeatMap>
+                <SubmissionCounts data = {view} />
+                <HeatMap data = {view.getAll()} />
                 <SubmissionHistories data = {view.getAll()} />
             </div>
         </div>
