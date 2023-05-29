@@ -72,7 +72,7 @@ class yukicoderResponseParser {
   private resToSub(res: any) {
     const subtime = new Date(res["Date"]).getTime();
     const result = new Accept();
-    const contestid = null;
+    const contestid = "";
     const title = res["Title"];
     const point = res["Level"];
     const url = `https://yukicoder.me/`;

@@ -11,8 +11,7 @@ export class yukiconderCondition implements Condition {
   }
 
   acceptPoint(s: Submit): boolean {
-    const p = s.getPoint();
-    if (p === null) return false;
+    const p = s.point;
     return this.yukicoder_lower_point <= p && p <= this.yukicoder_upper_point;
   }
 

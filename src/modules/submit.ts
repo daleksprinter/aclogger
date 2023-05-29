@@ -1,21 +1,22 @@
 import { getdate } from "./utils";
 import { Status } from "./status";
 import { Conditions } from "./condition";
-import {AOJ, AtCoder, Codeforces, Site, yukicoder} from "./site";
+import {AOJ, AtCoder, Codeforces, Site, Unknown, yukicoder} from "./site";
 
 export abstract class Submit {
   timestamp: number;
   result: Status;
-  contest: String | null;
+  contest: String ;
   title: String;
-  point: number | null;
+  point: number;
   url: string;
+  site: Site;
   constructor(
     timestamp: number,
     result: Status,
-    contest: String | null,
+    contest: String,
     title: String,
-    point: number | null,
+    point: number,
     url: string
   ) {
     this.timestamp = timestamp;
@@ -24,42 +25,25 @@ export abstract class Submit {
     this.title = title;
     this.point = point;
     this.url = url;
-  }
-
-  getPoint() {
-    return this.point;
+    this.site = new Unknown();
   }
 
   getDateString() {
     return getdate(this.timestamp);
   }
-
-  getDate() {
-    return new Date(this.timestamp);
-  }
-
-  abstract getSite(): Site;
 }
 
 export class AtCoderSubmit extends Submit {
-  getSite() {
-    return new AtCoder();
-  }
+  site = new AtCoder();
 }
 export class CodeforcesSubmit extends Submit {
-  getSite() {
-    return new Codeforces();
-  }
+  site = new Codeforces();
 }
 export class AOJSubmit extends Submit {
-  getSite() {
-    return new AOJ();
-  }
+  site = new AOJ();
 }
 export class yukicoderSubmit extends Submit {
-  getSite() {
-    return new yukicoder();
-  }
+  site = new yukicoder();
 }
 
 export class Submissions {
@@ -74,7 +58,7 @@ export class Submissions {
 
   count(site: Site | null) {
     if (site)
-      return this.getAll().filter((sub) => sub.getSite().site == site.site).length;
+      return this.getAll().filter((sub) => sub.site.site == site.site).length;
     return this.getAll().length;
   }
 

@@ -18,8 +18,7 @@ export class CodeforcesCondition implements Condition {
       .includes(s.result.status);
   }
   acceptPoint(s: Submit): boolean {
-    const p = s.getPoint();
-    if (p === null) return false;
+    const p = s.point;
     return this.codeforces_lower_point <= p && p <= this.codeforces_upper_point;
   }
 

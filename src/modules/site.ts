@@ -17,3 +17,7 @@ export class AOJ implements Site {
 export class yukicoder implements Site {
   site = "yukicoder"
 }
+
+export class Unknown implements Site {
+  site = "unknown"
+}

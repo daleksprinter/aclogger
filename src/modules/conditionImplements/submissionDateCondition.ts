@@ -16,8 +16,8 @@ export class SubmissionDateCondition implements Condition {
   }
   accept(sub: Submit) {
     return (
-      this.submit_from.getTime() < sub.getDate().getTime() &&
-      sub.getDate().getTime() <= this.submit_to.getTime()
+      this.submit_from.getTime() < sub.timestamp &&
+      sub.timestamp <= this.submit_to.getTime()
     );
   }
 }

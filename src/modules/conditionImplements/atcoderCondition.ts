@@ -19,8 +19,7 @@ export class AtCoderCondition implements Condition {
   }
 
   acceptPoint(s: Submit) {
-    const p = s.getPoint();
-    if (p === null) return false;
+    const p = s.point;
     return this.atcoder_lower_point <= p && p <= this.atcoder_upper_point;
   }
 

@@ -108,9 +108,9 @@ class aojResponseParser {
   private resToSub(res: any) {
     const subtime = res["submissionDate"];
     const result = this.parseResult(res["status"]);
-    const contestid = null;
+    const contestid = "";
     const title = res["problemId"];
-    const point = null;
+    const point = 0;
     const url = `http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=${res["judgeId"]}`;
     const s = new AOJSubmit(subtime, result, contestid, title, point, url);
     return s;

@@ -106,7 +106,7 @@ const SubmissionHistories = (props: AppProps) => {
             ).map((s) => (
               <TableRow key = 'hoge' onClick = {() => window.open(s.url, "_blank")}>
                 <TableCell align="left">{s.getDateString()}</TableCell>
-                <TableCell align="center" >{s.getSite().site}</TableCell>
+                <TableCell align="center" >{s.site}</TableCell>
                 <TableCell align="center">{s.contest}</TableCell>
                 <TableCell align="center">{s.title}</TableCell>
                 <TableCell align="center">{s.point}</TableCell>

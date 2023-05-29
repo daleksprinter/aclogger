@@ -16,9 +16,9 @@ test("submission date condition", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
     new Accept(),
-    null,
     "",
-    null,
+    "",
+    0,
     ""
   ); //2023-05-04
   expect(
@@ -70,7 +70,7 @@ test("aoj condition", () => {
     new Accept(),
     "",
     "",
-    null,
+    0,
     ""
   ); //2023-05-04
   expect(
