@@ -1,35 +1,19 @@
-const AtCoderSiteStr = "AtCoder";
-const CodeforcesSiteStr = "Codeforces";
-const AOJSiteStr = "AOJ";
-const yukicoderSiteStr = "yukicoder";
-export class Site {
-  siteStr: String;
-  constructor(siteStr: String) {
-    this.siteStr = siteStr;
-  }
-
-  getStr() {
-    return this.siteStr;
-  }
-
-  isSame(site: Site) {
-    return this.getStr() === site.getStr();
-  }
+export interface Site {
+  site: String;
 }
 
-class SiteFactory {
-  AtCoder() {
-    return new Site(AtCoderSiteStr);
-  }
-  Codeforces() {
-    return new Site(CodeforcesSiteStr);
-  }
-  AOJ() {
-    return new Site(AOJSiteStr);
-  }
-  yukicoder() {
-    return new Site(yukicoderSiteStr);
-  }
+export class AtCoder implements Site {
+  site = "AtCoder"
 }
 
-export const sitefactory = new SiteFactory();
+export class Codeforces implements Site {
+  site = "Codeforces"
+}
+
+export class AOJ implements Site {
+  site = "AOJ"
+}
+
+export class yukicoder implements Site {
+  site = "yukicoder"
+}

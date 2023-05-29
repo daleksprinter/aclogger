@@ -1,7 +1,7 @@
 import { getdate } from "./utils";
-import { sitefactory, Site } from "./site";
 import { Status } from "./status";
 import { Conditions } from "./condition";
+import {AOJ, AtCoder, Codeforces, Site, yukicoder} from "./site";
 
 export abstract class Submit {
   timestamp: number;
@@ -46,22 +46,22 @@ export abstract class Submit {
 
 export class AtCoderSubmit extends Submit {
   getSite() {
-    return sitefactory.AtCoder();
+    return new AtCoder();
   }
 }
 export class CodeforcesSubmit extends Submit {
   getSite() {
-    return sitefactory.Codeforces();
+    return new Codeforces();
   }
 }
 export class AOJSubmit extends Submit {
   getSite() {
-    return sitefactory.AOJ();
+    return new AOJ();
   }
 }
 export class yukicoderSubmit extends Submit {
   getSite() {
-    return sitefactory.yukicoder();
+    return new yukicoder();
   }
 }
 
@@ -77,7 +77,7 @@ export class Submissions {
 
   count(site: Site | null) {
     if (site)
-      return this.getAll().filter((sub) => sub.getSite().isSame(site)).length;
+      return this.getAll().filter((sub) => sub.getSite().site == site.site).length;
     return this.getAll().length;
   }
 
