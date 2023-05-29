@@ -5,17 +5,17 @@ import {
   CodeforcesSubmit,
   yukicoderSubmit,
 } from "../modules/submit";
-import { statusfactory } from "../modules/status";
 import { SubmissionDateCondition } from "../modules/conditionImplements/submissionDateCondition";
 import { AtCoderCondition } from "../modules/conditionImplements/atcoderCondition";
 import { CodeforcesCondition } from "../modules/conditionImplements/codeforcesCondition";
 import { AizuOnlineJudgeCondition } from "../modules/conditionImplements/aojCondition";
 import { yukiconderCondition } from "../modules/conditionImplements/yukicoderCondition";
+import {Accept} from "../modules/status";
 
 test("submission date condition", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     null,
     "",
     null,
@@ -31,7 +31,7 @@ test("submission date condition", () => {
 test("atcoder condition", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -42,14 +42,14 @@ test("atcoder condition", () => {
   expect(new AtCoderCondition(1000, 2000, []).acceptPoint(s)).toBe(false);
 
   expect(
-    new AtCoderCondition(0, 0, [statusfactory.Accept()]).acceptStatus(s)
+    new AtCoderCondition(0, 0, [new Accept()]).acceptStatus(s)
   ).toBe(true);
 });
 
 test("codeforces condition", () => {
   const s = new CodeforcesSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -60,28 +60,28 @@ test("codeforces condition", () => {
   expect(new CodeforcesCondition(1000, 2000, []).acceptPoint(s)).toBe(false);
 
   expect(
-    new CodeforcesCondition(0, 0, [statusfactory.Accept()]).acceptStatus(s)
+    new CodeforcesCondition(0, 0, [new Accept()]).acceptStatus(s)
   ).toBe(true);
 });
 
 test("aoj condition", () => {
   const s = new AOJSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     null,
     ""
   ); //2023-05-04
   expect(
-    new AizuOnlineJudgeCondition([statusfactory.Accept()]).acceptStatus(s)
+    new AizuOnlineJudgeCondition([new Accept()]).acceptStatus(s)
   ).toBe(true);
 });
 
 test("yukicoder condition", () => {
   const s = new yukicoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     3,
@@ -95,7 +95,7 @@ test("yukicoder condition", () => {
 test("conditions", () => {
   let s = new CodeforcesSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -109,7 +109,7 @@ test("conditions", () => {
     [],
     0,
     1000,
-    [statusfactory.Accept()],
+    [new Accept()],
     [],
     1,
     6
@@ -119,7 +119,7 @@ test("conditions", () => {
 
   s = new CodeforcesSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -133,7 +133,7 @@ test("conditions", () => {
     [],
     0,
     1000,
-    [statusfactory.Accept()],
+    [new Accept()],
     [],
     1,
     6
@@ -143,7 +143,7 @@ test("conditions", () => {
 
   s = new CodeforcesSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -157,7 +157,7 @@ test("conditions", () => {
     [],
     600,
     1000,
-    [statusfactory.Accept()],
+    [new Accept()],
     [],
     1,
     6
