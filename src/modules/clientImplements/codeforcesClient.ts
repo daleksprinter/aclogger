@@ -7,7 +7,7 @@ import {
   RuntimeError,
   TimeLimitExceeded,
   Unknown,
-  WrongAnswer
+  WrongAnswer,
 } from "../status";
 
 export class CodeForcesClient implements Client {
@@ -155,10 +155,8 @@ class codeforcesResponseParser {
     else if (res === "WRONG_ANSWER") return new WrongAnswer();
     else if (res === "RUNTIME_ERROR") return new RuntimeError();
     else if (res === "COMPILATION_ERROR") return new CompileError();
-    else if (res === "TIME_LIMIT_EXCEEDED")
-      return new TimeLimitExceeded();
-    else if (res === "MEMORY_LIMIT_EXCEEDED")
-      return new MemoryLimitExceeded();
+    else if (res === "TIME_LIMIT_EXCEEDED") return new TimeLimitExceeded();
+    else if (res === "MEMORY_LIMIT_EXCEEDED") return new MemoryLimitExceeded();
     else return new Unknown();
   };
 

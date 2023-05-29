@@ -5,7 +5,7 @@ import { AtCoderCondition } from "./conditionImplements/atcoderCondition";
 import { CodeforcesCondition } from "./conditionImplements/codeforcesCondition";
 import { AizuOnlineJudgeCondition } from "./conditionImplements/aojCondition";
 import { yukiconderCondition } from "./conditionImplements/yukicoderCondition";
-import {AOJ, AtCoder, Codeforces, yukicoder} from "./site"
+import { AOJ, AtCoder, Codeforces, yukicoder } from "./site";
 
 export class conditionsDTO {
   from_date: number;
@@ -77,13 +77,13 @@ export class Conditions {
   accept(submission: Submit) {
     for (const c of this.baseConditions)
       if (!c.accept(submission)) return false;
-    if (submission.site.site == new AtCoder().site)
+    if (submission.site.site === new AtCoder().site)
       return this.accond.accept(submission);
-    if (submission.site.site == new Codeforces().site)
+    if (submission.site.site === new Codeforces().site)
       return this.cfcond.accept(submission);
-    if (submission.site.site == new AOJ().site)
+    if (submission.site.site === new AOJ().site)
       return this.aojcond.accept(submission);
-    if (submission.site.site == new yukicoder().site)
+    if (submission.site.site === new yukicoder().site)
       return this.ycond.accept(submission);
     return false;
   }

@@ -7,8 +7,7 @@ import {
   Unknown,
   WrongAnswer,
   TimeLimitExceeded,
-  OutputLimitExceeded,
-  MemoryLimitExceeded
+  MemoryLimitExceeded,
 } from "../status";
 
 export class AizuOnlineJudgeClient implements Client {

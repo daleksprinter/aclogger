@@ -5,9 +5,11 @@ import {
   CompileError,
   InternalError,
   MemoryLimitExceeded,
-  OutputLimitExceeded, RuntimeError,
+  OutputLimitExceeded,
+  RuntimeError,
   TimeLimitExceeded,
-  Unknown, WrongAnswer
+  Unknown,
+  WrongAnswer,
 } from "../status";
 
 export class AtCoderClient implements Client {

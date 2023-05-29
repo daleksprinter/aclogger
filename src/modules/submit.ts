@@ -1,12 +1,12 @@
 import { getdate } from "./utils";
 import { Status } from "./status";
 import { Conditions } from "./condition";
-import {AOJ, AtCoder, Codeforces, Site, Unknown, yukicoder} from "./site";
+import { AOJ, AtCoder, Codeforces, Site, Unknown, yukicoder } from "./site";
 
 export abstract class Submit {
   timestamp: number;
   result: Status;
-  contest: String ;
+  contest: String;
   title: String;
   point: number;
   url: string;
@@ -58,7 +58,7 @@ export class Submissions {
 
   count(site: Site | null) {
     if (site)
-      return this.getAll().filter((sub) => sub.site.site == site.site).length;
+      return this.getAll().filter((sub) => sub.site.site === site.site).length;
     return this.getAll().length;
   }
 

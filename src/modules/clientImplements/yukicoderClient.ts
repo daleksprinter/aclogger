@@ -1,6 +1,6 @@
 import { Submissions, yukicoderSubmit } from "../submit";
 import { Client } from "../client";
-import {Accept} from "../status";
+import { Accept } from "../status";
 
 export class yukicoderClient implements Client {
   user: String;

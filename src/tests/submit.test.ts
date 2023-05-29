@@ -1,45 +1,24 @@
 import { AtCoderSubmit, Submissions } from "../modules/submit";
 import { conditionsDTO, Conditions } from "../modules/condition";
-import {Accept} from "../modules/status";
-import {AtCoder, Codeforces} from "../modules/site";
+import { Accept } from "../modules/status";
+import { AtCoder, Codeforces } from "../modules/site";
 
 test("submissions add", () => {
-  const s = new AtCoderSubmit(
-    1683188344 * 1000,
-    new Accept(),
-    "",
-    "",
-    500,
-    ""
-  ); //2023-05-04
+  const s = new AtCoderSubmit(1683188344 * 1000, new Accept(), "", "", 500, ""); //2023-05-04
   const submiss = new Submissions(null);
   submiss.add(s);
   expect(submiss.count(null)).toBe(1);
 });
 
 test("submissions count", () => {
-  const s = new AtCoderSubmit(
-    1683188344 * 1000,
-    new Accept(),
-    "",
-    "",
-    500,
-    ""
-  ); //2023-05-04
+  const s = new AtCoderSubmit(1683188344 * 1000, new Accept(), "", "", 500, ""); //2023-05-04
   const submiss = new Submissions([s]);
   expect(submiss.count(new AtCoder())).toBe(1);
   expect(submiss.count(new Codeforces())).toBe(0);
 });
 
 test("submissions merge", () => {
-  const s = new AtCoderSubmit(
-    1683188344 * 1000,
-    new Accept(),
-    "",
-    "",
-    500,
-    ""
-  ); //2023-05-04
+  const s = new AtCoderSubmit(1683188344 * 1000, new Accept(), "", "", 500, ""); //2023-05-04
   const submiss1 = new Submissions([s]);
   const submiss2 = new Submissions([s]);
   submiss1.merge(submiss2);
@@ -47,14 +26,7 @@ test("submissions merge", () => {
 });
 
 test("submissions filter", () => {
-  const s = new AtCoderSubmit(
-    1683188344 * 1000,
-    new Accept(),
-    "",
-    "",
-    500,
-    ""
-  ); //2023-05-04
+  const s = new AtCoderSubmit(1683188344 * 1000, new Accept(), "", "", 500, ""); //2023-05-04
   const submiss = new Submissions([s]);
 
   const conddto = new conditionsDTO(

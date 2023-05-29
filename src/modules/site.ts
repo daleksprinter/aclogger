@@ -3,21 +3,21 @@ export interface Site {
 }
 
 export class AtCoder implements Site {
-  site = "AtCoder"
+  site = "AtCoder";
 }
 
 export class Codeforces implements Site {
-  site = "Codeforces"
+  site = "Codeforces";
 }
 
 export class AOJ implements Site {
-  site = "AOJ"
+  site = "AOJ";
 }
 
 export class yukicoder implements Site {
-  site = "yukicoder"
+  site = "yukicoder";
 }
 
 export class Unknown implements Site {
-  site = "unknown"
+  site = "unknown";
 }

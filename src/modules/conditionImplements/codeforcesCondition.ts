@@ -13,9 +13,7 @@ export class CodeforcesCondition implements Condition {
     this.codeforces_upper_point = upper;
   }
   acceptStatus(s: Submit) {
-    return this.statuses
-      .map((s) => s.status)
-      .includes(s.result.status);
+    return this.statuses.map((s) => s.status).includes(s.result.status);
   }
   acceptPoint(s: Submit): boolean {
     const p = s.point;

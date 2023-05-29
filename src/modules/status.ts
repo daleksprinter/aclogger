@@ -2,43 +2,43 @@ export interface Status {
   status: string;
 }
 
-export class Accept implements Status{
-  status :string = "AC"
+export class Accept implements Status {
+  status: string = "AC";
 }
 
-export class WrongAnswer implements Status{
-  status :string = "WA"
+export class WrongAnswer implements Status {
+  status: string = "WA";
 }
 
-export class TimeLimitExceeded implements Status{
-  status :string = "TLE"
+export class TimeLimitExceeded implements Status {
+  status: string = "TLE";
 }
 
-export class MemoryLimitExceeded implements Status{
-  status :string = "MLE"
+export class MemoryLimitExceeded implements Status {
+  status: string = "MLE";
 }
-export class OutputLimitExceeded implements Status{
-  status :string = "OLE"
+export class OutputLimitExceeded implements Status {
+  status: string = "OLE";
 }
 
-export class RuntimeError implements Status{
-  status :string = "RE"
+export class RuntimeError implements Status {
+  status: string = "RE";
 }
 
 export class CompileError implements Status {
-  status :string = "CE"
+  status: string = "CE";
 }
 
 export class InternalError implements Status {
-  status :string = "IE"
+  status: string = "IE";
 }
 
-export class Unknown implements Status{
-  status :string = "Unknown"
+export class Unknown implements Status {
+  status: string = "Unknown";
 }
 
-export function StatusFactory(status: string): Status{
-  switch(status) {
+export function StatusFactory(status: string): Status {
+  switch (status) {
     case "AC":
       return new Accept();
     case "WA":
