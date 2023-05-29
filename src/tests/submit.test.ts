@@ -1,12 +1,12 @@
 import { AtCoderSubmit, Submissions } from "../modules/submit";
 import { conditionsDTO, Conditions } from "../modules/condition";
 import { sitefactory as sf } from "../modules/site";
-import { statusfactory } from "../modules/status";
+import {Accept} from "../modules/status";
 
 test("submissions add", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -20,7 +20,7 @@ test("submissions add", () => {
 test("submissions count", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -34,7 +34,7 @@ test("submissions count", () => {
 test("submissions merge", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -49,7 +49,7 @@ test("submissions merge", () => {
 test("submissions filter", () => {
   const s = new AtCoderSubmit(
     1683188344 * 1000,
-    statusfactory.Accept(),
+    new Accept(),
     "",
     "",
     500,
@@ -62,7 +62,7 @@ test("submissions filter", () => {
     1683188345 * 1000,
     0,
     1000,
-    [statusfactory.Accept()],
+    [new Accept()],
     0,
     1000,
     [],

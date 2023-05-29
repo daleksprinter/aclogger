@@ -110,7 +110,7 @@ const SubmissionHistories = (props: AppProps) => {
                 <TableCell align="center">{s.contest}</TableCell>
                 <TableCell align="center">{s.title}</TableCell>
                 <TableCell align="center">{s.point}</TableCell>
-                <TableCell align="center">{s.result.getStatus()}</TableCell>
+                <TableCell align="center">{s.result.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

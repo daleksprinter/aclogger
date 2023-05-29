@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
 import {Paper, TextField, Button, Select, MenuItem, Input, SelectChangeEvent, } from '@mui/material';
 import {conditionsDTO} from "../../modules/condition";
-import {Status, statusfactory} from "../../modules/status";
+import {
+    Accept,
+    CompileError,
+    InternalError,
+    MemoryLimitExceeded, OutputLimitExceeded,
+    RuntimeError,
+    Status, StatusFactory, TimeLimitExceeded,
+    WrongAnswer
+} from "../../modules/status";
 import {getdate} from "../../modules/utils"
 
-const Statuses = [statusfactory.Accept(), statusfactory.WrongAnswer(), statusfactory.RuntimeError(), statusfactory.CompileError(), statusfactory.InternalError(), statusfactory.TimeLimitEceeded(), statusfactory.MemoryLimitEceeded(), statusfactory.OutputLimitEceeded()]
+const Statuses = [new Accept(), new WrongAnswer(), new RuntimeError(), new CompileError(), new InternalError(), new TimeLimitExceeded(), new MemoryLimitExceeded(), new OutputLimitExceeded()]
 const AtCoderProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const CodeforcesProblemPoints = Array.from({length: 31}, (_, i) => i * 100);
 const yukicoderProblemPoints = Array.from({length: 7}, (_, i) => i);
@@ -75,11 +83,11 @@ const Filter = (props: AppProps) => {
             new Date(to_date).getTime(),
             atcoder_lower_point,
             atcoder_upper_point,
-            atcoder_status.map(s => new Status(s)),
+            atcoder_status.map(s => StatusFactory(s)),
             codeforces_lower_point,
             codeforces_upper_point,
-            codeforces_status.map((s => new Status(s))),
-            aoj_status.map(s=> new Status(s)),
+            codeforces_status.map((s => StatusFactory(s))),
+            aoj_status.map(s=> StatusFactory(s)),
             yukicoder_lower_point,
             yukicoder_upper_point
         )
@@ -158,8 +166,8 @@ const Filter = (props: AppProps) => {
               input={<Input id="atcoder_status" />}
             >
               {Statuses.map((s) => (
-                <MenuItem value={s.getStatus()}>
-                  {s.getStatus()}
+                <MenuItem value={s.status}>
+                  {s.status}
                 </MenuItem>
               ))}
             </Select>
@@ -216,8 +224,8 @@ const Filter = (props: AppProps) => {
               input={<Input id="codeforces_status" />}
             >
               {Statuses.map((s) => (
-                <MenuItem value={s.getStatus()}>
-                  {s.getStatus()}
+                <MenuItem value={s.status}>
+                  {s.status}
                 </MenuItem>
               ))}
             </Select>
@@ -236,8 +244,8 @@ const Filter = (props: AppProps) => {
               input={<Input id="aoj_status" />}
             >
               {Statuses.map((s) => (
-                <MenuItem value={s.getStatus()}>
-                  {s.getStatus()}
+                <MenuItem value={s.status}>
+                  {s.status}
                 </MenuItem>
               ))}
             </Select>

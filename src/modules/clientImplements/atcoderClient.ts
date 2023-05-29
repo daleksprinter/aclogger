@@ -1,6 +1,14 @@
-import { statusfactory } from "../status";
 import { AtCoderSubmit, Submissions } from "../submit";
 import { Client } from "../client";
+import {
+  Accept,
+  CompileError,
+  InternalError,
+  MemoryLimitExceeded,
+  OutputLimitExceeded, RuntimeError,
+  TimeLimitExceeded,
+  Unknown, WrongAnswer
+} from "../status";
 
 export class AtCoderClient implements Client {
   user: String;
@@ -73,15 +81,15 @@ export class AtCoderClient implements Client {
 
 class atcoderResponseParser {
   private parseResult = (res: string) => {
-    if (res === "AC") return statusfactory.Accept();
-    else if (res === "WA") return statusfactory.WrongAnswer();
-    else if (res === "RE") return statusfactory.RuntimeError();
-    else if (res === "CE") return statusfactory.CompileError();
-    else if (res === "IE") return statusfactory.InternalError();
-    else if (res === "TLE") return statusfactory.TimeLimitEceeded();
-    else if (res === "MLE") return statusfactory.MemoryLimitEceeded();
-    else if (res === "OLE") return statusfactory.OutputLimitEceeded();
-    else return statusfactory.Null();
+    if (res === "AC") return new Accept();
+    else if (res === "WA") return new WrongAnswer();
+    else if (res === "RE") return new RuntimeError();
+    else if (res === "CE") return new CompileError();
+    else if (res === "IE") return new InternalError();
+    else if (res === "TLE") return new TimeLimitExceeded();
+    else if (res === "MLE") return new MemoryLimitExceeded();
+    else if (res === "OLE") return new OutputLimitExceeded();
+    else return new Unknown();
   };
 
   private resToSub(res: any) {

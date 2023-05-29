@@ -1,6 +1,14 @@
 import { Client } from "../client";
-import { statusfactory } from "../status";
 import { CodeforcesSubmit, Submissions } from "../submit";
+import {
+  Accept,
+  CompileError,
+  MemoryLimitExceeded,
+  RuntimeError,
+  TimeLimitExceeded,
+  Unknown,
+  WrongAnswer
+} from "../status";
 
 export class CodeForcesClient implements Client {
   user: String;
@@ -143,15 +151,15 @@ export class CodeForcesClient implements Client {
 
 class codeforcesResponseParser {
   private parseResult = (res: string) => {
-    if (res === "OK") return statusfactory.Accept();
-    else if (res === "WRONG_ANSWER") return statusfactory.WrongAnswer();
-    else if (res === "RUNTIME_ERROR") return statusfactory.RuntimeError();
-    else if (res === "COMPILATION_ERROR") return statusfactory.CompileError();
+    if (res === "OK") return new Accept();
+    else if (res === "WRONG_ANSWER") return new WrongAnswer();
+    else if (res === "RUNTIME_ERROR") return new RuntimeError();
+    else if (res === "COMPILATION_ERROR") return new CompileError();
     else if (res === "TIME_LIMIT_EXCEEDED")
-      return statusfactory.TimeLimitEceeded();
+      return new TimeLimitExceeded();
     else if (res === "MEMORY_LIMIT_EXCEEDED")
-      return statusfactory.MemoryLimitEceeded();
-    else return statusfactory.Null();
+      return new MemoryLimitExceeded();
+    else return new Unknown();
   };
 
   private resToSub(res: any) {

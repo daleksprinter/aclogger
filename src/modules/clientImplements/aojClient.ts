@@ -1,6 +1,15 @@
 import { Client } from "../client";
-import { statusfactory } from "../status";
 import { AOJSubmit, Submissions } from "../submit";
+import {
+  Accept,
+  CompileError,
+  RuntimeError,
+  Unknown,
+  WrongAnswer,
+  TimeLimitExceeded,
+  OutputLimitExceeded,
+  MemoryLimitExceeded
+} from "../status";
 
 export class AizuOnlineJudgeClient implements Client {
   user: String;
@@ -88,13 +97,13 @@ export class AizuOnlineJudgeClient implements Client {
 
 class aojResponseParser {
   private parseResult = (res: number) => {
-    if (res === 4) return statusfactory.Accept();
-    else if (res === 1) return statusfactory.WrongAnswer();
-    else if (res === 7) return statusfactory.RuntimeError();
-    else if (res === 0) return statusfactory.CompileError();
-    else if (res === 2) return statusfactory.TimeLimitEceeded();
-    else if (res === 3) return statusfactory.MemoryLimitEceeded();
-    else return statusfactory.Null();
+    if (res === 4) return new Accept();
+    else if (res === 1) return new WrongAnswer();
+    else if (res === 7) return new RuntimeError();
+    else if (res === 0) return new CompileError();
+    else if (res === 2) return new TimeLimitExceeded();
+    else if (res === 3) return new MemoryLimitExceeded();
+    else return new Unknown();
   };
   private resToSub(res: any) {
     const subtime = res["submissionDate"];

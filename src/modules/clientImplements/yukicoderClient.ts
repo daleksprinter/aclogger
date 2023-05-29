@@ -1,6 +1,6 @@
-import { statusfactory } from "../status";
 import { Submissions, yukicoderSubmit } from "../submit";
 import { Client } from "../client";
+import {Accept} from "../status";
 
 export class yukicoderClient implements Client {
   user: String;
@@ -71,7 +71,7 @@ export class yukicoderClient implements Client {
 class yukicoderResponseParser {
   private resToSub(res: any) {
     const subtime = new Date(res["Date"]).getTime();
-    const result = statusfactory.Accept();
+    const result = new Accept();
     const contestid = null;
     const title = res["Title"];
     const point = res["Level"];

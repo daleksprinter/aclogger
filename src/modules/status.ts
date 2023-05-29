@@ -1,54 +1,61 @@
-const Accept = "AC";
-const WrongAnswer = "WA";
-const TimeLimitExceeded = "TLE";
-const MemoryLimitEceeded = "MLE";
-const OutputLimitEceeded = "OLE";
-const RuntimeError = "RE";
-const CompileError = "CE";
-const InternalError = "IE";
-export class Status {
+export interface Status {
   status: string;
-  constructor(status: string) {
-    this.status = status;
-  }
-
-  getStatus() {
-    return this.status;
-  }
-
-  isSame(status: Status) {
-    return this.getStatus() === status.getStatus();
-  }
 }
 
-class StatusFactory {
-  Accept() {
-    return new Status(Accept);
-  }
-  WrongAnswer() {
-    return new Status(WrongAnswer);
-  }
-  TimeLimitEceeded() {
-    return new Status(TimeLimitExceeded);
-  }
-  MemoryLimitEceeded() {
-    return new Status(MemoryLimitEceeded);
-  }
-  OutputLimitEceeded() {
-    return new Status(OutputLimitEceeded);
-  }
-  RuntimeError() {
-    return new Status(RuntimeError);
-  }
-  CompileError() {
-    return new Status(CompileError);
-  }
-  InternalError() {
-    return new Status(InternalError);
-  }
-  Null() {
-    return new Status("");
-  }
+export class Accept implements Status{
+  status :string = "AC"
 }
 
-export const statusfactory = new StatusFactory();
+export class WrongAnswer implements Status{
+  status :string = "WA"
+}
+
+export class TimeLimitExceeded implements Status{
+  status :string = "TLE"
+}
+
+export class MemoryLimitExceeded implements Status{
+  status :string = "MLE"
+}
+export class OutputLimitExceeded implements Status{
+  status :string = "OLE"
+}
+
+export class RuntimeError implements Status{
+  status :string = "RE"
+}
+
+export class CompileError implements Status {
+  status :string = "CE"
+}
+
+export class InternalError implements Status {
+  status :string = "IE"
+}
+
+export class Unknown implements Status{
+  status :string = "Unknown"
+}
+
+export function StatusFactory(status: string): Status{
+  switch(status) {
+    case "AC":
+      return new Accept();
+    case "WA":
+      return new WrongAnswer();
+    case "TLE":
+      return new TimeLimitExceeded();
+    case "MLE":
+      return new MemoryLimitExceeded();
+    case "OLE":
+      return new OutputLimitExceeded();
+    case "RE":
+      return new RuntimeError();
+    case "CE":
+      return new CompileError();
+    case "IE":
+      return new InternalError();
+    default:
+      return new Unknown();
+  }
+}

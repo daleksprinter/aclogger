@@ -10,8 +10,8 @@ export class AizuOnlineJudgeCondition implements Condition {
 
   acceptStatus(s: Submit) {
     return this.statuses
-      .map((s) => s.getStatus())
-      .includes(s.getResult().getStatus());
+      .map((s) => s.status)
+      .includes(s.getResult().status);
   }
 
   accept(s: Submit) {
